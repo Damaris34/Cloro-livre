@@ -92,11 +92,23 @@ button:hover {
     gap: 1em;
 }
 
-#photo-grid img {
-    width: 100%;
-    height: auto;
+.photo-card {
+    border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 1em;
+    text-align: center;
+}
+
+.photo-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.photo-card h3 {
+    margin-top: 0.5em;
+    font-size: 1em;
 }
 
 canvas {
