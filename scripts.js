@@ -45,7 +45,13 @@ fetchPhotos();
 
 document.getElementById('generate-pdf-btn').addEventListener('click', function() {
     fetch('/api/generate-pdf')
-        .then(response => response.blob())
+        .then(response => {
+            if (response.ok) {
+                return response.blob();
+            } else {
+                throw new Error('Erro ao gerar o PDF: ' + response.statusText);
+            }
+        })
         .then(blob => {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -58,6 +64,7 @@ document.getElementById('generate-pdf-btn').addEventListener('click', function()
         })
         .catch(error => {
             console.error('Error:', error);
+            alert('Erro ao gerar o PDF: ' + error.message);
         });
 });
 
