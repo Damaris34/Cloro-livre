@@ -31,6 +31,18 @@
                 <label for="cloro-level">Nível de Cloro:</label>
                 <input type="number" id="cloro-level" name="cloro-level" step="0.01" required>
 
+                <label for="location">Localização:</label>
+                <select id="location" name="location" required>
+                    <option value="saida-de-tratamento">Saída de Tratamento</option>
+                    <option value="cozinha">Cozinha</option>
+                    <option value="producao">Produção</option>
+                    <option value="adm">Adm</option>
+                    <option value="recebimento">Recebimento</option>
+                </select>
+
+                <label for="photo">Foto:</label>
+                <input type="file" id="photo" name="photo" accept="image/*" required>
+
                 <label for="observations">Observações:</label>
                 <textarea id="observations" name="observations"></textarea>
 
