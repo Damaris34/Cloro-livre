@@ -4,7 +4,7 @@ body {
     padding: 0;
     box-sizing: border-box;
     background-color: #f4f4f4;
-    color: #fff;
+    color: #333;
 }
 
 header {
@@ -34,7 +34,7 @@ nav ul li a {
 
 main {
     padding: 2em;
-    background-color: #333;
+    background-color: white;
     margin: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -63,14 +63,14 @@ input, textarea, select, button {
 }
 
 button {
-    background-color: #555;
+    background-color: #333;
     color: white;
     border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #777;
+    background-color: #555;
 }
 
 #generate-pdf-btn {
