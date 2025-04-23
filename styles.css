@@ -8,10 +8,11 @@ body {
 }
 
 header {
-    background-color: #333;
-    color: white;
+    background-color: #fff;
+    color: #333;
     text-align: center;
     padding: 1em 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 nav ul {
@@ -19,7 +20,7 @@ nav ul {
     padding: 0;
     display: flex;
     justify-content: center;
-    background-color: #444;
+    background-color: #f9f9f9;
 }
 
 nav ul li {
@@ -27,17 +28,17 @@ nav ul li {
 }
 
 nav ul li a {
-    color: white;
+    color: #333;
     text-decoration: none;
     font-weight: bold;
 }
 
 main {
     padding: 2em;
-    background-color: white;
+    background-color: #fff;
     margin: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 section {
@@ -96,7 +97,7 @@ button:hover {
 .photo-card {
     border: 1px solid #ccc;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 1em;
     text-align: center;
 }
@@ -118,11 +119,9 @@ canvas {
 }
 
 footer {
-    background-color: #333;
-    color: white;
+    background-color: #fff;
+    color: #333;
     text-align: center;
     padding: 1em 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
