@@ -44,7 +44,7 @@ label {
     margin-bottom: 0.5em;
 }
 
-input, textarea, button {
+input, textarea, select, button {
     margin-bottom: 1em;
     padding: 0.5em;
 }
