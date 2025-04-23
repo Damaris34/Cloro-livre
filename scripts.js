@@ -10,38 +10,11 @@ document.getElementById('cloro-form').addEventListener('submit', function(event)
     .then(response => response.json())
     .then(data => {
         alert(data.message);
-        // Atualizar a galeria de fotos
-        fetchPhotos();
     })
     .catch(error => {
         console.error('Error:', error);
     });
 });
-
-// Função para buscar e exibir as fotos
-function fetchPhotos() {
-    fetch('/api/photos')
-        .then(response => response.json())
-        .then(data => {
-            const photoGrid = document.getElementById('photo-grid');
-            photoGrid.innerHTML = '';
-            data.forEach(photo => {
-                const photoCard = document.createElement('div');
-                photoCard.className = 'photo-card';
-                photoCard.innerHTML = `
-                    <img src="${photo.path}" alt="${photo.location}">
-                    <h3>${photo.location}</h3>
-                `;
-                photoGrid.appendChild(photoCard);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
-
-// Carregar fotos ao iniciar a página
-fetchPhotos();
 
 document.getElementById('generate-pdf-btn').addEventListener('click', function() {
     fetch('/api/generate-pdf')
