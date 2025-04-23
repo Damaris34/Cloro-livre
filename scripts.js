@@ -9,9 +9,16 @@ document.getElementById('cloro-form').addEventListener('submit', function(event)
     })
     .then(response => response.json())
     .then(data => {
-        alert(data.message);
+        const feedback = document.getElementById('feedback');
+        feedback.innerHTML = `<p style="color: green;">${data.message}</p>`;
+        feedback.classList.add('success');
+        feedback.classList.remove('error');
     })
     .catch(error => {
+        const feedback = document.getElementById('feedback');
+        feedback.innerHTML = `<p style="color: red;">Erro ao enviar os dados: ${error.message}</p>`;
+        feedback.classList.add('error');
+        feedback.classList.remove('success');
         console.error('Error:', error);
     });
 });
