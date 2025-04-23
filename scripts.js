@@ -26,10 +26,13 @@ function fetchPhotos() {
             const photoGrid = document.getElementById('photo-grid');
             photoGrid.innerHTML = '';
             data.forEach(photo => {
-                const img = document.createElement('img');
-                img.src = photo.path;
-                img.alt = photo.location;
-                photoGrid.appendChild(img);
+                const photoCard = document.createElement('div');
+                photoCard.className = 'photo-card';
+                photoCard.innerHTML = `
+                    <img src="${photo.path}" alt="${photo.location}">
+                    <h3>${photo.location}</h3>
+                `;
+                photoGrid.appendChild(photoCard);
             });
         })
         .catch(error => {
