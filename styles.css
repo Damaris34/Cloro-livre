@@ -87,6 +87,14 @@ button:hover {
     background-color: #218838;
 }
 
+.feedback {
+    margin-top: 1em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
 canvas {
     border: 1px solid #ccc;
     border-radius: 4px;
