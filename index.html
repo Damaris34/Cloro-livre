@@ -35,10 +35,26 @@
                     <input type="number" id="cloro-level" name="cloro-level" step="0.01" required>
                 </div>
                 <div class="form-group">
+                    <label for="location">Localização:</label>
+                    <select id="location" name="location" required>
+                        <option value="saida-de-tratamento">Saída de Tratamento</option>
+                        <option value="cozinha">Cozinha</option>
+                        <option value="producao">Produção</option>
+                        <option value="adm">Adm</option>
+                        <option value="recebimento">Recebimento</option>
+                        <option value="laboratorio">Laboratório</option>
+                        <option value="armazenamento">Armazenamento</option>
+                        <option value="distribuicao">Distribuição</option>
+                        <option value="manutencao">Manutenção</option>
+                        <option value="externa">Área Externa</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="observations">Observações:</label>
                     <textarea id="observations" name="observations"></textarea>
                 </div>
                 <button type="submit">Enviar</button>
+                <div id="feedback" class="feedback"></div>
             </form>
         </section>
         <section id="reports">
