@@ -8,11 +8,10 @@ body {
 }
 
 header {
-    background-color: #fff;
-    color: #333;
+    background-color: #333;
+    color: white;
     text-align: center;
     padding: 1em 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 nav ul {
@@ -20,7 +19,7 @@ nav ul {
     padding: 0;
     display: flex;
     justify-content: center;
-    background-color: #f9f9f9;
+    background-color: #444;
 }
 
 nav ul li {
@@ -28,17 +27,17 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #333;
+    color: white;
     text-decoration: none;
     font-weight: bold;
 }
 
 main {
     padding: 2em;
-    background-color: #fff;
+    background-color: white;
     margin: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 section {
@@ -88,40 +87,17 @@ button:hover {
     background-color: #218838;
 }
 
-#photo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1em;
-}
-
-.photo-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1em;
-    text-align: center;
-}
-
-.photo-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-}
-
-.photo-card h3 {
-    margin-top: 0.5em;
-    font-size: 1em;
-}
-
 canvas {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
 footer {
-    background-color: #fff;
-    color: #333;
+    background-color: #333;
+    color: white;
     text-align: center;
     padding: 1em 0;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
