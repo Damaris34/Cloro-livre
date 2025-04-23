@@ -3,9 +3,10 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: #f4f4f4;
 }
 
-header, footer {
+header {
     background-color: #333;
     color: white;
     text-align: center;
@@ -15,40 +16,73 @@ header, footer {
 nav ul {
     list-style-type: none;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #444;
 }
 
 nav ul li {
-    display: inline;
     margin: 0 1em;
 }
 
 nav ul li a {
     color: white;
     text-decoration: none;
+    font-weight: bold;
 }
 
 main {
     padding: 2em;
+    background-color: white;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 section {
     margin-bottom: 2em;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
+.form-group {
+    margin-bottom: 1em;
 }
 
 label {
+    display: block;
     margin-bottom: 0.5em;
+    font-weight: bold;
 }
 
 input, textarea, select, button {
-    margin-bottom: 1em;
+    width: 100%;
     padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
 }
 
 canvas {
     border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
