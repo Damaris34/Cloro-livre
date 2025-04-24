@@ -1,63 +1,113 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Cloro-Livre</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <h1>Controle de Cloro-Livre</h1>
-    </header>
-    <main>
-        <section id="data-entry">
-            <h2>Entrada de Dados</h2>
-            <form id="cloro-form">
-                <div class="form-group">
-                    <label for="date">Data:</label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-                <div class="form-group">
-                    <label for="location">Localização:</label>
-                    <select id="location" name="location" required>
-                        <option value="saida-de-tratamento">Saída de Tratamento</option>
-                        <option value="cozinha">Cozinha</option>
-                        <option value="producao">Produção</option>
-                        <option value="adm">Adm</option>
-                        <option value="recebimento">Recebimento</option>
-                        <option value="armazenamento">Armazenamento</option>
-                        <option value="distribuicao">Distribuição</option>
-                        <option value="manutencao">Manutenção</option>
-                        <option value="externa">Área Externa</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="photo">Foto de Controle de Cloro:</label>
-                    <input type="file" id="photo" name="photo" accept="image/*" required>
-                </div>
-                <div class="form-group">
-                    <label for="observations">Observações:</label>
-                    <textarea id="observations" name="observations"></textarea>
-                </div>
-                <button type="submit">Enviar</button>
-                <div id="feedback" class="feedback"></div>
-            </form>
-        </section>
-        <section id="photos">
-            <h2>Fotos dos Pontos</h2>
-            <div id="photo-grid">
-                <!-- As fotos serão inseridas aqui dinamicamente -->
-            </div>
-        </section>
-        <section id="reports">
-            <h2>Relatórios</h2>
-            <button id="generate-pdf-btn">Gerar PDF</button>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Controle de Cloro-Livre</p>
-    </footer>
-    <script src="scripts.js"></script>
-</body>
-</html>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+}
+
+main {
+    padding: 2em;
+    background-color: white;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+section {
+    margin-bottom: 2em;
+}
+
+.form-group {
+    margin-bottom: 1em;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+}
+
+input, textarea, select, button {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+#generate-pdf-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    margin-bottom: 1em;
+    border-radius: 4px;
+}
+
+#generate-pdf-btn:hover {
+    background-color: #218838;
+}
+
+.feedback {
+    margin-top: 1em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+
+#photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1em;
+}
+
+.photo-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1em;
+    text-align: center;
+}
+
+.photo-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.photo-card h3 {
+    margin-top: 0.5em;
+    font-size: 1em;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
