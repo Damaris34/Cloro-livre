@@ -13,8 +13,6 @@ document.getElementById('cloro-form').addEventListener('submit', function(event)
         feedback.innerHTML = `<p style="color: green;">${data.message}</p>`;
         feedback.classList.add('success');
         feedback.classList.remove('error');
-        // Atualizar a galeria de fotos
-        fetchPhotos();
     })
     .catch(error => {
         const feedback = document.getElementById('feedback');
@@ -24,31 +22,6 @@ document.getElementById('cloro-form').addEventListener('submit', function(event)
         console.error('Error:', error);
     });
 });
-
-// Função para buscar e exibir as fotos
-function fetchPhotos() {
-    fetch('/api/photos')
-        .then(response => response.json())
-        .then(data => {
-            const photoGrid = document.getElementById('photo-grid');
-            photoGrid.innerHTML = '';
-            data.forEach(photo => {
-                const photoCard = document.createElement('div');
-                photoCard.className = 'photo-card';
-                photoCard.innerHTML = `
-                    <img src="${photo.path}" alt="${photo.location}">
-                    <h3>${photo.location}</h3>
-                `;
-                photoGrid.appendChild(photoCard);
-            });
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
-
-// Carregar fotos ao iniciar a página
-fetchPhotos();
 
 document.getElementById('generate-pdf-btn').addEventListener('click', function() {
     fetch('/api/generate-pdf')
