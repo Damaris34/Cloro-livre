@@ -77,31 +77,6 @@ button:hover {
     background-color: #f9f9f9;
 }
 
-#photo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1em;
-}
-
-.photo-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 1em;
-    text-align: center;
-}
-
-.photo-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-}
-
-.photo-card h3 {
-    margin-top: 0.5em;
-    font-size: 1em;
-}
-
 footer {
     background-color: #333;
     color: white;
