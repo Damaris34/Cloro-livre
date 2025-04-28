@@ -24,7 +24,8 @@ document.getElementById('cloro-form').addEventListener('submit', function(event)
 });
 
 document.getElementById('generate-pdf-btn').addEventListener('click', function() {
-    fetch('/api/generate-pdf')
+    const month = document.getElementById('month').value;
+    fetch(`/api/generate-pdf?month=${month}`)
         .then(response => {
             if (response.ok) {
                 return response.blob();
