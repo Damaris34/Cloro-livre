@@ -1,7 +1,28 @@
+document.getElementById('photo').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('photo-preview').src = e.target.result;
+            document.getElementById('photo-preview').style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
 document.getElementById('cloro-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
+    const date = formData.get('date');
+
+    // Validação de data
+    if (!date) {
+        document.getElementById('date-error').textContent = 'A data é obrigatória.';
+        return;
+    } else {
+        document.getElementById('date-error').textContent = '';
+    }
 
     fetch('/api/submit', {
         method: 'POST',
@@ -21,30 +42,4 @@ document.getElementById('cloro-form').addEventListener('submit', function(event)
         feedback.classList.remove('success');
         console.error('Error:', error);
     });
-});
-
-document.getElementById('generate-pdf-btn').addEventListener('click', function() {
-    const month = document.getElementById('month').value;
-    fetch(`/api/generate-pdf?month=${month}`)
-        .then(response => {
-            if (response.ok) {
-                return response.blob();
-            } else {
-                throw new Error('Erro ao gerar o PDF: ' + response.statusText);
-            }
-        })
-        .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'relatorio_cloro_livre.pdf';
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Erro ao gerar o PDF: ' + error.message);
-        });
 });
