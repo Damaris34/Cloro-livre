@@ -1,88 +1,50 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: #f4f4f4;
-    color: #333;
-}
+document.getElementById('cloro-form').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-header {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1em 0;
-}
+    const formData = new FormData(event.target);
 
-main {
-    padding: 2em;
-    background-color: white;
-    margin: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    fetch('/api/submit', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        const feedback = document.getElementById('feedback');
+        feedback.innerHTML = `<p style="color: green;">${data.message}</p>`;
+        feedback.classList.add('success');
+        feedback.classList.remove('error');
+    })
+    .catch(error => {
+        const feedback = document.getElementById('feedback');
+        feedback.innerHTML = `<p style="color: red;">Erro ao enviar os dados: ${error.message}</p>`;
+        feedback.classList.add('error');
+        feedback.classList.remove('success');
+        console.error('Error:', error);
+    });
+});
 
-section {
-    margin-bottom: 2em;
-}
-
-.form-group {
-    margin-bottom: 1em;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.5em;
-    font-weight: bold;
-}
-
-input, textarea, select, button {
-    width: 100%;
-    padding: 0.5em;
-    margin-bottom: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    background-color: #333;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #555;
-}
-
-#generate-pdf-btn {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 0.5em 1em;
-    cursor: pointer;
-    margin-bottom: 1em;
-    border-radius: 4px;
-}
-
-#generate-pdf-btn:hover {
-    background-color: #218838;
-}
-
-.feedback {
-    margin-top: 1em;
-    padding: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-}
-
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1em 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
+document.getElementById('generate-pdf-btn').addEventListener('click', function() {
+    const month = document.getElementById('month').value;
+    fetch(`/api/generate-pdf?month=${month}`)
+        .then(response => {
+            if (response.ok) {
+                return response.blob();
+            } else {
+                throw new Error('Erro ao gerar o PDF: ' + response.statusText);
+            }
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'relatorio_cloro_livre.pdf';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Erro ao gerar o PDF: ' + error.message);
+        });
+});
