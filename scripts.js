@@ -9,32 +9,42 @@ document.getElementById('cloro-form').addEventListener('submit', function(event)
     })
     .then(response => response.json())
     .then(data => {
-        alert(data.message);
+        const feedback = document.getElementById('feedback');
+        feedback.innerHTML = `<p style="color: green;">${data.message}</p>`;
+        feedback.classList.add('success');
+        feedback.classList.remove('error');
     })
     .catch(error => {
+        const feedback = document.getElementById('feedback');
+        feedback.innerHTML = `<p style="color: red;">Erro ao enviar os dados: ${error.message}</p>`;
+        feedback.classList.add('error');
+        feedback.classList.remove('success');
         console.error('Error:', error);
     });
 });
 
-// Exemplo de gráfico com Chart.js
-const ctx = document.getElementById('cloro-chart').getContext('2d');
-const cloroChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-        datasets: [{
-            label: 'Nível de Cloro',
-            data: [1.2, 1.5, 1.8, 1.3, 1.6, 1.9],
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
+document.getElementById('generate-pdf-btn').addEventListener('click', function() {
+    const month = document.getElementById('month').value;
+    fetch(`/api/generate-pdf?month=${month}`)
+        .then(response => {
+            if (response.ok) {
+                return response.blob();
+            } else {
+                throw new Error('Erro ao gerar o PDF: ' + response.statusText);
             }
-        }
-    }
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'relatorio_cloro_livre.pdf';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Erro ao gerar o PDF: ' + error.message);
+        });
 });
