@@ -1,28 +1,50 @@
-<form id="cloro-form">
-    <div class="form-group">
-        <label for="date">Data:</label>
-        <input type="date" id="date" name="date" required>
-        <span class="error-message" id="date-error"></span>
-    </div>
-    <div class="form-group">
-        <label for="location">Localização:</label>
-        <select id="location" name="location" required>
-            <option value="saida-de-tratamento">Saída de Tratamento</option>
-            <option value="cozinha">Cozinha</option>
-            <option value="producao">Produção</option>
-            <option value="adm">Adm</option>
-            <option value="recebimento">Recebimento</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="photo">Foto de Controle de Cloro:</label>
-        <input type="file" id="photo" name="photo" accept="image/*" required>
-        <img id="photo-preview" src="#" alt="Pré-visualização da Foto" style="display:none; max-width: 100%; margin-top: 1em;">
-    </div>
-    <div class="form-group">
-        <label for="observations">Observações:</label>
-        <textarea id="observations" name="observations"></textarea>
-    </div>
-    <button type="submit">Enviar</button>
-    <div id="feedback" class="feedback"></div>
-</form>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Cloro-Livre</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Controle de Cloro-Livre</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Dados</a></li>
+                <li><a href="#">Relatórios</a></li>
+                <li><a href="#">Configurações</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="data-entry">
+            <h2>Entrada de Dados</h2>
+            <form id="cloro-form">
+                <label for="date">Data:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Hora:</label>
+                <input type="time" id="time" name="time" required>
+
+                <label for="cloro-level">Nível de Cloro:</label>
+                <input type="number" id="cloro-level" name="cloro-level" step="0.01" required>
+
+                <label for="observations">Observações:</label>
+                <textarea id="observations" name="observations"></textarea>
+
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+        <section id="reports">
+            <h2>Relatórios</h2>
+            <canvas id="cloro-chart"></canvas>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Controle de Cloro-Livre</p>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+</html>
