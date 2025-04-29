@@ -1,28 +1,7 @@
-document.getElementById('photo').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('photo-preview').src = e.target.result;
-            document.getElementById('photo-preview').style.display = 'block';
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
 document.getElementById('cloro-form').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const formData = new FormData(event.target);
-    const date = formData.get('date');
-
-    // Validação de data
-    if (!date) {
-        document.getElementById('date-error').textContent = 'A data é obrigatória.';
-        return;
-    } else {
-        document.getElementById('date-error').textContent = '';
-    }
 
     fetch('/api/submit', {
         method: 'POST',
@@ -30,16 +9,32 @@ document.getElementById('cloro-form').addEventListener('submit', function(event)
     })
     .then(response => response.json())
     .then(data => {
-        const feedback = document.getElementById('feedback');
-        feedback.innerHTML = `<p style="color: green;">${data.message}</p>`;
-        feedback.classList.add('success');
-        feedback.classList.remove('error');
+        alert(data.message);
     })
     .catch(error => {
-        const feedback = document.getElementById('feedback');
-        feedback.innerHTML = `<p style="color: red;">Erro ao enviar os dados: ${error.message}</p>`;
-        feedback.classList.add('error');
-        feedback.classList.remove('success');
         console.error('Error:', error);
     });
+});
+
+// Exemplo de gráfico com Chart.js
+const ctx = document.getElementById('cloro-chart').getContext('2d');
+const cloroChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        datasets: [{
+            label: 'Nível de Cloro',
+            data: [1.2, 1.5, 1.8, 1.3, 1.6, 1.9],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
 });
