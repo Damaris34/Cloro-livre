@@ -10,36 +10,43 @@
     <header>
         <h1>Controle de Cloro-Livre</h1>
         <nav>
-            <ul>
-                <li><a href="#">Início</a></li>
-                <li><a href="#">Dados</a></li>
-                <li><a href="#">Relatórios</a></li>
-                <li><a href="#">Configurações</a></li>
-            </ul>
+            <a href="#inicio">Início</a>
+            <a href="#dados">Dados</a>
+            <a href="#relatorios">Relatórios</a>
+            <a href="#configuracoes">Configurações</a>
         </nav>
     </header>
     <main>
-        <section id="data-entry">
+        <section id="dados">
             <h2>Entrada de Dados</h2>
             <form id="cloro-form">
-                <label for="date">Data:</label>
-                <input type="date" id="date" name="date" required>
-
-                <label for="time">Hora:</label>
-                <input type="time" id="time" name="time" required>
-
-                <label for="cloro-level">Nível de Cloro:</label>
-                <input type="number" id="cloro-level" name="cloro-level" step="0.01" required>
-
-                <label for="observations">Observações:</label>
-                <textarea id="observations" name="observations"></textarea>
-
+                <div class="form-group">
+                    <label for="date">Data:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Hora:</label>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                    <label for="chlorine-level">Nível de Cloro:</label>
+                    <input type="text" id="chlorine-level" name="chlorine-level" required>
+                </div>
+                <div class="form-group">
+                    <label for="observations">Observações:</label>
+                    <textarea id="observations" name="observations"></textarea>
+                </div>
                 <button type="submit">Enviar</button>
+                <div id="feedback" class="feedback"></div>
             </form>
         </section>
-        <section id="reports">
+        <section id="relatorios">
             <h2>Relatórios</h2>
-            <canvas id="cloro-chart"></canvas>
+            <div class="form-group">
+                <label for="month">Mês:</label>
+                <input type="month" id="month" name="month" required>
+            </div>
+            <button id="generate-pdf-btn">Gerar PDF</button>
         </section>
     </main>
     <footer>
