@@ -9,28 +9,22 @@
 <body>
     <div class="container">
         <h1>Controle de Cloro Livre</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Data de Registro</th>
-                    <th>Pontos de Saída</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td id="data-registro"></td>
-                    <td>
-                        <ul>
-                            <li>Saída de Tratamento</li>
-                            <li>Cozinha</li>
-                            <li>Produção</li>
-                            <li>Administrativo</li>
-                            <li>Recebimento</li>
-                        </ul>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="info-row">
+            <div class="info-box">
+                <h2>Data de Registro</h2>
+                <p id="data-registro"></p>
+            </div>
+            <div class="info-box">
+                <h2>Pontos de Saída</h2>
+                <ul>
+                    <li>Saída de Tratamento</li>
+                    <li>Cozinha</li>
+                    <li>Produção</li>
+                    <li>Administrativo</li>
+                    <li>Recebimento</li>
+                </ul>
+            </div>
+        </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
