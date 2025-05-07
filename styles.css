@@ -45,3 +45,16 @@ input[type="text"], input[type="date"] {
     margin-top: 5px;
     box-sizing: border-box;
 }
+
+.photo-section {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.photo-box {
+    border: 1px dashed #ccc;
+    padding: 20px;
+    margin-top: 10px;
+}
