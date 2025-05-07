@@ -3,53 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Cloro-Livre</title>
+    <title>Controle de Cloro Livre</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <div class="header-content">
-            <h1>Controle de Cloro-Livre</h1>
-            <nav>
-                <a href="#inicio">Início</a>
-                <a href="#dados">Dados</a>
-                <a href="#relatorios">Relatórios</a>
-                <a href="#configuracoes">Configurações</a>
-            </nav>
-        </div>
-    </header>
-    <main>
-        <section id="dados">
-            <h2>Entrada de Dados</h2>
-            <form id="cloro-form" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="date">Data:</label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-                <div class="form-group">
-                    <label for="photo">Foto de Controle de Cloro:</label>
-                    <input type="file" id="photo" name="photo" accept="image/*" required>
-                </div>
-                <div class="form-group">
-                    <label for="observations">Observações (opcional):</label>
-                    <textarea id="observations" name="observations" placeholder="Adicione observações, se necessário"></textarea>
-                </div>
-                <button type="submit">Enviar</button>
-                <div id="feedback" class="feedback"></div>
-            </form>
-        </section>
-        <section id="relatorios">
-            <h2>Relatórios</h2>
-            <div class="form-group">
-                <label for="month">Mês:</label>
-                <input type="month" id="month" name="month" required>
-            </div>
-            <button id="generate-pdf-btn">Gerar PDF</button>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Controle de Cloro-Livre</p>
-    </footer>
-    <script src="scripts.js"></script>
+    <div class="container">
+        <h1>Controle de Cloro Livre</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data de Registro</th>
+                    <th>Pontos de Saída</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="data-registro"></td>
+                    <td>
+                        <ul>
+                            <li>Saída de Tratamento</li>
+                            <li>Cozinha</li>
+                            <li>Produção</li>
+                            <li>Administrativo</li>
+                            <li>Recebimento</li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
