@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const today = new Date();
-    const dataRegistro = today.toLocaleDateString('pt-BR');
-    document.getElementById('data-registro').textContent = dataRegistro;
+    const formattedDate = today.toISOString().split('T')[0];
+    document.getElementById('data-registro').value = formattedDate;
 
     // Gerar PDF
     const { jsPDF } = window.jspdf;
