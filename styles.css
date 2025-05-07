@@ -58,3 +58,7 @@ input[type="text"], input[type="date"] {
     padding: 20px;
     margin-top: 10px;
 }
+
+.photo-upload {
+    margin-top: 10px;
+}
