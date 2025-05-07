@@ -12,20 +12,22 @@ h1 {
     text-align: center;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+.info-row {
+    display: flex;
+    justify-content: space-between;
     margin-top: 20px;
 }
 
-th, td {
+.info-box {
+    width: 48%;
     border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
-th {
-    background-color: #f2f2f2;
+.info-box h2 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
 }
 
 ul {
