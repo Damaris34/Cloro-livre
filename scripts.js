@@ -8,26 +8,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const doc = new jsPDF();
 
         // Captura o conteúdo do container
-        const element = document.querySelector('.container');
+        const element = document.getElementById('pdf-content');
 
-        // Configurações para o PDF
-        const options = {
-            callback: function(doc) {
-                doc.save('controle-cloro-livre.pdf');
-            },
-            x: 10,
-            y: 10,
-            width: 190,
-            windowWidth: 800,
-            margin: [10, 10, 10, 10],
-            autoPaging: 'text',
-            pagesplit: true
-        };
+        // Usa html2canvas para capturar o conteúdo como imagem
+        html2canvas(element).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
 
-        // Gera o PDF
-        doc.html(element, options).then(() => {
-            console.log("PDF gerado com sucesso!");
-        }).catch((error) => {
+            // Adiciona a imagem ao PDF
+            doc.addImage(imgData, 'PNG', 10, 10, 180, 0);
+
+            // Salva o PDF
+            doc.save('controle-cloro-livre.pdf');
+        }).catch(error => {
             console.error("Erro ao gerar PDF:", error);
         });
     });
