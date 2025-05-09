@@ -5,60 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle de Cloro Livre</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
-    <div class="container" id="pdf-content">
-        <h1>Controle de Cloro Livre</h1>
-        <div class="info-row">
-            <div class="info-box">
-                <h2>Data de Registro</h2>
-                <input type="date" id="data-registro">
-            </div>
-            <div class="info-box">
-                <h2>Pontos de Saída</h2>
-                <ul>
-                    <li><input type="text" placeholder="Saída de Tratamento"></li>
-                    <li><input type="text" placeholder="Cozinha"></li>
-                    <li><input type="text" placeholder="Produção"></li>
-                    <li><input type="text" placeholder="Administrativo"></li>
-                    <li><input type="text" placeholder="Recebimento"></li>
-                </ul>
-            </div>
-        </div>
-        <div class="info-row">
-            <div class="info-box">
-                <h2>Informações Adicionais</h2>
-                <ul>
-                    <li><input type="text" placeholder="Responsável"></li>
-                    <li><input type="text" placeholder="Observações"></li>
-                </ul>
-            </div>
-        </div>
-        <div class="photo-section">
-            <h2>Fotos</h2>
-            <div class="photo-box">
-                <p>Adicione fotos aqui</p>
-                <div class="photo-upload">
-                    <input type="file" id="photo-upload-1" accept="image/*">
+    <div class="container">
+        <header>
+            <h1>Controle de Cloro Livre</h1>
+        </header>
+        <main>
+            <section class="dashboard">
+                <div class="card">
+                    <h2>Nível Atual</h2>
+                    <p id="current-level">-- mg/L</p>
                 </div>
-                <div class="photo-upload">
-                    <input type="file" id="photo-upload-2" accept="image/*">
+                <div class="card">
+                    <h2>Alvo</h2>
+                    <p id="target-level">2.0 mg/L</p>
                 </div>
-                <div class="photo-upload">
-                    <input type="file" id="photo-upload-3" accept="image/*">
-                </div>
-                <div class="photo-upload">
-                    <input type="file" id="photo-upload-4" accept="image/*">
-                </div>
-                <div class="photo-upload">
-                    <input type="file" id="photo-upload-5" accept="image/*">
-                </div>
-            </div>
-        </div>
+            </section>
+            <section class="controls">
+                <button id="increase">Aumentar Cloro</button>
+                <button id="decrease">Diminuir Cloro</button>
+            </section>
+        </main>
+        <footer>
+            <p>© 2023 Controle de Cloro Livre</p>
+        </footer>
     </div>
-    <button id="generate-pdf">Gerar PDF</button>
     <script src="script.js"></script>
 </body>
 </html>
