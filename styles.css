@@ -53,19 +53,16 @@ header {
     margin: 10px;
 }
 
-.location-image {
-    width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-input[type="text"], input[type="date"] {
+input[type="text"], input[type="date"], input[type="file"] {
     width: 80%;
     padding: 8px;
     margin: 10px auto;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+input[type="file"] {
+    padding: 5px;
 }
 
 footer {
