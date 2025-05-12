@@ -36,6 +36,23 @@ header {
     width: 30%;
 }
 
+.locations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.location-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 30%;
+    margin: 10px;
+}
+
 .controls {
     text-align: center;
     margin-top: 20px;
