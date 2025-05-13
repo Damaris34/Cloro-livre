@@ -3,55 +3,74 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
 
     const doc = new jsPDF();
 
-    // Título do relatório
-    doc.setFontSize(22);
-    doc.setTextColor(40);
-    doc.setFont("helvetica", "bold");
-    doc.text('Relatório de Controle de Cloro Livre', 105, 20, { align: 'center' });
+    // Função para desenhar um retângulo arredondado
+    function roundedRect(x, y, w, h, r, style = 'S') {
+        doc.setDrawColor(0, 0, 255);
+        doc.setFillColor(240, 248, 255);
+        doc.roundedRect(x, y, w, h, r, r, style);
+    }
 
-    // Linha horizontal abaixo do título
-    doc.setDrawColor(0);
-    doc.setLineWidth(0.5);
-    doc.line(20, 25, 190, 25);
+    // Função para adicionar texto com estilo
+    function addStyledText(text, x, y, size = 12, isBold = false) {
+        doc.setFontSize(size);
+        doc.setFont(isBold ? "helvetica" : "helvetica", isBold ? "bold" : "normal");
+        doc.text(text, x, y);
+    }
+
+    // Cabeçalho
+    roundedRect(10, 10, 190, 20, 5, 'FD');
+    addStyledText('Controle de Cloro Livre', 105, 20, 16, true);
 
     // Data
-    doc.setFontSize(14);
-    doc.setFont("helvetica", "normal");
-    doc.setTextColor(0);
-    doc.text(`Data: ${document.getElementById('date').value}`, 20, 40);
+    roundedRect(10, 40, 190, 20, 5, 'FD');
+    addStyledText('Data:', 20, 50);
+    addStyledText(document.getElementById('date').value, 40, 50);
 
-    // Configuração de estilo para os itens
-    doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
+    // Localização dos Pontos
+    addStyledText('Localização dos Pontos', 20, 70, 14, true);
 
     // Saída de Tratamento
-    doc.text('Saída de Tratamento:', 20, 60);
-    doc.setFont("helvetica", "normal");
-    doc.text(document.getElementById('treatment-exit').value, 90, 60);
+    roundedRect(10, 80, 55, 40, 5, 'FD');
+    addStyledText('Saída de Tratamento', 32.5, 90, 10, true);
+    addStyledText('Escolher Arquivo', 20, 100);
+    addStyledText('Nenhum arquivo escolhido', 20, 110);
+    addStyledText(document.getElementById('treatment-exit').value, 32.5, 120);
 
     // Cozinha
-    doc.setFont("helvetica", "bold");
-    doc.text('Cozinha:', 20, 70);
-    doc.setFont("helvetica", "normal");
-    doc.text(document.getElementById('kitchen').value, 90, 70);
+    roundedRect(75, 80, 55, 40, 5, 'FD');
+    addStyledText('Cozinha', 100, 90, 10, true);
+    addStyledText('Escolher Arquivo', 75, 100);
+    addStyledText('Nenhum arquivo escolhido', 75, 110);
+    addStyledText(document.getElementById('kitchen').value, 100, 120);
 
     // Produção
-    doc.setFont("helvetica", "bold");
-    doc.text('Produção:', 20, 80);
-    doc.setFont("helvetica", "normal");
-    doc.text(document.getElementById('production').value, 90, 80);
+    roundedRect(140, 80, 55, 40, 5, 'FD');
+    addStyledText('Produção', 165, 90, 10, true);
+    addStyledText('Escolher Arquivo', 140, 100);
+    addStyledText('Nenhum arquivo escolhido', 140, 110);
+    addStyledText(document.getElementById('production').value, 165, 120);
 
     // Administração
-    doc.setFont("helvetica", "bold");
-    doc.text('Administração:', 20, 90);
-    doc.setFont("helvetica", "normal");
-    doc.text(document.getElementById('administration').value, 90, 90);
+    roundedRect(10, 130, 55, 40, 5, 'FD');
+    addStyledText('Administração', 32.5, 140, 10, true);
+    addStyledText('Escolher Arquivo', 10, 150);
+    addStyledText('Nenhum arquivo escolhido', 10, 160);
+    addStyledText(document.getElementById('administration').value, 32.5, 170);
 
     // Recebimento
-    doc.setFont("helvetica", "bold");
-    doc.text('Recebimento:', 20, 100);
-    doc.setFont("helvetica", "normal");
-    doc.text(document.getElementById('receiving').value, 90, 100);
+    roundedRect(75, 130, 55, 40, 5, 'FD');
+    addStyledText('Recebimento', 100, 140, 10, true);
+    addStyledText('Escolher Arquivo', 75, 150);
+    addStyledText('Nenhum arquivo escolhido', 75, 160);
+    addStyledText(document.getElementById('receiving').value, 100, 170);
+
+    // Botão Gerar PDF
+    roundedRect(75, 180, 55, 15, 5, 'FD');
+    addStyledText('Gerar PDF', 100, 188, 10, true);
+
+    // Rodapé
+    roundedRect(10, 200, 190, 20, 5, 'FD');
+    addStyledText('© 2023 Controle de Cloro Livre', 105, 210, 10, false);
 
     // Salvar o PDF
     doc.save('relatorio_cloro_livre.pdf');
