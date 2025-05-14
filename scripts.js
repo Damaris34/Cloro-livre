@@ -31,23 +31,24 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
 
     // Saída de Tratamento
     roundedRect(20, 80, 50, 40, 5, 'FD');
-    addStyledText(document.getElementById('treatment-exit').value, 45, 100, 12, false);
+    // Adicionar imagem para Saída de Tratamento
+    // Note: Você precisará de uma função para converter a imagem para base64 e adicioná-la ao PDF
 
     // Cozinha
     roundedRect(80, 80, 50, 40, 5, 'FD');
-    addStyledText(document.getElementById('kitchen').value, 105, 100, 12, false);
+    // Adicionar imagem para Cozinha
 
     // Produção
     roundedRect(140, 80, 50, 40, 5, 'FD');
-    addStyledText(document.getElementById('production').value, 165, 100, 12, false);
+    // Adicionar imagem para Produção
 
     // Administração
     roundedRect(20, 130, 50, 40, 5, 'FD');
-    addStyledText(document.getElementById('administration').value, 45, 150, 12, false);
+    // Adicionar imagem para Administração
 
     // Recebimento
     roundedRect(80, 130, 50, 40, 5, 'FD');
-    addStyledText(document.getElementById('receiving').value, 105, 150, 12, false);
+    // Adicionar imagem para Recebimento
 
     // Botão Gerar PDF
     doc.setFillColor(0, 0, 139);
