@@ -24,40 +24,40 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
 
     // Data
     roundedRect(10, 40, 190, 20, 5, 'FD');
-    addStyledText(document.getElementById('date').value, 20, 50);
+    addStyledText(document.getElementById('date').value, 105, 50, 12, false);
 
     // Localização dos Pontos
-    addStyledText('Localização dos Pontos', 20, 70, 14, true);
+    addStyledText('Localização dos Pontos', 105, 70, 14, true);
 
     // Saída de Tratamento
-    roundedRect(10, 80, 55, 50, 5, 'FD');
-    addStyledText(document.getElementById('treatment-exit').value, 32.5, 120);
+    roundedRect(20, 80, 50, 40, 5, 'FD');
+    addStyledText(document.getElementById('treatment-exit').value, 45, 100, 12, false);
 
     // Cozinha
-    roundedRect(75, 80, 55, 50, 5, 'FD');
-    addStyledText(document.getElementById('kitchen').value, 100, 120);
+    roundedRect(80, 80, 50, 40, 5, 'FD');
+    addStyledText(document.getElementById('kitchen').value, 105, 100, 12, false);
 
     // Produção
-    roundedRect(140, 80, 55, 50, 5, 'FD');
-    addStyledText(document.getElementById('production').value, 165, 120);
+    roundedRect(140, 80, 50, 40, 5, 'FD');
+    addStyledText(document.getElementById('production').value, 165, 100, 12, false);
 
     // Administração
-    roundedRect(10, 140, 55, 50, 5, 'FD');
-    addStyledText(document.getElementById('administration').value, 32.5, 180);
+    roundedRect(20, 130, 50, 40, 5, 'FD');
+    addStyledText(document.getElementById('administration').value, 45, 150, 12, false);
 
     // Recebimento
-    roundedRect(75, 140, 55, 50, 5, 'FD');
-    addStyledText(document.getElementById('receiving').value, 100, 180);
+    roundedRect(80, 130, 50, 40, 5, 'FD');
+    addStyledText(document.getElementById('receiving').value, 105, 150, 12, false);
 
     // Botão Gerar PDF
     doc.setFillColor(0, 0, 139);
-    roundedRect(75, 200, 55, 15, 5, 'FD');
-    addStyledText('Gerar PDF', 100, 208, 10, true);
+    roundedRect(80, 180, 50, 15, 5, 'FD');
+    addStyledText('Gerar PDF', 105, 188, 10, true);
 
     // Rodapé
     doc.setFillColor(0, 0, 139);
-    doc.rect(10, 220, 190, 20, 'FD');
-    addStyledText('© 2023 Controle de Cloro Livre', 105, 230, 10, false);
+    doc.rect(10, 200, 190, 20, 'FD');
+    addStyledText('© 2023 Controle de Cloro Livre', 105, 210, 10, false);
 
     // Salvar o PDF
     doc.save('relatorio_cloro_livre.pdf');
