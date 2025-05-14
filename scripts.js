@@ -24,45 +24,29 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
 
     // Data
     roundedRect(10, 40, 190, 20, 5, 'FD');
-    addStyledText('Data:', 20, 50);
-    addStyledText(document.getElementById('date').value, 40, 50);
+    addStyledText(document.getElementById('date').value, 20, 50);
 
     // Localização dos Pontos
     addStyledText('Localização dos Pontos', 20, 70, 14, true);
 
     // Saída de Tratamento
     roundedRect(10, 80, 55, 50, 5, 'FD');
-    addStyledText('Saída de Tratamento', 32.5, 90, 10, true);
-    addStyledText('Escolher Arquivo', 20, 100);
-    addStyledText('Nenhum arquivo escolhido', 20, 110);
     addStyledText(document.getElementById('treatment-exit').value, 32.5, 120);
 
     // Cozinha
     roundedRect(75, 80, 55, 50, 5, 'FD');
-    addStyledText('Cozinha', 100, 90, 10, true);
-    addStyledText('Escolher Arquivo', 75, 100);
-    addStyledText('Nenhum arquivo escolhido', 75, 110);
     addStyledText(document.getElementById('kitchen').value, 100, 120);
 
     // Produção
     roundedRect(140, 80, 55, 50, 5, 'FD');
-    addStyledText('Produção', 165, 90, 10, true);
-    addStyledText('Escolher Arquivo', 140, 100);
-    addStyledText('Nenhum arquivo escolhido', 140, 110);
     addStyledText(document.getElementById('production').value, 165, 120);
 
     // Administração
     roundedRect(10, 140, 55, 50, 5, 'FD');
-    addStyledText('Administração', 32.5, 150, 10, true);
-    addStyledText('Escolher Arquivo', 10, 160);
-    addStyledText('Nenhum arquivo escolhido', 10, 170);
     addStyledText(document.getElementById('administration').value, 32.5, 180);
 
     // Recebimento
     roundedRect(75, 140, 55, 50, 5, 'FD');
-    addStyledText('Recebimento', 100, 150, 10, true);
-    addStyledText('Escolher Arquivo', 75, 160);
-    addStyledText('Nenhum arquivo escolhido', 75, 170);
     addStyledText(document.getElementById('receiving').value, 100, 180);
 
     // Botão Gerar PDF
