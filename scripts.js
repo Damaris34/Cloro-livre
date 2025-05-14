@@ -17,6 +17,18 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
         doc.text(text, x, y);
     }
 
+    // Função para adicionar imagem
+    function addImageFromInput(inputId, x, y, w, h) {
+        const fileInput = document.getElementById(inputId);
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                doc.addImage(e.target.result, 'JPEG', x, y, w, h);
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    }
+
     // Cabeçalho
     doc.setFillColor(0, 0, 139);
     doc.rect(10, 10, 190, 20, 'FD');
@@ -30,36 +42,37 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     addStyledText('Localização dos Pontos', 105, 70, 14, true);
 
     // Saída de Tratamento
-    roundedRect(20, 80, 50, 40, 5, 'FD');
-    // Adicionar imagem para Saída de Tratamento
-    // Note: Você precisará de uma função para converter a imagem para base64 e adicioná-la ao PDF
+    roundedRect(20, 80, 50, 50, 5, 'FD');
+    addImageFromInput('treatment-exit-image', 20, 80, 50, 40);
 
     // Cozinha
-    roundedRect(80, 80, 50, 40, 5, 'FD');
-    // Adicionar imagem para Cozinha
+    roundedRect(80, 80, 50, 50, 5, 'FD');
+    addImageFromInput('kitchen-image', 80, 80, 50, 40);
 
     // Produção
-    roundedRect(140, 80, 50, 40, 5, 'FD');
-    // Adicionar imagem para Produção
+    roundedRect(140, 80, 50, 50, 5, 'FD');
+    addImageFromInput('production-image', 140, 80, 50, 40);
 
     // Administração
-    roundedRect(20, 130, 50, 40, 5, 'FD');
-    // Adicionar imagem para Administração
+    roundedRect(20, 140, 50, 50, 5, 'FD');
+    addImageFromInput('administration-image', 20, 140, 50, 40);
 
     // Recebimento
-    roundedRect(80, 130, 50, 40, 5, 'FD');
-    // Adicionar imagem para Recebimento
+    roundedRect(80, 140, 50, 50, 5, 'FD');
+    addImageFromInput('receiving-image', 80, 140, 50, 40);
 
     // Botão Gerar PDF
     doc.setFillColor(0, 0, 139);
-    roundedRect(80, 180, 50, 15, 5, 'FD');
-    addStyledText('Gerar PDF', 105, 188, 10, true);
+    roundedRect(80, 200, 50, 15, 5, 'FD');
+    addStyledText('Gerar PDF', 105, 208, 10, true);
 
     // Rodapé
     doc.setFillColor(0, 0, 139);
-    doc.rect(10, 200, 190, 20, 'FD');
-    addStyledText('© 2023 Controle de Cloro Livre', 105, 210, 10, false);
+    doc.rect(10, 220, 190, 20, 'FD');
+    addStyledText('© 2023 Controle de Cloro Livre', 105, 230, 10, false);
 
     // Salvar o PDF
-    doc.save('relatorio_cloro_livre.pdf');
+    setTimeout(() => {
+        doc.save('relatorio_cloro_livre.pdf');
+    }, 1000); // Espera um pouco para garantir que as imagens sejam carregadas
 });
