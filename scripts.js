@@ -61,15 +61,10 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     roundedRect(80, 140, 50, 50, 5, 'FD');
     addImageFromInput('receiving-image', 80, 140, 50, 40);
 
-    // Botão Gerar PDF
-    doc.setFillColor(0, 0, 139);
-    roundedRect(80, 200, 50, 15, 5, 'FD');
-    addStyledText('Gerar PDF', 105, 208, 10, true);
-
     // Rodapé
     doc.setFillColor(0, 0, 139);
-    doc.rect(10, 220, 190, 20, 'FD');
-    addStyledText('© 2023 Controle de Cloro Livre', 105, 230, 10, false);
+    doc.rect(10, 200, 190, 20, 'FD');
+    addStyledText('© 2023 Controle de Cloro Livre', 105, 210, 10, false);
 
     // Salvar o PDF
     setTimeout(() => {
