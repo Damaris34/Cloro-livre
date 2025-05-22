@@ -43,27 +43,22 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
 
     // Saída de Tratamento
     roundedRect(20, 80, 50, 50, 5, 'FD');
-    addStyledText('Saída de Tratamento', 45, 110, 10, true);
     addImageFromInput('treatment-exit-image', 20, 80, 50, 40);
 
     // Cozinha
     roundedRect(80, 80, 50, 50, 5, 'FD');
-    addStyledText('Cozinha', 105, 110, 10, true);
     addImageFromInput('kitchen-image', 80, 80, 50, 40);
 
     // Produção
     roundedRect(140, 80, 50, 50, 5, 'FD');
-    addStyledText('Produção', 165, 110, 10, true);
     addImageFromInput('production-image', 140, 80, 50, 40);
 
     // Administração
     roundedRect(20, 140, 50, 50, 5, 'FD');
-    addStyledText('Administração', 45, 170, 10, true);
     addImageFromInput('administration-image', 20, 140, 50, 40);
 
     // Recebimento
     roundedRect(80, 140, 50, 50, 5, 'FD');
-    addStyledText('Recebimento', 105, 170, 10, true);
     addImageFromInput('receiving-image', 80, 140, 50, 40);
 
     // Rodapé
