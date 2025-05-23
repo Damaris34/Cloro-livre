@@ -1,66 +1,48 @@
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+document.getElementById('generate-pdf').addEventListener('click', function() {
+    const { jsPDF } = window.jspdf;
 
-public class ControleCloroLivreUI extends Application {
+    const doc = new jsPDF();
 
-    @Override
-    public void start(Stage primaryStage) {
-        // Cabeçalho
-        Label header = new Label("Controle de Cloro Livre");
-        header.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-background-color: blue; -fx-text-fill: white; -fx-padding: 10px;");
-        header.setAlignment(Pos.CENTER);
-
-        // Data
-        Label dataLabel = new Label("Data:");
-        dataLabel.setStyle("-fx-padding: 10px;");
-
-        // Localização dos Pontos
-        GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(10));
-        gridPane.setHgap(10);
-        gridPane.setVgap(10);
-        gridPane.setAlignment(Pos.CENTER);
-
-        String[] pontos = {"Saída de Tratamento", "Cozinha", "Produção", "Administração", "Recebimento"};
-        int row = 0;
-        int col = 0;
-        for (String ponto : pontos) {
-            VBox vbox = new VBox();
-            vbox.setStyle("-fx-border-color: blue; -fx-border-width: 2px; -fx-padding: 10px; -fx-background-color: white;");
-            vbox.setAlignment(Pos.CENTER);
-            vbox.getChildren().add(new Label(ponto));
-            gridPane.add(vbox, col, row);
-            col++;
-            if (col > 2) {
-                col = 0;
-                row++;
-            }
-        }
-
-        // Rodapé
-        Label footer = new Label("Rodapé");
-        footer.setStyle("-fx-background-color: blue; -fx-text-fill: white; -fx-padding: 10px;");
-        footer.setAlignment(Pos.CENTER);
-
-        // Layout principal
-        VBox root = new VBox(10);
-        root.setPadding(new Insets(10));
-        root.setAlignment(Pos.CENTER);
-        root.getChildren().addAll(header, dataLabel, gridPane, footer);
-
-        // Cena
-        Scene scene = new Scene(root, 600, 500);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Controle de Cloro Livre");
-        primaryStage.show();
+    // Função para desenhar um retângulo arredondado
+    function roundedRect(x, y, w, h, r, style = 'S') {
+        doc.setDrawColor(0, 0, 255);
+        doc.setFillColor(240, 248, 255);
+        doc.roundedRect(x, y, w, h, r, r, style);
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-}
+    // Cabeçalho
+    doc.setFillColor(0, 0, 139);
+    doc.rect(10, 10, 190, 20, 'FD');
+
+    // Data
+    roundedRect(10, 40, 190, 20, 5, 'FD');
+
+    // Localização dos Pontos
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text('Localização dos Pontos', 105, 70);
+
+    // Saída de Tratamento
+    roundedRect(20, 80, 50, 50, 5, 'FD');
+
+    // Cozinha
+    roundedRect(80, 80, 50, 50, 5, 'FD');
+
+    // Produção
+    roundedRect(140, 80, 50, 50, 5, 'FD');
+
+    // Administração
+    roundedRect(20, 140, 50, 50, 5, 'FD');
+
+    // Recebimento
+    roundedRect(80, 140, 50, 50, 5, 'FD');
+
+    // Rodapé
+    doc.setFillColor(0, 0, 139);
+    doc.rect(10, 200, 190, 20, 'FD');
+
+    // Salvar o PDF
+    setTimeout(() => {
+        doc.save('relatorio_cloro_livre.pdf');
+    }, 1000); // Espera um pouco para garantir que as imagens sejam carregadas
+});
