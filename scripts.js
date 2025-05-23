@@ -12,7 +12,7 @@ public class ControleCloroLivreUI extends Application {
     public void start(Stage primaryStage) {
         // Cabeçalho
         Label header = new Label("Controle de Cloro Livre");
-        header.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        header.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-background-color: blue; -fx-text-fill: white; -fx-padding: 10px;");
 
         // Data
         Label dataLabel = new Label("Data:");
@@ -28,7 +28,7 @@ public class ControleCloroLivreUI extends Application {
         int col = 0;
         for (String ponto : pontos) {
             VBox vbox = new VBox();
-            vbox.setStyle("-fx-border-color: blue; -fx-border-width: 2px; -fx-padding: 10px;");
+            vbox.setStyle("-fx-border-color: blue; -fx-border-width: 2px; -fx-padding: 10px; -fx-background-color: white;");
             vbox.getChildren().add(new Label(ponto));
             gridPane.add(vbox, col, row);
             col++;
@@ -40,6 +40,7 @@ public class ControleCloroLivreUI extends Application {
 
         // Rodapé
         Label footer = new Label("Rodapé");
+        footer.setStyle("-fx-background-color: blue; -fx-text-fill: white; -fx-padding: 10px;");
 
         // Layout principal
         VBox root = new VBox(10);
