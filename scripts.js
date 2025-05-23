@@ -17,18 +17,6 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
         doc.text(text, x, y);
     }
 
-    // Função para adicionar imagem
-    function addImageFromInput(inputId, x, y, w, h) {
-        const fileInput = document.getElementById(inputId);
-        if (fileInput.files && fileInput.files[0]) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                doc.addImage(e.target.result, 'JPEG', x, y, w, h);
-            };
-            reader.readAsDataURL(fileInput.files[0]);
-        }
-    }
-
     // Cabeçalho
     doc.setFillColor(0, 0, 139);
     doc.rect(10, 10, 190, 20, 'FD');
@@ -43,23 +31,23 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
 
     // Saída de Tratamento
     roundedRect(20, 80, 50, 50, 5, 'FD');
-    addImageFromInput('treatment-exit-image', 20, 80, 50, 40);
+    addStyledText('Saída de Tratamento', 45, 110, 10, true);
 
     // Cozinha
     roundedRect(80, 80, 50, 50, 5, 'FD');
-    addImageFromInput('kitchen-image', 80, 80, 50, 40);
+    addStyledText('Cozinha', 105, 110, 10, true);
 
     // Produção
     roundedRect(140, 80, 50, 50, 5, 'FD');
-    addImageFromInput('production-image', 140, 80, 50, 40);
+    addStyledText('Produção', 165, 110, 10, true);
 
     // Administração
     roundedRect(20, 140, 50, 50, 5, 'FD');
-    addImageFromInput('administration-image', 20, 140, 50, 40);
+    addStyledText('Administração', 45, 170, 10, true);
 
     // Recebimento
     roundedRect(80, 140, 50, 50, 5, 'FD');
-    addImageFromInput('receiving-image', 80, 140, 50, 40);
+    addStyledText('Recebimento', 105, 170, 10, true);
 
     // Rodapé
     doc.setFillColor(0, 0, 139);
