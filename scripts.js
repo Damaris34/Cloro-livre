@@ -1,61 +1,92 @@
-document.getElementById('generate-pdf').addEventListener('click', function() {
-    const { jsPDF } = window.jspdf;
+import java.util.ArrayList;
+import java.util.List;
 
-    const doc = new jsPDF();
+// Classe principal que representa o formulário
+public class ControleCloroLivreForm {
+    private String data;
+    private List<LocalizacaoPonto> localizacoes;
 
-    // Função para desenhar um retângulo arredondado
-    function roundedRect(x, y, w, h, r, style = 'S') {
-        doc.setDrawColor(0, 0, 255);
-        doc.setFillColor(240, 248, 255);
-        doc.roundedRect(x, y, w, h, r, r, style);
+    public ControleCloroLivreForm(String data) {
+        this.data = data;
+        this.localizacoes = new ArrayList<>();
     }
 
-    // Função para adicionar texto com estilo
-    function addStyledText(text, x, y, size = 12, isBold = false) {
-        doc.setFontSize(size);
-        doc.setFont(isBold ? "helvetica" : "helvetica", isBold ? "bold" : "normal");
-        doc.text(text, x, y);
+    public void adicionarLocalizacao(LocalizacaoPonto localizacao) {
+        localizacoes.add(localizacao);
     }
 
-    // Cabeçalho
-    doc.setFillColor(0, 0, 139);
-    doc.rect(10, 10, 190, 20, 'FD');
-    addStyledText('Controle de Cloro Livre', 105, 20, 16, true);
+    public String getData() {
+        return data;
+    }
 
-    // Data
-    roundedRect(10, 40, 190, 20, 5, 'FD');
-    addStyledText(document.getElementById('date').value, 105, 50, 12, false);
+    public void setData(String data) {
+        this.data = data;
+    }
 
-    // Localização dos Pontos
-    addStyledText('Localização dos Pontos', 105, 70, 14, true);
+    public List<LocalizacaoPonto> getLocalizacoes() {
+        return localizacoes;
+    }
 
-    // Saída de Tratamento
-    roundedRect(20, 80, 50, 50, 5, 'FD');
-    addStyledText('Saída de Tratamento', 45, 110, 10, true);
+    public void gerarPDF() {
+        // Lógica para gerar o PDF
+        System.out.println("Gerando PDF...");
+    }
+}
 
-    // Cozinha
-    roundedRect(80, 80, 50, 50, 5, 'FD');
-    addStyledText('Cozinha', 105, 110, 10, true);
+// Classe que representa cada ponto de localização
+class LocalizacaoPonto {
+    private String nome;
+    private String escolherArquivo;
+    private String nenhumArquivoEscolhido;
 
-    // Produção
-    roundedRect(140, 80, 50, 50, 5, 'FD');
-    addStyledText('Produção', 165, 110, 10, true);
+    public LocalizacaoPonto(String nome, String escolherArquivo, String nenhumArquivoEscolhido) {
+        this.nome = nome;
+        this.escolherArquivo = escolherArquivo;
+        this.nenhumArquivoEscolhido = nenhumArquivoEscolhido;
+    }
 
-    // Administração
-    roundedRect(20, 140, 50, 50, 5, 'FD');
-    addStyledText('Administração', 45, 170, 10, true);
+    public String getNome() {
+        return nome;
+    }
 
-    // Recebimento
-    roundedRect(80, 140, 50, 50, 5, 'FD');
-    addStyledText('Recebimento', 105, 170, 10, true);
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    // Rodapé
-    doc.setFillColor(0, 0, 139);
-    doc.rect(10, 200, 190, 20, 'FD');
-    addStyledText('© 2023 Controle de Cloro Livre', 105, 210, 10, false);
+    public String getEscolherArquivo() {
+        return escolherArquivo;
+    }
 
-    // Salvar o PDF
-    setTimeout(() => {
-        doc.save('relatorio_cloro_livre.pdf');
-    }, 1000); // Espera um pouco para garantir que as imagens sejam carregadas
-});
+    public void setEscolherArquivo(String escolherArquivo) {
+        this.escolherArquivo = escolherArquivo;
+    }
+
+    public String getNenhumArquivoEscolhido() {
+        return nenhumArquivoEscolhido;
+    }
+
+    public void setNenhumArquivoEscolhido(String nenhumArquivoEscolhido) {
+        this.nenhumArquivoEscolhido = nenhumArquivoEscolhido;
+    }
+}
+
+// Classe principal para testar o formulário
+public class Main {
+    public static void main(String[] args) {
+        ControleCloroLivreForm form = new ControleCloroLivreForm("23/05/2025");
+
+        LocalizacaoPonto saidaTratamento = new LocalizacaoPonto("Saída de Tratamento", "Escolher Arquivo", "Nenhum arquivo escolhido");
+        LocalizacaoPonto cozinha = new LocalizacaoPonto("Cozinha", "Escolher Arquivo", "Nenhum arquivo escolhido");
+        LocalizacaoPonto producao = new LocalizacaoPonto("Produção", "Escolher Arquivo", "Nenhum arquivo escolhido");
+        LocalizacaoPonto administracao = new LocalizacaoPonto("Administração", "Escolher Arquivo", "Nenhum arquivo escolhido");
+        LocalizacaoPonto recebimento = new LocalizacaoPonto("Recebimento", "Escolher Arquivo", "Nenhum arquivo escolhido");
+
+        form.adicionarLocalizacao(saidaTratamento);
+        form.adicionarLocalizacao(cozinha);
+        form.adicionarLocalizacao(producao);
+        form.adicionarLocalizacao(administracao);
+        form.adicionarLocalizacao(recebimento);
+
+        form.gerarPDF();
+    }
+}
