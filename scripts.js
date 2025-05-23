@@ -1,92 +1,59 @@
-import java.util.ArrayList;
-import java.util.List;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.geometry.Insets;
 
-// Classe principal que representa o formulário
-public class ControleCloroLivreForm {
-    private String data;
-    private List<LocalizacaoPonto> localizacoes;
+public class ControleCloroLivreUI extends Application {
 
-    public ControleCloroLivreForm(String data) {
-        this.data = data;
-        this.localizacoes = new ArrayList<>();
+    @Override
+    public void start(Stage primaryStage) {
+        // Cabeçalho
+        Label header = new Label("Controle de Cloro Livre");
+        header.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+
+        // Data
+        Label dataLabel = new Label("Data:");
+
+        // Localização dos Pontos
+        GridPane gridPane = new GridPane();
+        gridPane.setPadding(new Insets(10));
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        String[] pontos = {"Saída de Tratamento", "Cozinha", "Produção", "Administração", "Recebimento"};
+        int row = 0;
+        int col = 0;
+        for (String ponto : pontos) {
+            VBox vbox = new VBox();
+            vbox.setStyle("-fx-border-color: blue; -fx-border-width: 2px; -fx-padding: 10px;");
+            vbox.getChildren().add(new Label(ponto));
+            gridPane.add(vbox, col, row);
+            col++;
+            if (col > 2) {
+                col = 0;
+                row++;
+            }
+        }
+
+        // Rodapé
+        Label footer = new Label("Rodapé");
+
+        // Layout principal
+        VBox root = new VBox(10);
+        root.setPadding(new Insets(10));
+        root.getChildren().addAll(header, dataLabel, gridPane, footer);
+
+        // Cena
+        Scene scene = new Scene(root, 600, 500);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Controle de Cloro Livre");
+        primaryStage.show();
     }
 
-    public void adicionarLocalizacao(LocalizacaoPonto localizacao) {
-        localizacoes.add(localizacao);
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public List<LocalizacaoPonto> getLocalizacoes() {
-        return localizacoes;
-    }
-
-    public void gerarPDF() {
-        // Lógica para gerar o PDF
-        System.out.println("Gerando PDF...");
-    }
-}
-
-// Classe que representa cada ponto de localização
-class LocalizacaoPonto {
-    private String nome;
-    private String escolherArquivo;
-    private String nenhumArquivoEscolhido;
-
-    public LocalizacaoPonto(String nome, String escolherArquivo, String nenhumArquivoEscolhido) {
-        this.nome = nome;
-        this.escolherArquivo = escolherArquivo;
-        this.nenhumArquivoEscolhido = nenhumArquivoEscolhido;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEscolherArquivo() {
-        return escolherArquivo;
-    }
-
-    public void setEscolherArquivo(String escolherArquivo) {
-        this.escolherArquivo = escolherArquivo;
-    }
-
-    public String getNenhumArquivoEscolhido() {
-        return nenhumArquivoEscolhido;
-    }
-
-    public void setNenhumArquivoEscolhido(String nenhumArquivoEscolhido) {
-        this.nenhumArquivoEscolhido = nenhumArquivoEscolhido;
-    }
-}
-
-// Classe principal para testar o formulário
-public class Main {
     public static void main(String[] args) {
-        ControleCloroLivreForm form = new ControleCloroLivreForm("23/05/2025");
-
-        LocalizacaoPonto saidaTratamento = new LocalizacaoPonto("Saída de Tratamento", "Escolher Arquivo", "Nenhum arquivo escolhido");
-        LocalizacaoPonto cozinha = new LocalizacaoPonto("Cozinha", "Escolher Arquivo", "Nenhum arquivo escolhido");
-        LocalizacaoPonto producao = new LocalizacaoPonto("Produção", "Escolher Arquivo", "Nenhum arquivo escolhido");
-        LocalizacaoPonto administracao = new LocalizacaoPonto("Administração", "Escolher Arquivo", "Nenhum arquivo escolhido");
-        LocalizacaoPonto recebimento = new LocalizacaoPonto("Recebimento", "Escolher Arquivo", "Nenhum arquivo escolhido");
-
-        form.adicionarLocalizacao(saidaTratamento);
-        form.adicionarLocalizacao(cozinha);
-        form.adicionarLocalizacao(producao);
-        form.adicionarLocalizacao(administracao);
-        form.adicionarLocalizacao(recebimento);
-
-        form.gerarPDF();
+        launch(args);
     }
 }
