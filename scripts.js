@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 
 public class ControleCloroLivreUI extends Application {
 
@@ -12,15 +13,18 @@ public class ControleCloroLivreUI extends Application {
         // Cabeçalho
         Label header = new Label("Controle de Cloro Livre");
         header.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-background-color: blue; -fx-text-fill: white; -fx-padding: 10px;");
+        header.setAlignment(Pos.CENTER);
 
         // Data
         Label dataLabel = new Label("Data:");
+        dataLabel.setStyle("-fx-padding: 10px;");
 
         // Localização dos Pontos
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10));
         gridPane.setHgap(10);
         gridPane.setVgap(10);
+        gridPane.setAlignment(Pos.CENTER);
 
         String[] pontos = {"Saída de Tratamento", "Cozinha", "Produção", "Administração", "Recebimento"};
         int row = 0;
@@ -28,6 +32,7 @@ public class ControleCloroLivreUI extends Application {
         for (String ponto : pontos) {
             VBox vbox = new VBox();
             vbox.setStyle("-fx-border-color: blue; -fx-border-width: 2px; -fx-padding: 10px; -fx-background-color: white;");
+            vbox.setAlignment(Pos.CENTER);
             vbox.getChildren().add(new Label(ponto));
             gridPane.add(vbox, col, row);
             col++;
@@ -40,10 +45,12 @@ public class ControleCloroLivreUI extends Application {
         // Rodapé
         Label footer = new Label("Rodapé");
         footer.setStyle("-fx-background-color: blue; -fx-text-fill: white; -fx-padding: 10px;");
+        footer.setAlignment(Pos.CENTER);
 
         // Layout principal
         VBox root = new VBox(10);
         root.setPadding(new Insets(10));
+        root.setAlignment(Pos.CENTER);
         root.getChildren().addAll(header, dataLabel, gridPane, footer);
 
         // Cena
