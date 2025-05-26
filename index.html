@@ -4,137 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle de Cloro Livre</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header, .footer {
+            background-color: #00008B;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .grid-item {
+            border: 1px solid #00008B;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            background-color: #F0F8FF;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <header>
+        <div class="header">
             <h1>Controle de Cloro Livre</h1>
-        </header>
-        <main>
-            <section class="dashboard">
-                <div class="card">
-                    <h2>Data</h2>
-                    <input type="date" id="date" value="">
-                </div>
-            </section>
-            <section class="locations">
-                <h2>Localização dos Pontos</h2>
-                <div class="location-card">
-                    <h3>Saída de Tratamento</h3>
-                    <input type="file" id="treatment-exit-image" accept="image/*">
-                    <input type="text" id="treatment-exit" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Cozinha</h3>
-                    <input type="file" id="kitchen-image" accept="image/*">
-                    <input type="text" id="kitchen" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Produção</h3>
-                    <input type="file" id="production-image" accept="image/*">
-                    <input type="text" id="production" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Administração</h3>
-                    <input type="file" id="administration-image" accept="image/*">
-                    <input type="text" id="administration" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Recebimento</h3>
-                    <input type="file" id="receiving-image" accept="image/*">
-                    <input type="text" id="receiving" placeholder="-- mg/L">
-                </div>
-            </section>
-            <section class="controls">
-                <button id="generate-pdf">Gerar PDF</button>
-            </section>
-        </main>
-        <footer>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Data:</div>
+            <input type="date" id="date" value="2023-10-01">
+        </div>
+
+        <div class="section">
+            <div class="section-title">Localização dos Pontos</div>
+            <div class="grid-container">
+                <div class="grid-item">Saída de Tratamento</div>
+                <div class="grid-item">Cozinha</div>
+                <div class="grid-item">Produção</div>
+                <div class="grid-item">Administração</div>
+                <div class="grid-item">Recebimento</div>
+            </div>
+        </div>
+
+        <div class="footer">
             <p>© 2023 Controle de Cloro Livre</p>
-        </footer>
+        </div>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script>
-        document.getElementById('generate-pdf').addEventListener('click', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             const { jsPDF } = window.jspdf;
 
-            const doc = new jsPDF();
+            function generatePDF() {
+                const doc = new jsPDF();
 
-            // Função para desenhar um retângulo arredondado
-            function roundedRect(x, y, w, h, r, style = 'S') {
-                doc.setDrawColor(0, 0, 255);
-                doc.setFillColor(240, 248, 255);
-                doc.roundedRect(x, y, w, h, r, r, style);
+                // Função para desenhar um retângulo arredondado
+                function roundedRect(x, y, w, h, r, style = 'S') {
+                    doc.setDrawColor(0, 0, 255);
+                    doc.setFillColor(240, 248, 255);
+                    doc.roundedRect(x, y, w, h, r, r, style);
+                }
+
+                // Função para adicionar texto com estilo
+                function addStyledText(text, x, y, size = 12, isBold = false) {
+                    doc.setFontSize(size);
+                    doc.setFont(isBold ? "helvetica" : "helvetica", isBold ? "bold" : "normal");
+                    doc.text(text, x, y);
+                }
+
+                // Cabeçalho
+                doc.setFillColor(0, 0, 139);
+                doc.rect(10, 10, 190, 20, 'FD');
+                addStyledText('Controle de Cloro Livre', 105, 20, 16, true);
+
+                // Data
+                roundedRect(10, 40, 190, 20, 5, 'FD');
+                addStyledText(document.getElementById('date').value, 105, 50, 12, false);
+
+                // Localização dos Pontos
+                addStyledText('Localização dos Pontos', 105, 70, 14, true);
+
+                // Saída de Tratamento
+                roundedRect(20, 80, 50, 50, 5, 'FD');
+
+                // Cozinha
+                roundedRect(80, 80, 50, 50, 5, 'FD');
+
+                // Produção
+                roundedRect(140, 80, 50, 50, 5, 'FD');
+
+                // Administração
+                roundedRect(20, 140, 50, 50, 5, 'FD');
+
+                // Recebimento
+                roundedRect(80, 140, 50, 50, 5, 'FD');
+
+                // Rodapé
+                doc.setFillColor(0, 0, 139);
+                doc.rect(10, 200, 190, 20, 'FD');
+                addStyledText('© 2023 Controle de Cloro Livre', 105, 210, 10, false);
+
+                // Salvar o PDF
+                doc.save('relatorio_cloro_livre.pdf');
             }
 
-            // Função para adicionar texto com estilo
-            function addStyledText(text, x, y, size = 12, isBold = false) {
-                doc.setFontSize(size);
-                doc.setFont(isBold ? "helvetica" : "helvetica", isBold ? "bold" : "normal");
-                doc.text(text, x, y);
-            }
-
-            // Cabeçalho
-            doc.setFillColor(0, 0, 139);
-            doc.rect(10, 10, 190, 20, 'FD');
-            addStyledText('Controle de Cloro Livre', 105, 20, 16, true);
-
-            // Data
-            roundedRect(10, 40, 190, 20, 5, 'FD');
-            addStyledText('Data:', 20, 50);
-            addStyledText(document.getElementById('date').value, 40, 50);
-
-            // Localização dos Pontos
-            addStyledText('Localização dos Pontos', 20, 70, 14, true);
-
-            // Saída de Tratamento
-            roundedRect(10, 80, 55, 50, 5, 'FD');
-            addStyledText('Saída de Tratamento', 32.5, 90, 10, true);
-            addStyledText('Escolher Arquivo', 20, 100);
-            addStyledText('Nenhum arquivo escolhido', 20, 110);
-            addStyledText(document.getElementById('treatment-exit').value, 32.5, 120);
-
-            // Cozinha
-            roundedRect(75, 80, 55, 50, 5, 'FD');
-            addStyledText('Cozinha', 100, 90, 10, true);
-            addStyledText('Escolher Arquivo', 75, 100);
-            addStyledText('Nenhum arquivo escolhido', 75, 110);
-            addStyledText(document.getElementById('kitchen').value, 100, 120);
-
-            // Produção
-            roundedRect(140, 80, 55, 50, 5, 'FD');
-            addStyledText('Produção', 165, 90, 10, true);
-            addStyledText('Escolher Arquivo', 140, 100);
-            addStyledText('Nenhum arquivo escolhido', 140, 110);
-            addStyledText(document.getElementById('production').value, 165, 120);
-
-            // Administração
-            roundedRect(10, 140, 55, 50, 5, 'FD');
-            addStyledText('Administração', 32.5, 150, 10, true);
-            addStyledText('Escolher Arquivo', 10, 160);
-            addStyledText('Nenhum arquivo escolhido', 10, 170);
-            addStyledText(document.getElementById('administration').value, 32.5, 180);
-
-            // Recebimento
-            roundedRect(75, 140, 55, 50, 5, 'FD');
-            addStyledText('Recebimento', 100, 150, 10, true);
-            addStyledText('Escolher Arquivo', 75, 160);
-            addStyledText('Nenhum arquivo escolhido', 75, 170);
-            addStyledText(document.getElementById('receiving').value, 100, 180);
-
-            // Botão Gerar PDF
-            doc.setFillColor(0, 0, 139);
-            roundedRect(75, 200, 55, 15, 5, 'FD');
-            addStyledText('Gerar PDF', 100, 208, 10, true);
-
-            // Rodapé
-            doc.setFillColor(0, 0, 139);
-            doc.rect(10, 220, 190, 20, 'FD');
-            addStyledText('© 2023 Controle de Cloro Livre', 105, 230, 10, false);
-
-            // Salvar o PDF
-            doc.save('relatorio_cloro_livre.pdf');
+            // Vincular a função de geração de PDF a um botão ou evento conforme necessário
+            // Por exemplo, você pode adicionar um botão no HTML para chamar generatePDF()
         });
     </script>
 </body>
