@@ -1,94 +1,89 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f8ff;
-    margin: 0;
-    padding: 0;
-    color: #333;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
 }
 
 .container {
-    width: 90%;
-    margin: auto;
-    padding: 20px;
-}
-
-header {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #4682b4;
-    color: white;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.dashboard {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
-
-.card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    width: 30%;
-}
-
-.locations {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-bottom: 20px;
-}
-
-.location-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    text-align: center;
-    width: 30%;
-    margin: 10px;
-}
-
-input[type="text"], input[type="date"], input[type="file"] {
     width: 80%;
-    padding: 8px;
-    margin: 10px auto;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-input[type="file"] {
-    padding: 5px;
-}
-
-.controls {
+h1 {
     text-align: center;
+    color: #333;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
     margin-top: 20px;
 }
 
+.info-box {
+    width: 48%;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+}
+
+.info-box h2 {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+    color: #007BFF;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+input[type="text"], input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.photo-section {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.photo-box {
+    border: 1px dashed #ccc;
+    padding: 20px;
+    margin-top: 10px;
+    background-color: #fff;
+}
+
+.photo-upload {
+    margin-top: 10px;
+}
+
 button {
-    background-color: #4682b4;
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007BFF;
     color: white;
     border: none;
-    padding: 10px 20px;
-    margin: 0 10px;
     border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #5f9ea0;
-}
-
-footer {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #4682b4;
-    color: white;
-    border-radius: 10px;
-    margin-top: 20px;
+    background-color: #0056b3;
 }
