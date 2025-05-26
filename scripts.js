@@ -18,7 +18,6 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     roundedRect(10, 40, 190, 20, 5, 'FD');
 
     // Localização dos Pontos
-    // Apenas o título, sem informações adicionais
     doc.setFontSize(14);
     doc.setFont("helvetica", "bold");
     doc.text('Localização dos Pontos', 105, 70);
