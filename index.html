@@ -54,6 +54,16 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+        .button {
+            background-color: #00008B;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -108,6 +118,8 @@
             </div>
         </div>
 
+        <button class="button" id="generate-pdf">Gerar PDF</button>
+
         <div class="footer">
             <p>© 2023 Controle de Cloro Livre</p>
         </div>
@@ -115,69 +127,64 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('generate-pdf').addEventListener('click', function() {
             const { jsPDF } = window.jspdf;
 
-            function generatePDF() {
-                const doc = new jsPDF();
+            const doc = new jsPDF();
 
-                // Função para desenhar um retângulo arredondado
-                function roundedRect(x, y, w, h, r, style = 'S') {
-                    doc.setDrawColor(0, 0, 255);
-                    doc.setFillColor(240, 248, 255);
-                    doc.roundedRect(x, y, w, h, r, r, style);
-                }
-
-                // Função para adicionar texto com estilo
-                function addStyledText(text, x, y, size = 12, isBold = false) {
-                    doc.setFontSize(size);
-                    doc.setFont(isBold ? "helvetica" : "helvetica", isBold ? "bold" : "normal");
-                    doc.text(text, x, y);
-                }
-
-                // Cabeçalho
-                doc.setFillColor(0, 0, 139);
-                doc.rect(10, 10, 190, 20, 'FD');
-                addStyledText('Controle de Cloro Livre', 105, 20, 16, true);
-
-                // Data
-                roundedRect(10, 40, 190, 20, 5, 'FD');
-                addStyledText(document.getElementById('date').value, 105, 50, 12, false);
-
-                // Localização dos Pontos
-                addStyledText('Localização dos Pontos', 105, 70, 14, true);
-
-                // Saída de Tratamento
-                roundedRect(20, 80, 50, 50, 5, 'FD');
-                addStyledText('Saída de Tratamento', 45, 110, 10, true);
-
-                // Cozinha
-                roundedRect(80, 80, 50, 50, 5, 'FD');
-                addStyledText('Cozinha', 105, 110, 10, true);
-
-                // Produção
-                roundedRect(140, 80, 50, 50, 5, 'FD');
-                addStyledText('Produção', 165, 110, 10, true);
-
-                // Administração
-                roundedRect(20, 140, 50, 50, 5, 'FD');
-                addStyledText('Administração', 45, 170, 10, true);
-
-                // Recebimento
-                roundedRect(80, 140, 50, 50, 5, 'FD');
-                addStyledText('Recebimento', 105, 170, 10, true);
-
-                // Rodapé
-                doc.setFillColor(0, 0, 139);
-                doc.rect(10, 200, 190, 20, 'FD');
-                addStyledText('© 2023 Controle de Cloro Livre', 105, 210, 10, false);
-
-                // Salvar o PDF
-                doc.save('relatorio_cloro_livre.pdf');
+            // Função para desenhar um retângulo arredondado
+            function roundedRect(x, y, w, h, r, style = 'S') {
+                doc.setDrawColor(0, 0, 255);
+                doc.setFillColor(240, 248, 255);
+                doc.roundedRect(x, y, w, h, r, r, style);
             }
 
-            // Vincular a função de geração de PDF a um botão ou evento conforme necessário
-            // Por exemplo, você pode adicionar um botão no HTML para chamar generatePDF()
+            // Função para adicionar texto com estilo
+            function addStyledText(text, x, y, size = 12, isBold = false) {
+                doc.setFontSize(size);
+                doc.setFont(isBold ? "helvetica" : "helvetica", isBold ? "bold" : "normal");
+                doc.text(text, x, y);
+            }
+
+            // Cabeçalho
+            doc.setFillColor(0, 0, 139);
+            doc.rect(10, 10, 190, 20, 'FD');
+            addStyledText('Controle de Cloro Livre', 105, 20, 16, true);
+
+            // Data
+            roundedRect(10, 40, 190, 20, 5, 'FD');
+            addStyledText(document.getElementById('date').value, 105, 50, 12, false);
+
+            // Localização dos Pontos
+            addStyledText('Localização dos Pontos', 105, 70, 14, true);
+
+            // Saída de Tratamento
+            roundedRect(20, 80, 50, 50, 5, 'FD');
+            addStyledText('Saída de Tratamento', 45, 110, 10, true);
+
+            // Cozinha
+            roundedRect(80, 80, 50, 50, 5, 'FD');
+            addStyledText('Cozinha', 105, 110, 10, true);
+
+            // Produção
+            roundedRect(140, 80, 50, 50, 5, 'FD');
+            addStyledText('Produção', 165, 110, 10, true);
+
+            // Administração
+            roundedRect(20, 140, 50, 50, 5, 'FD');
+            addStyledText('Administração', 45, 170, 10, true);
+
+            // Recebimento
+            roundedRect(80, 140, 50, 50, 5, 'FD');
+            addStyledText('Recebimento', 105, 170, 10, true);
+
+            // Rodapé
+            doc.setFillColor(0, 0, 139);
+            doc.rect(10, 200, 190, 20, 'FD');
+            addStyledText('© 2023 Controle de Cloro Livre', 105, 210, 10, false);
+
+            // Salvar o PDF
+            doc.save('relatorio_cloro_livre.pdf');
         });
     </script>
 </body>
