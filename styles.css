@@ -60,6 +60,14 @@ header {
     margin-bottom: 10px;
 }
 
+input[type="text"], input[type="date"] {
+    width: 80%;
+    padding: 8px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 .controls {
     text-align: center;
     margin-top: 20px;
