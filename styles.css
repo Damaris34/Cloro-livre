@@ -1,15 +1,19 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
 }
 
 .container {
     width: 80%;
     margin: 0 auto;
     padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
+    color: #333;
 }
 
 .info-row {
@@ -23,11 +27,13 @@ h1 {
     border: 1px solid #ddd;
     padding: 10px;
     box-sizing: border-box;
+    background-color: #f9f9f9;
 }
 
 .info-box h2 {
     border-bottom: 1px solid #ddd;
     padding-bottom: 5px;
+    color: #007BFF;
 }
 
 ul {
@@ -44,6 +50,8 @@ input[type="text"], input[type="date"] {
     padding: 8px;
     margin-top: 5px;
     box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 .photo-section {
@@ -51,12 +59,14 @@ input[type="text"], input[type="date"] {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
+    background-color: #f9f9f9;
 }
 
 .photo-box {
     border: 1px dashed #ccc;
     padding: 20px;
     margin-top: 10px;
+    background-color: #fff;
 }
 
 .photo-upload {
@@ -77,4 +87,3 @@ button {
 button:hover {
     background-color: #0056b3;
 }
-
