@@ -7,7 +7,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        doc.html(document.querySelector('.container'), {
+        // Captura o conteúdo do container
+        const element = document.querySelector('.container');
+
+        // Configurações para o PDF
+        const options = {
             callback: function(doc) {
                 doc.save('controle-cloro-livre.pdf');
             },
@@ -18,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
             margin: [10, 10, 10, 10],
             autoPaging: 'text',
             pagesplit: true
-        });
+        };
+
+        // Gera o PDF
+        doc.html(element, options);
     });
 });
