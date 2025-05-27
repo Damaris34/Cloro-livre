@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Gera o PDF
-        doc.html(element, options);
+        doc.html(element, options).then(() => {
+            console.log("PDF gerado com sucesso!");
+        }).catch((error) => {
+            console.error("Erro ao gerar PDF:", error);
+        });
     });
 });
