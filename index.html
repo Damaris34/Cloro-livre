@@ -12,17 +12,36 @@
         <div class="info-row">
             <div class="info-box">
                 <h2>Data de Registro</h2>
-                <p id="data-registro"></p>
+                <input type="date" id="data-registro">
             </div>
             <div class="info-box">
                 <h2>Pontos de Saída</h2>
                 <ul>
-                    <li>Saída de Tratamento</li>
-                    <li>Cozinha</li>
-                    <li>Produção</li>
-                    <li>Administrativo</li>
-                    <li>Recebimento</li>
+                    <li><input type="text" placeholder="Saída de Tratamento"></li>
+                    <li><input type="text" placeholder="Cozinha"></li>
+                    <li><input type="text" placeholder="Produção"></li>
+                    <li><input type="text" placeholder="Administrativo"></li>
+                    <li><input type="text" placeholder="Recebimento"></li>
                 </ul>
+            </div>
+        </div>
+        <div class="info-row">
+            <div class="info-box">
+                <h2>Informações Adicionais</h2>
+                <ul>
+                    <li><input type="text" placeholder="Responsável"></li>
+                    <li><input type="text" placeholder="Observações"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="photo-section">
+            <h2>Fotos</h2>
+            <div class="photo-box">
+                <p>Adicione fotos aqui</p>
+                <!-- Você pode adicionar imagens aqui usando a tag <img> -->
+                <div class="photo-upload">
+                    <input type="file" id="photo-upload" accept="image/*">
+                </div>
             </div>
         </div>
     </div>
