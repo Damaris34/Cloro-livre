@@ -36,5 +36,29 @@ ul {
 }
 
 li {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+input[type="text"], input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+.photo-section {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.photo-box {
+    border: 1px dashed #ccc;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.photo-upload {
+    margin-top: 10px;
 }
