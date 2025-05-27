@@ -1,83 +1,19 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f4f4f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
+document.addEventListener('DOMContentLoaded', function() {
+    const today = new Date();
+    const dataRegistro = today.toLocaleDateString('pt-BR');
+    document.getElementById('data-registro').textContent = dataRegistro;
 
-.container {
-    width: 100%;
-    max-width: 800px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+    // Gerar PDF
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-.header, .footer {
-    background-color: #00008B;
-    color: white;
-    text-align: center;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.section {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.section-title {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-}
-
-.grid-item {
-    border: 1px solid #00008B;
-    border-radius: 5px;
-    padding: 10px;
-    text-align: center;
-    background-color: #F0F8FF;
-}
-
-.input-field {
-    width: 100%;
-    padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.button {
-    background-color: #00008B;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.period-selector, .date-section, .location-section {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.file-input, .text-input {
-    margin-bottom: 10px;
-}
+    doc.html(document.querySelector('.container'), {
+        callback: function(doc) {
+            doc.save('controle-cloro-livre.pdf');
+        },
+        x: 10,
+        y: 10,
+        width: 190,
+        windowWidth: 800
+    });
+});
