@@ -6,58 +6,49 @@
     <title>Controle de Cloro Livre</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h1>Controle de Cloro Livre</h1>
-        <div class="info-row">
-            <div class="info-box">
-                <h2>Data de Registro</h2>
-                <input type="date" id="data-registro">
-            </div>
-            <div class="info-box">
-                <h2>Pontos de Saída</h2>
-                <ul>
-                    <li><input type="text" placeholder="Saída de Tratamento"></li>
-                    <li><input type="text" placeholder="Cozinha"></li>
-                    <li><input type="text" placeholder="Produção"></li>
-                    <li><input type="text" placeholder="Administrativo"></li>
-                    <li><input type="text" placeholder="Recebimento"></li>
-                </ul>
-            </div>
+    <div class="container" id="pdf-content">
+        <div class="header">
+            <h1>Controle de Cloro Livre</h1>
         </div>
-        <div class="info-row">
-            <div class="info-box">
-                <h2>Informações Adicionais</h2>
-                <ul>
-                    <li><input type="text" placeholder="Responsável"></li>
-                    <li><input type="text" placeholder="Observações"></li>
-                </ul>
-            </div>
+        <div class="data-section">
+            <h2>Data</h2>
+            <input type="date" id="data-registro">
         </div>
-        <div class="photo-section">
-            <h2>Fotos</h2>
-            <div class="photo-box">
-                <p>Adicione fotos aqui</p>
-                <div class="photo-upload">
-                    <input type="file" id="photo-upload-1" accept="image/*">
+        <div class="localizacao-section">
+            <h2>Localização dos Pontos</h2>
+            <div class="pontos-container">
+                <div class="ponto-box">
+                    <h3>Saída de Tratamento</h3>
+                    <input type="file" accept="image/*">
+                    <input type="text" placeholder="mg/L">
                 </div>
-                <div class="photo-upload">
-                    <input type="file" id="photo-upload-2" accept="image/*">
+                <div class="ponto-box">
+                    <h3>Cozinha</h3>
+                    <input type="file" accept="image/*">
+                    <input type="text" placeholder="mg/L">
                 </div>
-                <div class="photo-upload">
-                    <input type="file" id="photo-upload-3" accept="image/*">
+                <div class="ponto-box">
+                    <h3>Produção</h3>
+                    <input type="file" accept="image/*">
+                    <input type="text" placeholder="mg/L">
                 </div>
-                <div class="photo-upload">
-                    <input type="file" id="photo-upload-4" accept="image/*">
+                <div class="ponto-box">
+                    <h3>Administração</h3>
+                    <input type="file" accept="image/*">
+                    <input type="text" placeholder="mg/L">
                 </div>
-                <div class="photo-upload">
-                    <input type="file" id="photo-upload-5" accept="image/*">
+                <div class="ponto-box">
+                    <h3>Recebimento</h3>
+                    <input type="file" accept="image/*">
+                    <input type="text" placeholder="mg/L">
                 </div>
             </div>
         </div>
-        <button id="generate-pdf">Gerar PDF</button>
     </div>
+    <button id="generate-pdf">Gerar PDF</button>
     <script src="script.js"></script>
 </body>
 </html>
