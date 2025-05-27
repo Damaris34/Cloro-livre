@@ -8,92 +8,25 @@
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <h1>Controle de Cloro Livre</h1>
-        </header>
-
-        <section class="period-selector">
-            <label for="period">Gerar Relatório:</label>
-            <select id="period" class="input-field">
-                <option value="daily">Diário</option>
-                <option value="monthly">Mensal</option>
-            </select>
-        </section>
-
-        <section class="date-section">
-            <h2 class="section-title">Data:</h2>
-            <input type="date" id="date" class="input-field" value="2023-10-01">
-        </section>
-
-        <section class="location-section">
-            <h2 class="section-title">Localização dos Pontos</h2>
-            <div class="grid-container">
-                <div class="grid-item">
-                    <h3>Saída de Tratamento</h3>
-                    <div class="file-input">
-                        <label>Escolher Arquivo</label>
-                        <input type="file" class="input-field">
-                    </div>
-                    <div class="text-input">
-                        <label>Nenhum arquivo escolhido</label>
-                        <input type="text" class="input-field" placeholder="mg/L">
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <h3>Cozinha</h3>
-                    <div class="file-input">
-                        <label>Escolher Arquivo</label>
-                        <input type="file" class="input-field">
-                    </div>
-                    <div class="text-input">
-                        <label>Nenhum arquivo escolhido</label>
-                        <input type="text" class="input-field" placeholder="mg/L">
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <h3>Produção</h3>
-                    <div class="file-input">
-                        <label>Escolher Arquivo</label>
-                        <input type="file" class="input-field">
-                    </div>
-                    <div class="text-input">
-                        <label>Nenhum arquivo escolhido</label>
-                        <input type="text" class="input-field" placeholder="mg/L">
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <h3>Administração</h3>
-                    <div class="file-input">
-                        <label>Escolher Arquivo</label>
-                        <input type="file" class="input-field">
-                    </div>
-                    <div class="text-input">
-                        <label>Nenhum arquivo escolhido</label>
-                        <input type="text" class="input-field" placeholder="mg/L">
-                    </div>
-                </div>
-                <div class="grid-item">
-                    <h3>Recebimento</h3>
-                    <div class="file-input">
-                        <label>Escolher Arquivo</label>
-                        <input type="file" class="input-field">
-                    </div>
-                    <div class="text-input">
-                        <label>Nenhum arquivo escolhido</label>
-                        <input type="text" class="input-field" placeholder="mg/L">
-                    </div>
-                </div>
+        <h1>Controle de Cloro Livre</h1>
+        <div class="info-row">
+            <div class="info-box">
+                <h2>Data de Registro</h2>
+                <p id="data-registro"></p>
             </div>
-        </section>
-
-        <button class="button" id="generate-pdf">Gerar PDF</button>
-
-        <footer class="footer">
-            <p>© 2023 Controle de Cloro Livre</p>
-        </footer>
+            <div class="info-box">
+                <h2>Pontos de Saída</h2>
+                <ul>
+                    <li>Saída de Tratamento</li>
+                    <li>Cozinha</li>
+                    <li>Produção</li>
+                    <li>Administrativo</li>
+                    <li>Recebimento</li>
+                </ul>
+            </div>
+        </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
