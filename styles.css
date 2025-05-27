@@ -1,76 +1,70 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+.header {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px;
     text-align: center;
-    color: #333;
+    margin-bottom: 20px;
 }
 
-.info-row {
-    display: flex;
-    justify-content: space-between;
+.data-section {
+    background-color: #e6f7ff;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.localizacao-section {
     margin-top: 20px;
 }
 
-.info-box {
-    width: 48%;
+.localizacao-section h2 {
+    text-align: center;
+    color: #007BFF;
+}
+
+.pontos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.ponto-box {
+    width: 30%;
     border: 1px solid #ddd;
     padding: 10px;
     box-sizing: border-box;
     background-color: #f9f9f9;
+    margin-bottom: 20px;
 }
 
-.info-box h2 {
+.ponto-box h3 {
     border-bottom: 1px solid #ddd;
     padding-bottom: 5px;
     color: #007BFF;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin-bottom: 10px;
-}
-
-input[type="text"], input[type="date"] {
+input[type="text"], input[type="date"], input[type="file"] {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
     box-sizing: border-box;
     border: 1px solid #ddd;
     border-radius: 4px;
-}
-
-.photo-section {
-    margin-top: 20px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-    background-color: #f9f9f9;
-}
-
-.photo-box {
-    border: 1px dashed #ccc;
-    padding: 20px;
-    margin-top: 10px;
-    background-color: #fff;
-}
-
-.photo-upload {
-    margin-top: 10px;
 }
 
 button {
