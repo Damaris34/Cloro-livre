@@ -1,44 +1,83 @@
-document.getElementById('generate-pdf').addEventListener('click', function() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 
-    function roundedRect(x, y, w, h, r, style = 'S') {
-        doc.setDrawColor(0, 0, 255);
-        doc.setFillColor(240, 248, 255);
-        doc.roundedRect(x, y, w, h, r, r, style);
-    }
+.container {
+    width: 100%;
+    max-width: 800px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-    function addStyledText(text, x, y, size = 12, isBold = false) {
-        doc.setFontSize(size);
-        doc.setFont(isBold ? "helvetica" : "helvetica", isBold ? "bold" : "normal");
-        doc.text(text, x, y);
-    }
+.header, .footer {
+    background-color: #00008B;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
 
-    doc.setFillColor(0, 0, 139);
-    doc.rect(10, 10, 190, 20, 'FD');
-    addStyledText('Controle de Cloro Livre', 105, 20, 16, true);
+.section {
+    margin-bottom: 20px;
+    text-align: center;
+}
 
-    roundedRect(10, 40, 190, 20, 5, 'FD');
-    addStyledText(document.getElementById('date').value, 105, 50, 12, false);
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
-    addStyledText('Localização dos Pontos', 105, 70, 14, true);
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
 
-    const positions = [
-        { x: 20, y: 80, text: 'Saída de Tratamento' },
-        { x: 80, y: 80, text: 'Cozinha' },
-        { x: 140, y: 80, text: 'Produção' },
-        { x: 20, y: 140, text: 'Administração' },
-        { x: 80, y: 140, text: 'Recebimento' }
-    ];
+.grid-item {
+    border: 1px solid #00008B;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    background-color: #F0F8FF;
+}
 
-    positions.forEach(pos => {
-        roundedRect(pos.x, pos.y, 50, 50, 5, 'FD');
-        addStyledText(pos.text, pos.x + 25, pos.y + 45, 10, true);
-    });
+.input-field {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
-    doc.setFillColor(0, 0, 139);
-    doc.rect(10, 200, 190, 20, 'FD');
-    addStyledText('© 2023 Controle de Cloro Livre', 105, 210, 10, false);
+.button {
+    background-color: #00008B;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 
-    doc.save('relatorio_cloro_livre.pdf');
-});
+.period-selector, .date-section, .location-section {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.file-input, .text-input {
+    margin-bottom: 10px;
+}
