@@ -1,30 +1,44 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const today = new Date();
-    const formattedDate = today.toISOString().split('T')[0];
-    document.getElementById('data-registro').value = formattedDate;
+document.getElementById('generate-pdf').addEventListener('click', function() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-    document.getElementById('generate-pdf').addEventListener('click', function() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+    function roundedRect(x, y, w, h, r, style = 'S') {
+        doc.setDrawColor(0, 0, 255);
+        doc.setFillColor(240, 248, 255);
+        doc.roundedRect(x, y, w, h, r, r, style);
+    }
 
-        // Captura o conteúdo do container
-        const element = document.getElementById('pdf-content');
+    function addStyledText(text, x, y, size = 12, isBold = false) {
+        doc.setFontSize(size);
+        doc.setFont(isBold ? "helvetica" : "helvetica", isBold ? "bold" : "normal");
+        doc.text(text, x, y);
+    }
 
-        // Usa html2canvas para capturar o conteúdo como imagem
-        html2canvas(element, {
-            scale: 2, // Aumenta a resolução para melhor qualidade
-            useCORS: true, // Permite carregar imagens de origens diferentes
-            allowTaint: true // Permite carregar imagens com taint
-        }).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
+    doc.setFillColor(0, 0, 139);
+    doc.rect(10, 10, 190, 20, 'FD');
+    addStyledText('Controle de Cloro Livre', 105, 20, 16, true);
 
-            // Adiciona a imagem ao PDF
-            doc.addImage(imgData, 'PNG', 10, 10, 180, 0);
+    roundedRect(10, 40, 190, 20, 5, 'FD');
+    addStyledText(document.getElementById('date').value, 105, 50, 12, false);
 
-            // Salva o PDF
-            doc.save('controle-cloro-livre.pdf');
-        }).catch(error => {
-            console.error("Erro ao gerar PDF:", error);
-        });
+    addStyledText('Localização dos Pontos', 105, 70, 14, true);
+
+    const positions = [
+        { x: 20, y: 80, text: 'Saída de Tratamento' },
+        { x: 80, y: 80, text: 'Cozinha' },
+        { x: 140, y: 80, text: 'Produção' },
+        { x: 20, y: 140, text: 'Administração' },
+        { x: 80, y: 140, text: 'Recebimento' }
+    ];
+
+    positions.forEach(pos => {
+        roundedRect(pos.x, pos.y, 50, 50, 5, 'FD');
+        addStyledText(pos.text, pos.x + 25, pos.y + 45, 10, true);
     });
+
+    doc.setFillColor(0, 0, 139);
+    doc.rect(10, 200, 190, 20, 'FD');
+    addStyledText('© 2023 Controle de Cloro Livre', 105, 210, 10, false);
+
+    doc.save('relatorio_cloro_livre.pdf');
 });
