@@ -14,7 +14,10 @@ document.addEventListener('DOMContentLoaded', function() {
             x: 10,
             y: 10,
             width: 190,
-            windowWidth: 800
+            windowWidth: 800,
+            margin: [10, 10, 10, 10],
+            autoPaging: 'text',
+            pagesplit: true
         });
     });
 });
