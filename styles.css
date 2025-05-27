@@ -1,89 +1,87 @@
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
     background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .container {
-    width: 80%;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 800px;
+    background: white;
     padding: 20px;
-    background-color: #fff;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+.header, .footer {
+    background-color: #00008B;
+    color: white;
     text-align: center;
-    color: #333;
-}
-
-.info-row {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.info-box {
-    width: 48%;
-    border: 1px solid #ddd;
     padding: 10px;
-    box-sizing: border-box;
-    background-color: #f9f9f9;
+    border-radius: 5px;
 }
 
-.info-box h2 {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
-    color: #007BFF;
+.section {
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
     margin-bottom: 10px;
 }
 
-input[type="text"], input[type="date"] {
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.grid-item {
+    border: 1px solid #00008B;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    background-color: #F0F8FF;
+}
+
+.input-field {
     width: 100%;
     padding: 8px;
-    margin-top: 5px;
-    box-sizing: border-box;
-    border: 1px solid #ddd;
+    margin: 5px 0;
+    border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-.photo-section {
-    margin-top: 20px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-    background-color: #f9f9f9;
-}
-
-.photo-box {
-    border: 1px dashed #ccc;
-    padding: 20px;
-    margin-top: 10px;
-    background-color: #fff;
-}
-
-.photo-upload {
-    margin-top: 10px;
-}
-
-button {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #007BFF;
+.button {
+    background-color: #00008B;
     color: white;
     border: none;
+    padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-button:hover {
-    background-color: #0056b3;
+.period-selector {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.date-section {
+    margin-bottom: 20px;
+}
+
+.location-section {
+    margin-bottom: 20px;
 }
