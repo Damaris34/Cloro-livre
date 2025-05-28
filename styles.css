@@ -53,6 +53,13 @@ header {
     margin: 10px;
 }
 
+.location-image {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
 .controls {
     text-align: center;
     margin-top: 20px;
