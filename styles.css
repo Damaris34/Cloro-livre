@@ -1,56 +1,62 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f8ff;
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    color: #333;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .container {
-    width: 90%;
-    margin: auto;
+    width: 100%;
+    max-width: 800px;
+    background: white;
     padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-header {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #4682b4;
+header, footer {
+    background-color: #00008B;
     color: white;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+main {
+    padding: 20px;
 }
 
 .dashboard {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
 .card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    border: 1px solid #00008B;
+    border-radius: 5px;
+    padding: 10px;
     text-align: center;
-    width: 30%;
+    background-color: #F0F8FF;
+    flex: 1;
+    margin: 0 5px;
 }
 
 .locations {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .location-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    border: 1px solid #00008B;
+    border-radius: 5px;
+    padding: 10px;
     text-align: center;
-    width: 30%;
-    margin: 10px;
+    background-color: #F0F8FF;
+    margin-bottom: 10px;
 }
 
 .location-image {
@@ -61,18 +67,31 @@ header {
 }
 
 input[type="text"], input[type="date"] {
-    width: 80%;
+    width: 100%;
     padding: 8px;
-    margin: 10px auto;
+    margin: 5px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
+h2, h3 {
+    margin: 0 0 10px 0;
+}
+
 footer {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #4682b4;
-    color: white;
-    border-radius: 10px;
     margin-top: 20px;
+}
+
+.button {
+    background-color: #00008B;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
