@@ -1,1 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Cloro Livre</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Controle de Cloro Livre</h1>
+        </header>
+        <main>
+            <section class="dashboard">
+                <div class="card">
+                    <h2>Data</h2>
+                    <input type="date" id="date" value="">
+                </div>
+            </section>
+            <section class="locations">
+                <h2>Localização dos Pontos</h2>
+                <div class="location-card">
+                    <h3>Saída de Tratamento</h3>
+                    <div class="file-upload">
+                        <label for="file-input-treatment" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-treatment" accept="image/*" class="file-input">
+                        <span class="file-chosen">Nenhum arquivo escolhido</span>
+                    </div>
+                    <img src="placeholder.jpg" alt="Imagem Saída de Tratamento" class="location-image">
+                    <input type="text" id="treatment-exit" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Cozinha</h3>
+                    <div class="file-upload">
+                        <label for="file-input-kitchen" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-kitchen" accept="image/*" class="file-input">
+                        <span class="file-chosen">Nenhum arquivo escolhido</span>
+                    </div>
+                    <img src="placeholder.jpg" alt="Imagem Cozinha" class="location-image">
+                    <input type="text" id="kitchen" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Produção</h3>
+                    <div class="file-upload">
+                        <label for="file-input-production" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-production" accept="image/*" class="file-input">
+                        <span class="file-chosen">Nenhum arquivo escolhido</span>
+                    </div>
+                    <img src="placeholder.jpg" alt="Imagem Produção" class="location-image">
+                    <input type="text" id="production" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Administração</h3>
+                    <div class="file-upload">
+                        <label for="file-input-administration" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-administration" accept="image/*" class="file-input">
+                        <span class="file-chosen">Nenhum arquivo escolhido</span>
+                    </div>
+                    <img src="placeholder.jpg" alt="Imagem Administração" class="location-image">
+                    <input type="text" id="administration" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Recebimento</h3>
+                    <div class="file-upload">
+                        <label for="file-input-receiving" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-receiving" accept="image/*" class="file-input">
+                        <span class="file-chosen">Nenhum arquivo escolhido</span>
+                    </div>
+                    <img src="placeholder.jpg" alt="Imagem Recebimento" class="location-image">
+                    <input type="text" id="receiving" placeholder="-- mg/L">
+                </div>
+            </section>
+            <section class="controls">
+                <button id="generate-pdf">Gerar PDF</button>
+            </section>
+        </main>
+        <footer>
+            <p>© 2023 Controle de Cloro Livre</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
 
