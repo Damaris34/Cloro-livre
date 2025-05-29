@@ -23,38 +23,57 @@
                 <h2>Localização dos Pontos</h2>
                 <div class="location-card">
                     <h3>Saída de Tratamento</h3>
-                    <input type="file" accept="image/*" class="file-input">
+                    <div class="file-upload">
+                        <label for="file-input-treatment" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-treatment" accept="image/*" class="file-input">
+                        <span class="file-chosen">Nenhum arquivo escolhido</span>
+                    </div>
                     <img src="placeholder.jpg" alt="Imagem Saída de Tratamento" class="location-image">
                     <input type="text" id="treatment-exit" placeholder="-- mg/L">
                 </div>
                 <div class="location-card">
                     <h3>Cozinha</h3>
-                    <input type="file" accept="image/*" class="file-input">
+                    <div class="file-upload">
+                        <label for="file-input-kitchen" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-kitchen" accept="image/*" class="file-input">
+                        <span class="file-chosen">Nenhum arquivo escolhido</span>
+                    </div>
                     <img src="placeholder.jpg" alt="Imagem Cozinha" class="location-image">
                     <input type="text" id="kitchen" placeholder="-- mg/L">
                 </div>
                 <div class="location-card">
                     <h3>Produção</h3>
-                    <input type="file" accept="image/*" class="file-input">
+                    <div class="file-upload">
+                        <label for="file-input-production" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-production" accept="image/*" class="file-input">
+                        <span class="file-chosen">Nenhum arquivo escolhido</span>
+                    </div>
                     <img src="placeholder.jpg" alt="Imagem Produção" class="location-image">
                     <input type="text" id="production" placeholder="-- mg/L">
                 </div>
                 <div class="location-card">
                     <h3>Administração</h3>
-                    <input type="file" accept="image/*" class="file-input">
+                    <div class="file-upload">
+                        <label for="file-input-administration" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-administration" accept="image/*" class="file-input">
+                        <span class="file-chosen">Nenhum arquivo escolhido</span>
+                    </div>
                     <img src="placeholder.jpg" alt="Imagem Administração" class="location-image">
                     <input type="text" id="administration" placeholder="-- mg/L">
                 </div>
                 <div class="location-card">
                     <h3>Recebimento</h3>
-                    <input type="file" accept="image/*" class="file-input">
+                    <div class="file-upload">
+                        <label for="file-input-receiving" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-receiving" accept="image/*" class="file-input">
+                        <span class="file-chosen">Nenhum arquivo escolhido</span>
+                    </div>
                     <img src="placeholder.jpg" alt="Imagem Recebimento" class="location-image">
                     <input type="text" id="receiving" placeholder="-- mg/L">
                 </div>
             </section>
             <section class="controls">
-                <button id="increase">Aumentar Cloro</button>
-                <button id="decrease">Diminuir Cloro</button>
+                <button id="generate-pdf">Gerar PDF</button>
             </section>
         </main>
         <footer>
