@@ -1,25 +1,59 @@
-document.getElementById('generate-pdf').addEventListener('click', function() {
-    const { jsPDF } = window.jspdf;
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Cloro Livre</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Controle de Cloro Livre</h1>
+        </header>
+        <main>
+            <section class="dashboard">
+                <div class="card">
+                    <h2>Data</h2>
+                    <input type="date" id="date" value="">
+                </div>
+            </section>
+            <section class="locations">
+                <h2>Localização dos Pontos</h2>
+                <div class="location-card">
+                    <h3>Saída de Tratamento</h3>
+                    <img src="placeholder.jpg" alt="Imagem Saída de Tratamento" class="location-image">
+                    <input type="text" id="treatment-exit" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Cozinha</h3>
+                    <img src="placeholder.jpg" alt="Imagem Cozinha" class="location-image">
+                    <input type="text" id="kitchen" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Produção</h3>
+                    <img src="placeholder.jpg" alt="Imagem Produção" class="location-image">
+                    <input type="text" id="production" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Administração</h3>
+                    <img src="placeholder.jpg" alt="Imagem Administração" class="location-image">
+                    <input type="text" id="administration" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Recebimento</h3>
+                    <img src="placeholder.jpg" alt="Imagem Recebimento" class="location-image">
+                    <input type="text" id="receiving" placeholder="-- mg/L">
+                </div>
+            </section>
+        </main>
+        <button class="button" id="generate-pdf">Gerar PDF</button>
+        <footer>
+            <p>© 2023 Controle de Cloro Livre</p>
+        </footer>
+    </div>
 
-    const doc = new jsPDF();
-
-    doc.text('Relatório de Controle de Cloro Livre', 10, 10);
-    doc.text(`Data: ${document.getElementById('date').value}`, 10, 20);
-
-    doc.text('Saída de Tratamento:', 10, 30);
-    doc.text(document.getElementById('treatment-exit').value, 50, 30);
-
-    doc.text('Cozinha:', 10, 40);
-    doc.text(document.getElementById('kitchen').value, 50, 40);
-
-    doc.text('Produção:', 10, 50);
-    doc.text(document.getElementById('production').value, 50, 50);
-
-    doc.text('Administração:', 10, 60);
-    doc.text(document.getElementById('administration').value, 50, 60);
-
-    doc.text('Recebimento:', 10, 70);
-    doc.text(document.getElementById('receiving').value, 50, 70);
-
-    doc.save('relatorio_cloro_livre.pdf');
-});
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
