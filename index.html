@@ -1,1 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Cloro Livre</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Controle de Cloro Livre</h1>
+        </header>
+        <main>
+            <section class="dashboard">
+                <div class="card">
+                    <h2>Data</h2>
+                    <input type="date" id="date" value="">
+                </div>
+            </section>
+            <section class="locations">
+                <h2>Localização dos Pontos</h2>
+                <div class="location-card">
+                    <h3>Saída de Tratamento</h3>
+                    <input type="file" id="treatment-exit-image" accept="image/*">
+                    <input type="text" id="treatment-exit" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Cozinha</h3>
+                    <input type="file" id="kitchen-image" accept="image/*">
+                    <input type="text" id="kitchen" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Produção</h3>
+                    <input type="file" id="production-image" accept="image/*">
+                    <input type="text" id="production" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Administração</h3>
+                    <input type="file" id="administration-image" accept="image/*">
+                    <input type="text" id="administration" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Recebimento</h3>
+                    <input type="file" id="receiving-image" accept="image/*">
+                    <input type="text" id="receiving" placeholder="-- mg/L">
+                </div>
+            </section>
+            <section class="controls">
+                <button id="generate-pdf">Gerar PDF</button>
+            </section>
+        </main>
+        <footer>
+            <p>© 2023 Controle de Cloro Livre</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
 
