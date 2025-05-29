@@ -6,14 +6,135 @@
     <title>Controle de Cloro Livre</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <!-- Inclua a biblioteca jsPDF localmente -->
-    <script src="jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-    <!-- Seu conteúdo HTML aqui -->
-
+    <div class="container">
+        <header>
+            <h1>Controle de Cloro Livre</h1>
+        </header>
+        <main>
+            <section class="dashboard">
+                <div class="card">
+                    <h2>Data</h2>
+                    <input type="date" id="date" value="">
+                </div>
+            </section>
+            <section class="locations">
+                <h2>Localização dos Pontos</h2>
+                <div class="location-card">
+                    <h3>Saída de Tratamento</h3>
+                    <div class="file-upload">
+                        <label for="file-input-treatment" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-treatment" accept="image/*" class="file-input">
+                    </div>
+                    <input type="text" id="treatment-exit" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Cozinha</h3>
+                    <div class="file-upload">
+                        <label for="file-input-kitchen" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-kitchen" accept="image/*" class="file-input">
+                    </div>
+                    <input type="text" id="kitchen" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Produção</h3>
+                    <div class="file-upload">
+                        <label for="file-input-production" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-production" accept="image/*" class="file-input">
+                    </div>
+                    <input type="text" id="production" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Administração</h3>
+                    <div class="file-upload">
+                        <label for="file-input-administration" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-administration" accept="image/*" class="file-input">
+                    </div>
+                    <input type="text" id="administration" placeholder="-- mg/L">
+                </div>
+                <div class="location-card">
+                    <h3>Recebimento</h3>
+                    <div class="file-upload">
+                        <label for="file-input-receiving" class="file-label">Escolher Arquivo</label>
+                        <input type="file" id="file-input-receiving" accept="image/*" class="file-input">
+                    </div>
+                    <input type="text" id="receiving" placeholder="-- mg/L">
+                </div>
+            </section>
+            <section class="controls">
+                <button id="generate-pdf">Gerar PDF</button>
+            </section>
+        </main>
+        <footer>
+            <p>© 2023 Controle de Cloro Livre</p>
+        </footer>
+    </div>
     <script>
-        // O código JavaScript acima deve ser colocado aqui
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM fully loaded and parsed");
+
+            if (typeof jsPDF !== 'undefined') {
+                console.log("jsPDF library loaded successfully");
+            } else {
+                console.error("jsPDF library not loaded");
+            }
+
+            document.getElementById('generate-pdf').addEventListener('click', function() {
+                console.log("Generate PDF button clicked");
+
+                if (typeof jsPDF !== 'undefined') {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+
+                    // Adiciona um título ao PDF
+                    doc.setFontSize(22);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('Controle de Cloro Livre', 105, 15, { align: 'center' });
+
+                    // Adiciona a data ao PDF
+                    const date = document.getElementById('date').value || 'N/A';
+                    doc.setFontSize(16);
+                    doc.setFont('helvetica', 'normal');
+                    doc.text(`Data: ${date}`, 20, 30);
+
+                    // Adiciona uma linha horizontal para separar o cabeçalho do conteúdo
+                    doc.setDrawColor(0);
+                    doc.line(20, 35, 190, 35);
+
+                    // Adiciona os dados dos pontos de localização ao PDF
+                    doc.setFontSize(14);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('Localização dos Pontos:', 20, 50);
+
+                    const locations = [
+                        { name: 'Saída de Tratamento', value: document.getElementById('treatment-exit').value || 'N/A' },
+                        { name: 'Cozinha', value: document.getElementById('kitchen').value || 'N/A' },
+                        { name: 'Produção', value: document.getElementById('production').value || 'N/A' },
+                        { name: 'Administração', value: document.getElementById('administration').value || 'N/A' },
+                        { name: 'Recebimento', value: document.getElementById('receiving').value || 'N/A' }
+                    ];
+
+                    doc.setFont('helvetica', 'normal');
+                    let y = 60;
+                    locations.forEach(location => {
+                        doc.text(`${location.name}: ${location.value}`, 20, y);
+                        y += 10;
+                    });
+
+                    // Adiciona um rodapé
+                    doc.setFontSize(10);
+                    doc.text('© 2023 Controle de Cloro Livre', 105, 280, { align: 'center' });
+
+                    // Salva o PDF
+                    doc.save('Controle_de_Cloro_Livre.pdf');
+                    console.log("PDF generated successfully");
+                } else {
+                    console.error("jsPDF is not defined");
+                }
+            });
+        });
     </script>
 </body>
 </html>
