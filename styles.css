@@ -7,8 +7,7 @@ body {
 }
 
 .container {
-    width: 95%;
-    max-width: 1200px;
+    width: 90%;
     margin: auto;
     padding: 20px;
 }
@@ -24,8 +23,7 @@ header {
 
 .dashboard {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
     margin-bottom: 20px;
 }
 
@@ -35,9 +33,7 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
-    width: 100%;
-    max-width: 300px;
-    margin: 10px;
+    width: 30%;
 }
 
 .locations {
@@ -53,8 +49,7 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
-    width: 100%;
-    max-width: 300px;
+    width: 30%;
     margin: 10px;
 }
 
@@ -73,26 +68,6 @@ input[type="text"], input[type="date"] {
     border-radius: 4px;
 }
 
-.controls {
-    text-align: center;
-    margin-top: 20px;
-}
-
-button {
-    background-color: #4682b4;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 0 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #5f9ea0;
-}
-
 footer {
     text-align: center;
     padding: 20px 0;
@@ -101,11 +76,3 @@ footer {
     border-radius: 10px;
     margin-top: 20px;
 }
-
-@media (max-width: 768px) {
-    .dashboard, .locations {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
