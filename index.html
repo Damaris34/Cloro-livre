@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Controle de Cloro Livre</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div class="container">
@@ -21,6 +20,10 @@
                 <div class="card">
                     <h2>Nível Atual</h2>
                     <input type="text" id="current-level" placeholder="-- mg/L">
+                </div>
+                <div class="card">
+                    <h2>Alvo</h2>
+                    <input type="text" id="target-level" placeholder="2.0 mg/L">
                 </div>
             </section>
             <section class="locations">
@@ -51,16 +54,10 @@
                     <input type="text" id="receiving" placeholder="-- mg/L">
                 </div>
             </section>
-            <section class="controls">
-                <button id="increase">Aumentar Cloro</button>
-                <button id="decrease">Diminuir Cloro</button>
-            </section>
         </main>
         <footer>
             <p>© 2023 Controle de Cloro Livre</p>
         </footer>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>
-
