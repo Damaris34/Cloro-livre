@@ -3,61 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Cloro Livre</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Gerador de Relatórios</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .report-section {
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 300px;
+        }
+        .card h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .card input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Controle de Cloro Livre</h1>
-        </header>
-        <main>
-            <section class="dashboard">
+        <h1>Gerador de Relatórios</h1>
+        <div class="report-section">
+            <h2>Informações do Relatório</h2>
+            <form id="reportForm">
                 <div class="card">
                     <h2>Data</h2>
-                    <input type="date" id="date" value="">
+                    <input type="date" id="reportDate" name="reportDate">
                 </div>
-                <div class="card">
-                    <h2>Nível Atual</h2>
-                    <input type="text" id="current-level" placeholder="-- mg/L">
-                </div>
-                <div class="card">
-                    <h2>Alvo</h2>
-                    <input type="text" id="target-level" placeholder="2.0 mg/L">
-                </div>
-            </section>
-            <section class="locations">
-                <h2>Localização dos Pontos</h2>
-                <div class="location-card">
-                    <h3>Saída de Tratamento</h3>
-                    <img src="placeholder.jpg" alt="Imagem Saída de Tratamento" class="location-image">
-                    <input type="text" id="treatment-exit" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Cozinha</h3>
-                    <img src="placeholder.jpg" alt="Imagem Cozinha" class="location-image">
-                    <input type="text" id="kitchen" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Produção</h3>
-                    <img src="placeholder.jpg" alt="Imagem Produção" class="location-image">
-                    <input type="text" id="production" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Administração</h3>
-                    <img src="placeholder.jpg" alt="Imagem Administração" class="location-image">
-                    <input type="text" id="administration" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Recebimento</h3>
-                    <img src="placeholder.jpg" alt="Imagem Recebimento" class="location-image">
-                    <input type="text" id="receiving" placeholder="-- mg/L">
-                </div>
-            </section>
-        </main>
-        <footer>
-            <p>© 2023 Controle de Cloro Livre</p>
-        </footer>
+
+                <label for="reportTitle">Título do Relatório:</label><br>
+                <input type="text" id="reportTitle" name="reportTitle" value="Relatório de Controle de Cloro Livre"><br><br>
+
+                <label for="reportDetails">Detalhes do Relatório:</label><br>
+                <textarea id="reportDetails" name="reportDetails" rows="4" cols="50">Insira os detalhes do relatório aqui...</textarea><br><br>
+
+                <button type="button" id="generatePDF">Gerar PDF</button>
+            </form>
+        </div>
     </div>
+
+    <script>
+        document.getElementById('generatePDF').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Captura os valores dos campos do formulário
+            const reportTitle = document.getElementById('reportTitle').value;
+            const reportDate = document.getElementById('reportDate').value;
+            const reportDetails = document.getElementById('reportDetails').value;
+
+            // Adiciona conteúdo ao PDF
+            doc.setFontSize(22);
+            doc.text(reportTitle, 105, 15, { align: 'center' });
+
+            doc.setFontSize(16);
+            doc.text(`Data: ${reportDate}`, 20, 30);
+
+            doc.setFontSize(12);
+            doc.text('Detalhes do Relatório:', 20, 50);
+
+            // Divide o texto em linhas para caber no PDF
+            const splitDetails = doc.splitTextToSize(reportDetails, 180);
+            doc.text(splitDetails, 20, 60);
+
+            // Salva o PDF
+            doc.save('Relatorio.pdf');
+        });
+    </script>
 </body>
 </html>
