@@ -11,7 +11,7 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     // Função para adicionar um título com estilo
     const addTitle = (text, y) => {
         doc.setFontSize(22);
-        doc.setTextColor(255, 255, 255); // Cor do texto branca
+        doc.setTextColor(255, 255, 255);
         doc.setFont("helvetica", "bold");
         doc.text(text, 105, y, { align: 'center' });
     };
@@ -43,7 +43,13 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     doc.text(`Data: ${document.getElementById('date').value}`, 20, 50);
 
     // Adiciona as seções ao PDF com fundo cinza claro
-    addBackground(55, 90, [240, 240, 240]);
+    addBackground(55, 100, [240, 240, 240]);
+
+    // Adiciona bordas ao redor das seções
+    doc.setDrawColor(0);
+    doc.setLineWidth(0.5);
+    doc.rect(10, 55, 190, 100);
+
     addStyledSection(65, 'Saída de Tratamento:', document.getElementById('treatment-exit').value);
     addStyledSection(85, 'Cozinha:', document.getElementById('kitchen').value);
     addStyledSection(105, 'Produção:', document.getElementById('production').value);
