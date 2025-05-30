@@ -3,134 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Cloro Livre</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <!-- Inclua a biblioteca jsPDF localmente -->
-    <script src="jspdf.umd.min.js"></script>
+    <title>Gerador de Relatórios</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .report-section {
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Controle de Cloro Livre</h1>
-        </header>
-        <main>
-            <section class="dashboard">
-                <div class="card">
-                    <h2>Data</h2>
-                    <input type="date" id="date" value="">
-                </div>
-            </section>
-            <section class="locations">
-                <h2>Localização dos Pontos</h2>
-                <div class="location-card">
-                    <h3>Saída de Tratamento</h3>
-                    <div class="file-upload">
-                        <label for="file-input-treatment" class="file-label">Escolher Arquivo</label>
-                        <input type="file" id="file-input-treatment" accept="image/*" class="file-input">
-                    </div>
-                    <input type="text" id="treatment-exit" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Cozinha</h3>
-                    <div class="file-upload">
-                        <label for="file-input-kitchen" class="file-label">Escolher Arquivo</label>
-                        <input type="file" id="file-input-kitchen" accept="image/*" class="file-input">
-                    </div>
-                    <input type="text" id="kitchen" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Produção</h3>
-                    <div class="file-upload">
-                        <label for="file-input-production" class="file-label">Escolher Arquivo</label>
-                        <input type="file" id="file-input-production" accept="image/*" class="file-input">
-                    </div>
-                    <input type="text" id="production" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Administração</h3>
-                    <div class="file-upload">
-                        <label for="file-input-administration" class="file-label">Escolher Arquivo</label>
-                        <input type="file" id="file-input-administration" accept="image/*" class="file-input">
-                    </div>
-                    <input type="text" id="administration" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Recebimento</h3>
-                    <div class="file-upload">
-                        <label for="file-input-receiving" class="file-label">Escolher Arquivo</label>
-                        <input type="file" id="file-input-receiving" accept="image/*" class="file-input">
-                    </div>
-                    <input type="text" id="receiving" placeholder="-- mg/L">
-                </div>
-            </section>
-            <section class="controls">
-                <button id="generate-pdf">Gerar PDF</button>
-            </section>
-            <section class="document-info">
-                <h2>Informações do Documento Gerado</h2>
-                <div id="document-details">
-                    <p><strong>Nome do Arquivo:</strong> <span id="file-name">Controle_de_Cloro_Livre.pdf</span></p>
-                    <p><strong>Data de Geração:</strong> <span id="generation-date">--/--/----</span></p>
-                    <p><strong>Resumo dos Dados:</strong> <span id="data-summary">Dados dos pontos de localização</span></p>
-                </div>
-            </section>
-        </main>
-        <footer>
-            <p>© 2023 Controle de Cloro Livre</p>
-        </footer>
+        <h1>Gerador de Relatórios</h1>
+        <div class="report-section">
+            <h2>Informações do Relatório</h2>
+            <form id="reportForm">
+                <label for="reportTitle">Título do Relatório:</label><br>
+                <input type="text" id="reportTitle" name="reportTitle" value="Relatório de Controle de Cloro Livre"><br><br>
+
+                <label for="reportDate">Data:</label><br>
+                <input type="date" id="reportDate" name="reportDate"><br><br>
+
+                <label for="reportDetails">Detalhes do Relatório:</label><br>
+                <textarea id="reportDetails" name="reportDetails" rows="4" cols="50">Insira os detalhes do relatório aqui...</textarea><br><br>
+
+                <button type="button" id="generatePDF">Gerar PDF</button>
+            </form>
+        </div>
     </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('generatePDF').addEventListener('click', function() {
             const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
 
-            document.getElementById('generate-pdf').addEventListener('click', function() {
-                // Atualiza as informações do documento gerado
-                const currentDate = new Date();
-                const formattedDate = currentDate.toLocaleDateString('pt-BR');
-                document.getElementById('generation-date').textContent = formattedDate;
+            // Captura os valores dos campos do formulário
+            const reportTitle = document.getElementById('reportTitle').value;
+            const reportDate = document.getElementById('reportDate').value;
+            const reportDetails = document.getElementById('reportDetails').value;
 
-                // Cria uma nova instância de jsPDF
-                const doc = new jsPDF();
+            // Adiciona conteúdo ao PDF
+            doc.setFontSize(22);
+            doc.text(reportTitle, 105, 15, { align: 'center' });
 
-                // Adiciona um título ao PDF
-                doc.setFontSize(22);
-                doc.text('Controle de Cloro Livre', 105, 15, { align: 'center' });
+            doc.setFontSize(16);
+            doc.text(`Data: ${reportDate}`, 20, 30);
 
-                // Adiciona a data ao PDF
-                const date = document.getElementById('date').value || 'N/A';
-                doc.setFontSize(16);
-                doc.text(`Data: ${date}`, 20, 30);
+            doc.setFontSize(12);
+            doc.text('Detalhes do Relatório:', 20, 50);
 
-                // Adiciona uma linha horizontal para separar o cabeçalho do conteúdo
-                doc.setDrawColor(0);
-                doc.line(20, 35, 190, 35);
+            // Divide o texto em linhas para caber no PDF
+            const splitDetails = doc.splitTextToSize(reportDetails, 180);
+            doc.text(splitDetails, 20, 60);
 
-                // Adiciona os dados dos pontos de localização ao PDF
-                doc.setFontSize(14);
-                doc.text('Localização dos Pontos:', 20, 50);
-
-                const locations = [
-                    { name: 'Saída de Tratamento', value: document.getElementById('treatment-exit').value || 'N/A' },
-                    { name: 'Cozinha', value: document.getElementById('kitchen').value || 'N/A' },
-                    { name: 'Produção', value: document.getElementById('production').value || 'N/A' },
-                    { name: 'Administração', value: document.getElementById('administration').value || 'N/A' },
-                    { name: 'Recebimento', value: document.getElementById('receiving').value || 'N/A' }
-                ];
-
-                let y = 60;
-                locations.forEach(location => {
-                    doc.text(`${location.name}: ${location.value}`, 20, y);
-                    y += 10;
-                });
-
-                // Adiciona um rodapé
-                doc.setFontSize(10);
-                doc.text('© 2023 Controle de Cloro Livre', 105, 280, { align: 'center' });
-
-                // Salva o PDF
-                doc.save('Controle_de_Cloro_Livre.pdf');
-            });
+            // Salva o PDF
+            doc.save('Relatorio.pdf');
         });
     </script>
 </body>
