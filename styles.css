@@ -1,68 +1,94 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Cloro Livre</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Controle de Cloro Livre</h1>
-        </header>
-        <main>
-            <section class="dashboard">
-                <div class="card">
-                    <h2>Data</h2>
-                    <input type="date" id="date" value="">
-                </div>
-                <div class="card">
-                    <h2>Nível Atual</h2>
-                    <input type="text" id="current-level" placeholder="-- mg/L">
-                </div>
-                <div class="card">
-                    <h2>Alvo</h2>
-                    <input type="text" id="target-level" placeholder="2.0 mg/L">
-                </div>
-            </section>
-            <section class="locations">
-                <h2>Localização dos Pontos</h2>
-                <div class="location-card">
-                    <h3>Saída de Tratamento</h3>
-                    <img src="placeholder.jpg" alt="Imagem Saída de Tratamento" class="location-image">
-                    <input type="text" id="treatment-exit" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Cozinha</h3>
-                    <img src="placeholder.jpg" alt="Imagem Cozinha" class="location-image">
-                    <input type="text" id="kitchen" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Produção</h3>
-                    <img src="placeholder.jpg" alt="Imagem Produção" class="location-image">
-                    <input type="text" id="production" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Administração</h3>
-                    <img src="placeholder.jpg" alt="Imagem Administração" class="location-image">
-                    <input type="text" id="administration" placeholder="-- mg/L">
-                </div>
-                <div class="location-card">
-                    <h3>Recebimento</h3>
-                    <img src="placeholder.jpg" alt="Imagem Recebimento" class="location-image">
-                    <input type="text" id="receiving" placeholder="-- mg/L">
-                </div>
-            </section>
-            <section class="controls">
-                <button id="increase">Aumentar Cloro</button>
-                <button id="decrease">Diminuir Cloro</button>
-            </section>
-        </main>
-        <footer>
-            <p>© 2023 Controle de Cloro Livre</p>
-        </footer>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #4682b4;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.dashboard {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 30%;
+}
+
+.locations {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.location-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 30%;
+    margin: 10px;
+}
+
+input[type="text"], input[type="date"], input[type="file"] {
+    width: 80%;
+    padding: 8px;
+    margin: 10px auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="file"] {
+    padding: 5px;
+}
+
+.controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+button {
+    background-color: #4682b4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #5f9ea0;
+}
+
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #4682b4;
+    color: white;
+    border-radius: 10px;
+    margin-top: 20px;
+}
