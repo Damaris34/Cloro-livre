@@ -11,7 +11,7 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     // Função para adicionar um título com estilo
     const addTitle = (text, y) => {
         doc.setFontSize(22);
-        doc.setTextColor(255, 255, 255); // Cor do texto branca
+        doc.setTextColor(255, 255, 255);
         doc.setFont("helvetica", "bold");
         doc.text(text, 105, y, { align: 'center' });
     };
@@ -19,49 +19,49 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     // Função para adicionar seções ao PDF com estilo
     const addStyledSection = (y, title, value) => {
         doc.setFontSize(12);
-        doc.setTextColor(0, 0, 139); // Cor do texto azul escuro
+        doc.setTextColor(0);
         doc.setFont("helvetica", "bold");
         doc.text(title, 20, y);
 
         doc.setFont("helvetica", "normal");
-        doc.setTextColor(0); // Cor do texto preto para os valores
         doc.text(value, 100, y);
 
         // Adiciona uma linha horizontal abaixo de cada seção para separação
-        doc.setDrawColor(139, 0, 0); // Cor da linha vermelha escura
+        doc.setDrawColor(200);
         doc.setLineWidth(0.2);
         doc.line(20, y + 2, 190, y + 2);
     };
 
-    // Adiciona o cabeçalho com fundo verde
-    addBackground(10, 20, [34, 139, 34]); // Cor de fundo verde
+    // Adiciona o cabeçalho com fundo azul
+    addBackground(10, 20, [40, 116, 166]);
     addTitle('Relatório de Controle de Cloro Livre', 25);
 
     // Adiciona a data
     doc.setFontSize(14);
-    doc.setTextColor(0); // Cor do texto preto
+    doc.setTextColor(0);
     doc.setFont("helvetica", "normal");
     doc.text(`Data: ${document.getElementById('date').value}`, 20, 50);
 
-    // Adiciona as seções ao PDF com fundo amarelo claro
-    addBackground(55, 100, [255, 255, 224]); // Cor de fundo amarelo claro
+    // Adiciona as seções ao PDF com fundo cinza claro
+    addBackground(60, 100, [240, 240, 240]);
 
     // Adiciona bordas ao redor das seções
-    doc.setDrawColor(34, 139, 34); // Cor da borda verde
+    doc.setDrawColor(0);
     doc.setLineWidth(0.5);
-    doc.rect(10, 55, 190, 100);
+    doc.rect(10, 60, 190, 100);
 
-    addStyledSection(65, 'Saída de Tratamento:', document.getElementById('treatment-exit').value);
-    addStyledSection(85, 'Cozinha:', document.getElementById('kitchen').value);
-    addStyledSection(105, 'Produção:', document.getElementById('production').value);
-    addStyledSection(125, 'Administração:', document.getElementById('administration').value);
-    addStyledSection(145, 'Recebimento:', document.getElementById('receiving').value);
+    // Adiciona seções com melhor espaçamento
+    addStyledSection(70, 'Saída de Tratamento:', document.getElementById('treatment-exit').value);
+    addStyledSection(90, 'Cozinha:', document.getElementById('kitchen').value);
+    addStyledSection(110, 'Produção:', document.getElementById('production').value);
+    addStyledSection(130, 'Administração:', document.getElementById('administration').value);
+    addStyledSection(150, 'Recebimento:', document.getElementById('receiving').value);
 
-    // Adiciona um rodapé com fundo verde
-    addBackground(160, 10, [34, 139, 34]); // Cor de fundo verde
+    // Adiciona um rodapé com fundo azul
+    addBackground(170, 10, [40, 116, 166]);
     doc.setFontSize(10);
-    doc.setTextColor(255, 255, 255); // Cor do texto branca
-    doc.text('© 2023 Controle de Cloro Livre', 105, 167, { align: 'center' });
+    doc.setTextColor(255, 255, 255);
+    doc.text('© 2023 Controle de Cloro Livre', 105, 177, { align: 'center' });
 
     // Salva o PDF
     doc.save('relatorio_cloro_livre.pdf');
