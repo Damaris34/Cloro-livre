@@ -65,6 +65,25 @@ input[type="file"] {
     padding: 5px;
 }
 
+.controls {
+    text-align: center;
+    margin-top: 20px;
+}
+
+button {
+    background-color: #4682b4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #5f9ea0;
+}
+
 footer {
     text-align: center;
     padding: 20px 0;
