@@ -3,23 +3,34 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
 
     const doc = new jsPDF();
 
-    doc.text('Relatório de Controle de Cloro Livre', 10, 10);
-    doc.text(`Data: ${document.getElementById('date').value}`, 10, 20);
+    // Título do relatório
+    doc.setFontSize(18);
+    doc.text('Relatório de Controle de Cloro Livre', 105, 10, { align: 'center' });
 
-    doc.text('Saída de Tratamento:', 10, 30);
-    doc.text(document.getElementById('treatment-exit').value, 50, 30);
+    // Data
+    doc.setFontSize(12);
+    doc.text(`Data: ${document.getElementById('date').value}`, 10, 30);
 
-    doc.text('Cozinha:', 10, 40);
-    doc.text(document.getElementById('kitchen').value, 50, 40);
+    // Saída de Tratamento
+    doc.text('Saída de Tratamento:', 10, 50);
+    doc.text(document.getElementById('treatment-exit').value, 70, 50);
 
-    doc.text('Produção:', 10, 50);
-    doc.text(document.getElementById('production').value, 50, 50);
+    // Cozinha
+    doc.text('Cozinha:', 10, 60);
+    doc.text(document.getElementById('kitchen').value, 70, 60);
 
-    doc.text('Administração:', 10, 60);
-    doc.text(document.getElementById('administration').value, 50, 60);
+    // Produção
+    doc.text('Produção:', 10, 70);
+    doc.text(document.getElementById('production').value, 70, 70);
 
-    doc.text('Recebimento:', 10, 70);
-    doc.text(document.getElementById('receiving').value, 50, 70);
+    // Administração
+    doc.text('Administração:', 10, 80);
+    doc.text(document.getElementById('administration').value, 70, 80);
 
+    // Recebimento
+    doc.text('Recebimento:', 10, 90);
+    doc.text(document.getElementById('receiving').value, 70, 90);
+
+    // Salvar o PDF
     doc.save('relatorio_cloro_livre.pdf');
 });
