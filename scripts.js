@@ -1,81 +1,70 @@
-package com.example.clorolivre;
+document.getElementById('generate-pdf').addEventListener('click', function() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
+    // Função para adicionar um retângulo colorido como fundo
+    const addBackground = (y, height, color) => {
+        doc.setFillColor(color[0], color[1], color[2]);
+        doc.rect(10, y, 190, height, 'F');
+    };
 
-public class RelatorioControleCloroLivre {
+    // Função para adicionar um título com estilo
+    const addTitle = (text, y) => {
+        doc.setFontSize(20);
+        doc.setTextColor(255, 255, 255);
+        doc.setFont("helvetica", "bold");
+        doc.text(text, 105, y, { align: 'center' });
+    };
 
-    public static void main(String[] args) {
-        Document document = new Document();
+    // Função para adicionar seções ao PDF com estilo
+    const addSection = (x, y, width, height, title) => {
+        doc.setDrawColor(0, 191, 255); // Azul claro para bordas
+        doc.setLineWidth(0.5);
+        doc.roundedRect(x, y, width, height, 3, 3);
 
-        try {
-            PdfWriter.getInstance(document, new FileOutputStream("Relatorio_Controle_Cloro_Livre.pdf"));
-            document.open();
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 128); // Azul escuro para o texto
+        doc.setFont("helvetica", "bold");
+        doc.text(title, x + 10, y + 10);
 
-            // Adiciona título com estilo
-            Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
-            Paragraph title = new Paragraph("Relatório de Controle de Cloro Livre", titleFont);
-            title.setAlignment(Element.ALIGN_CENTER);
-            document.add(title);
-            document.add(new Paragraph(" ")); // Linha em branco
+        // Adiciona texto de placeholder
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(0);
+        doc.text("Escolher Arquivo", x + 10, y + 20);
+        doc.text("Nenhum arquivo escolhido", x + 10, y + 30);
+    };
 
-            // Adiciona a data com estilo
-            Font dataFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
-            Paragraph data = new Paragraph("Data: ______/______/______", dataFont);
-            document.add(data);
-            document.add(new Paragraph(" ")); // Linha em branco
+    // Adiciona o cabeçalho com fundo azul escuro
+    addBackground(10, 20, [25, 25, 112]);
+    addTitle('Controle de Cloro Livre', 25);
 
-            // Adiciona seções com estilo
-            Font sectionFont = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
-            Font normalFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
+    // Adiciona a data em uma caixa com fundo azul claro
+    doc.setFillColor(173, 216, 230);
+    doc.roundedRect(20, 40, 170, 15, 3, 3, 'F');
+    doc.setFontSize(12);
+    doc.setTextColor(0);
+    doc.text(`Data: ${document.getElementById('date').value}`, 25, 50);
 
-            // Saída de Tratamento
-            Paragraph saidaTratamento = new Paragraph("Saída de Tratamento:", sectionFont);
-            document.add(saidaTratamento);
-            document.add(new Paragraph("Escolher Arquivo: __________________________", normalFont));
-            document.add(new Paragraph("Nenhum arquivo escolhido", normalFont));
-            document.add(new Paragraph("Valor: ______ mg/L", normalFont));
-            document.add(new Paragraph(" ")); // Linha em branco
+    // Adiciona as seções organizadas em uma grade
+    addSection(20, 60, 50, 50, 'Saída de Tratamento');
+    addSection(80, 60, 50, 50, 'Cozinha');
+    addSection(140, 60, 50, 50, 'Produção');
+    addSection(20, 120, 50, 50, 'Administração');
+    addSection(80, 120, 50, 50, 'Recebimento');
 
-            // Cozinha
-            Paragraph cozinha = new Paragraph("Cozinha:", sectionFont);
-            document.add(cozinha);
-            document.add(new Paragraph("Escolher Arquivo: __________________________", normalFont));
-            document.add(new Paragraph("Nenhum arquivo escolhido", normalFont));
-            document.add(new Paragraph("Valor: ______ mg/L", normalFont));
-            document.add(new Paragraph(" ")); // Linha em branco
+    // Adiciona um botão para gerar PDF
+    doc.setFillColor(173, 216, 230);
+    doc.roundedRect(80, 170, 50, 15, 3, 3, 'F');
+    doc.setFontSize(12);
+    doc.setTextColor(0);
+    doc.text('Gerar PDF', 105, 178, { align: 'center' });
 
-            // Produção
-            Paragraph producao = new Paragraph("Produção:", sectionFont);
-            document.add(producao);
-            document.add(new Paragraph("Escolher Arquivo: __________________________", normalFont));
-            document.add(new Paragraph("Nenhum arquivo escolhido", normalFont));
-            document.add(new Paragraph("Valor: ______ mg/L", normalFont));
-            document.add(new Paragraph(" ")); // Linha em branco
+    // Adiciona um rodapé com fundo azul escuro
+    addBackground(190, 10, 190, [25, 25, 112]);
+    doc.setFontSize(10);
+    doc.setTextColor(255, 255, 255);
+    doc.text('© 2023 Controle de Cloro Livre', 105, 295, { align: 'center' });
 
-            // Administração
-            Paragraph administracao = new Paragraph("Administração:", sectionFont);
-            document.add(administracao);
-            document.add(new Paragraph("Escolher Arquivo: __________________________", normalFont));
-            document.add(new Paragraph("Nenhum arquivo escolhido", normalFont));
-            document.add(new Paragraph("Valor: ______ mg/L", normalFont));
-            document.add(new Paragraph(" ")); // Linha em branco
-
-            // Recebimento
-            Paragraph recebimento = new Paragraph("Recebimento:", sectionFont);
-            document.add(recebimento);
-            document.add(new Paragraph("Escolher Arquivo: __________________________", normalFont));
-            document.add(new Paragraph("Nenhum arquivo escolhido", normalFont));
-            document.add(new Paragraph("Valor: ______ mg/L", normalFont));
-
-        } catch (DocumentException | IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (document.isOpen()) {
-                document.close();
-            }
-        }
-    }
-}
+    // Salva o PDF
+    doc.save('controle_cloro_livre.pdf');
+});
