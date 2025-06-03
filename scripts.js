@@ -1,67 +1,78 @@
 package com.example.clorolivre;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
 public class RelatorioControleCloroLivre {
 
     public static void main(String[] args) {
-        // Criação do documento PDF
         Document document = new Document();
 
         try {
-            // Criação do escritor PDF
             PdfWriter.getInstance(document, new FileOutputStream("Relatorio_Controle_Cloro_Livre.pdf"));
-
-            // Abertura do documento
             document.open();
 
-            // Adiciona o título do relatório
-            document.add(new Paragraph("Relatório de Controle de Cloro Livre"));
+            // Adiciona título com estilo
+            Font titleFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
+            Paragraph title = new Paragraph("Relatório de Controle de Cloro Livre", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
             document.add(new Paragraph(" ")); // Linha em branco
 
-            // Adiciona a data
-            document.add(new Paragraph("Data: ______/______/______"));
+            // Adiciona a data com estilo
+            Font dataFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
+            Paragraph data = new Paragraph("Data: ______/______/______", dataFont);
+            document.add(data);
             document.add(new Paragraph(" ")); // Linha em branco
 
-            // Adiciona os campos para preenchimento
-            document.add(new Paragraph("Saída de Tratamento:"));
-            document.add(new Paragraph("Escolher Arquivo: __________________________"));
-            document.add(new Paragraph("Nenhum arquivo escolhido"));
-            document.add(new Paragraph("Valor: ______ mg/L"));
+            // Adiciona seções com estilo
+            Font sectionFont = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
+            Font normalFont = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
+
+            // Saída de Tratamento
+            Paragraph saidaTratamento = new Paragraph("Saída de Tratamento:", sectionFont);
+            document.add(saidaTratamento);
+            document.add(new Paragraph("Escolher Arquivo: __________________________", normalFont));
+            document.add(new Paragraph("Nenhum arquivo escolhido", normalFont));
+            document.add(new Paragraph("Valor: ______ mg/L", normalFont));
             document.add(new Paragraph(" ")); // Linha em branco
 
-            document.add(new Paragraph("Cozinha:"));
-            document.add(new Paragraph("Escolher Arquivo: __________________________"));
-            document.add(new Paragraph("Nenhum arquivo escolhido"));
-            document.add(new Paragraph("Valor: ______ mg/L"));
+            // Cozinha
+            Paragraph cozinha = new Paragraph("Cozinha:", sectionFont);
+            document.add(cozinha);
+            document.add(new Paragraph("Escolher Arquivo: __________________________", normalFont));
+            document.add(new Paragraph("Nenhum arquivo escolhido", normalFont));
+            document.add(new Paragraph("Valor: ______ mg/L", normalFont));
             document.add(new Paragraph(" ")); // Linha em branco
 
-            document.add(new Paragraph("Produção:"));
-            document.add(new Paragraph("Escolher Arquivo: __________________________"));
-            document.add(new Paragraph("Nenhum arquivo escolhido"));
-            document.add(new Paragraph("Valor: ______ mg/L"));
+            // Produção
+            Paragraph producao = new Paragraph("Produção:", sectionFont);
+            document.add(producao);
+            document.add(new Paragraph("Escolher Arquivo: __________________________", normalFont));
+            document.add(new Paragraph("Nenhum arquivo escolhido", normalFont));
+            document.add(new Paragraph("Valor: ______ mg/L", normalFont));
             document.add(new Paragraph(" ")); // Linha em branco
 
-            document.add(new Paragraph("Administração:"));
-            document.add(new Paragraph("Escolher Arquivo: __________________________"));
-            document.add(new Paragraph("Nenhum arquivo escolhido"));
-            document.add(new Paragraph("Valor: ______ mg/L"));
+            // Administração
+            Paragraph administracao = new Paragraph("Administração:", sectionFont);
+            document.add(administracao);
+            document.add(new Paragraph("Escolher Arquivo: __________________________", normalFont));
+            document.add(new Paragraph("Nenhum arquivo escolhido", normalFont));
+            document.add(new Paragraph("Valor: ______ mg/L", normalFont));
             document.add(new Paragraph(" ")); // Linha em branco
 
-            document.add(new Paragraph("Recebimento:"));
-            document.add(new Paragraph("Escolher Arquivo: __________________________"));
-            document.add(new Paragraph("Nenhum arquivo escolhido"));
-            document.add(new Paragraph("Valor: ______ mg/L"));
+            // Recebimento
+            Paragraph recebimento = new Paragraph("Recebimento:", sectionFont);
+            document.add(recebimento);
+            document.add(new Paragraph("Escolher Arquivo: __________________________", normalFont));
+            document.add(new Paragraph("Nenhum arquivo escolhido", normalFont));
+            document.add(new Paragraph("Valor: ______ mg/L", normalFont));
 
         } catch (DocumentException | IOException e) {
             e.printStackTrace();
         } finally {
-            // Fechar o documento
             if (document.isOpen()) {
                 document.close();
             }
