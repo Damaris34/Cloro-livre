@@ -1,69 +1,70 @@
-document.getElementById('generate-pdf').addEventListener('click', function() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+package com.example.clorolivre;
 
-    // Função para adicionar um retângulo colorido como fundo
-    const addBackground = (y, height, color) => {
-        doc.setFillColor(color[0], color[1], color[2]);
-        doc.rect(10, y, 190, height, 'F');
-    };
+import java.io.FileOutputStream;
+import java.io.IOException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
-    // Função para adicionar um título com estilo
-    const addTitle = (text, y) => {
-        doc.setFontSize(22);
-        doc.setTextColor(255, 255, 255); // Cor do texto branca
-        doc.setFont("helvetica", "bold");
-        doc.text(text, 105, y, { align: 'center' });
-    };
+public class RelatorioControleCloroLivre {
 
-    // Função para adicionar seções ao PDF com estilo
-    const addStyledSection = (y, title, value) => {
-        doc.setFontSize(12);
-        doc.setTextColor(0, 0, 128); // Azul escuro para os títulos das seções
-        doc.setFont("helvetica", "bold");
-        doc.text(title, 20, y);
+    public static void main(String[] args) {
+        // Criação do documento PDF
+        Document document = new Document();
 
-        doc.setFont("helvetica", "normal");
-        doc.setTextColor(0); // Cor do texto preto para os valores
-        doc.text(value, 100, y);
+        try {
+            // Criação do escritor PDF
+            PdfWriter.getInstance(document, new FileOutputStream("Relatorio_Controle_Cloro_Livre.pdf"));
 
-        // Adiciona uma linha horizontal abaixo de cada seção para separação
-        doc.setDrawColor(173, 216, 230); // Azul claro para as linhas divisórias
-        doc.setLineWidth(0.2);
-        doc.line(20, y + 2, 190, y + 2);
-    };
+            // Abertura do documento
+            document.open();
 
-    // Adiciona o cabeçalho com fundo azul
-    addBackground(10, 20, [25, 25, 112]); // Azul escuro para o cabeçalho
-    addTitle('Relatório de Controle de Cloro Livre', 25);
+            // Adiciona o título do relatório
+            document.add(new Paragraph("Relatório de Controle de Cloro Livre"));
+            document.add(new Paragraph(" ")); // Linha em branco
 
-    // Adiciona a data
-    doc.setFontSize(14);
-    doc.setTextColor(0);
-    doc.setFont("helvetica", "normal");
-    doc.text(`Data: ${document.getElementById('date').value}`, 20, 50);
+            // Adiciona a data
+            document.add(new Paragraph("Data: ______/______/______"));
+            document.add(new Paragraph(" ")); // Linha em branco
 
-    // Adiciona as seções ao PDF com fundo azul claro
-    addBackground(60, 100, [173, 216, 230]); // Azul claro para o fundo das seções
+            // Adiciona os campos para preenchimento
+            document.add(new Paragraph("Saída de Tratamento:"));
+            document.add(new Paragraph("Escolher Arquivo: __________________________"));
+            document.add(new Paragraph("Nenhum arquivo escolhido"));
+            document.add(new Paragraph("Valor: ______ mg/L"));
+            document.add(new Paragraph(" ")); // Linha em branco
 
-    // Adiciona bordas ao redor das seções
-    doc.setDrawColor(25, 25, 112); // Azul escuro para as bordas
-    doc.setLineWidth(0.5);
-    doc.rect(10, 60, 190, 100);
+            document.add(new Paragraph("Cozinha:"));
+            document.add(new Paragraph("Escolher Arquivo: __________________________"));
+            document.add(new Paragraph("Nenhum arquivo escolhido"));
+            document.add(new Paragraph("Valor: ______ mg/L"));
+            document.add(new Paragraph(" ")); // Linha em branco
 
-    // Adiciona seções com melhor espaçamento
-    addStyledSection(70, 'Saída de Tratamento:', document.getElementById('treatment-exit').value);
-    addStyledSection(90, 'Cozinha:', document.getElementById('kitchen').value);
-    addStyledSection(110, 'Produção:', document.getElementById('production').value);
-    addStyledSection(130, 'Administração:', document.getElementById('administration').value);
-    addStyledSection(150, 'Recebimento:', document.getElementById('receiving').value);
+            document.add(new Paragraph("Produção:"));
+            document.add(new Paragraph("Escolher Arquivo: __________________________"));
+            document.add(new Paragraph("Nenhum arquivo escolhido"));
+            document.add(new Paragraph("Valor: ______ mg/L"));
+            document.add(new Paragraph(" ")); // Linha em branco
 
-    // Adiciona um rodapé com fundo azul
-    addBackground(170, 10, [25, 25, 112]); // Azul escuro para o rodapé
-    doc.setFontSize(10);
-    doc.setTextColor(255, 255, 255); // Cor do texto branca
-    doc.text('© 2023 Controle de Cloro Livre', 105, 177, { align: 'center' });
+            document.add(new Paragraph("Administração:"));
+            document.add(new Paragraph("Escolher Arquivo: __________________________"));
+            document.add(new Paragraph("Nenhum arquivo escolhido"));
+            document.add(new Paragraph("Valor: ______ mg/L"));
+            document.add(new Paragraph(" ")); // Linha em branco
 
-    // Salva o PDF
-    doc.save('relatorio_cloro_livre.pdf');
-});
+            document.add(new Paragraph("Recebimento:"));
+            document.add(new Paragraph("Escolher Arquivo: __________________________"));
+            document.add(new Paragraph("Nenhum arquivo escolhido"));
+            document.add(new Paragraph("Valor: ______ mg/L"));
+
+        } catch (DocumentException | IOException e) {
+            e.printStackTrace();
+        } finally {
+            // Fechar o documento
+            if (document.isOpen()) {
+                document.close();
+            }
+        }
+    }
+}
