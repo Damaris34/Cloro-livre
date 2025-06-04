@@ -2,17 +2,23 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
+    // Função para adicionar um retângulo colorido como fundo
+    const addBackground = (y, height, color) => {
+        doc.setFillColor(color[0], color[1], color[2]);
+        doc.rect(0, y, 210, height, 'F');
+    };
+
     // Função para adicionar um título com estilo
-    const addTitle = (text, y) => {
-        doc.setFontSize(20);
-        doc.setTextColor(0, 0, 128); // Azul escuro para o título
+    const addTitle = (text, y, size, color) => {
+        doc.setFontSize(size);
+        doc.setTextColor(color[0], color[1], color[2]);
         doc.setFont("helvetica", "bold");
         doc.text(text, 105, y, { align: 'center' });
     };
 
     // Função para adicionar seções ao PDF com estilo
     const addSection = (y, title, value) => {
-        doc.setFontSize(12);
+        doc.setFontSize(14);
         doc.setTextColor(0, 0, 128); // Azul escuro para os títulos das seções
         doc.setFont("helvetica", "bold");
         doc.text(title, 20, y);
@@ -24,11 +30,18 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
         // Adiciona uma linha horizontal abaixo de cada seção para separação
         doc.setDrawColor(173, 216, 230); // Azul claro para as linhas
         doc.setLineWidth(0.2);
-        doc.line(20, y + 5, 180, y + 5);
+        doc.line(20, y + 5, 190, y + 5);
     };
 
-    // Adiciona o título do relatório
-    addTitle('Relatório de Controle de Cloro Livre', 20);
+    // Adiciona a capa com fundo gradiente (simulado com retângulos)
+    addBackground(0, 60, [30, 144, 255]); // Azul Dodger
+    addTitle('Relatório de Controle de Cloro Livre', 30, 24, [255, 255, 255]); // Branco
+
+    // Adiciona uma nova página para o conteúdo
+    doc.addPage();
+
+    // Adiciona o título do relatório na nova página
+    addTitle('Relatório de Controle de Cloro Livre', 20, 20, [0, 0, 128]); // Azul escuro
 
     // Adiciona a data
     doc.setFontSize(12);
