@@ -33,17 +33,17 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     // Adiciona a data
     doc.setFontSize(12);
     doc.setTextColor(0);
-    doc.text(`Data: ${document.getElementById('date').value}`, 20, 40);
+    doc.text(`Data: ${new Date().toLocaleDateString()}`, 20, 40);
 
     // Adiciona o título da seção de localização dos pontos
     addTitle('Localização dos Pontos', 60, 16, [0, 0, 128]);
 
     // Adiciona as seções de localização ao PDF
-    addSection(80, 'Saída de Tratamento:', document.getElementById('treatment-exit').value);
-    addSection(100, 'Cozinha:', document.getElementById('kitchen').value);
-    addSection(120, 'Produção:', document.getElementById('production').value);
-    addSection(140, 'Administração:', document.getElementById('administration').value);
-    addSection(160, 'Recebimento:', document.getElementById('receiving').value);
+    addSection(80, 'Saída de Tratamento:', '--- mg/L');
+    addSection(100, 'Cozinha:', '--- mg/L');
+    addSection(120, 'Produção:', '--- mg/L');
+    addSection(140, 'Administração:', '--- mg/L');
+    addSection(160, 'Recebimento:', '--- mg/L');
 
     // Adiciona um rodapé com informações de copyright
     doc.setFontSize(10);
