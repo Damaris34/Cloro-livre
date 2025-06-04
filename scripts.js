@@ -2,12 +2,6 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Função para adicionar um retângulo colorido como fundo
-    const addBackground = (y, height, color) => {
-        doc.setFillColor(color[0], color[1], color[2]);
-        doc.rect(0, y, 210, height, 'F');
-    };
-
     // Função para adicionar um título com estilo
     const addTitle = (text, y, size, color) => {
         doc.setFontSize(size);
@@ -18,7 +12,7 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
 
     // Função para adicionar seções ao PDF com estilo
     const addSection = (y, title, value) => {
-        doc.setFontSize(14);
+        doc.setFontSize(12);
         doc.setTextColor(0, 0, 128); // Azul escuro para os títulos das seções
         doc.setFont("helvetica", "bold");
         doc.text(title, 20, y);
@@ -33,27 +27,23 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
         doc.line(20, y + 5, 190, y + 5);
     };
 
-    // Adiciona a capa com fundo gradiente (simulado com retângulos)
-    addBackground(0, 60, [30, 144, 255]); // Azul Dodger
-    addTitle('Relatório de Controle de Cloro Livre', 30, 24, [255, 255, 255]); // Branco
-
-    // Adiciona uma nova página para o conteúdo
-    doc.addPage();
-
-    // Adiciona o título do relatório na nova página
-    addTitle('Relatório de Controle de Cloro Livre', 20, 20, [0, 0, 128]); // Azul escuro
+    // Adiciona o título do relatório
+    addTitle('Relatório de Controle de Cloro Livre', 20, 20, [0, 0, 128]);
 
     // Adiciona a data
     doc.setFontSize(12);
     doc.setTextColor(0);
     doc.text(`Data: ${document.getElementById('date').value}`, 20, 40);
 
-    // Adiciona as seções ao PDF
-    addSection(60, 'Saída de Tratamento:', document.getElementById('treatment-exit').value);
-    addSection(80, 'Cozinha:', document.getElementById('kitchen').value);
-    addSection(100, 'Produção:', document.getElementById('production').value);
-    addSection(120, 'Administração:', document.getElementById('administration').value);
-    addSection(140, 'Recebimento:', document.getElementById('receiving').value);
+    // Adiciona o título da seção de localização dos pontos
+    addTitle('Localização dos Pontos', 60, 16, [0, 0, 128]);
+
+    // Adiciona as seções de localização ao PDF
+    addSection(80, 'Saída de Tratamento:', document.getElementById('treatment-exit').value);
+    addSection(100, 'Cozinha:', document.getElementById('kitchen').value);
+    addSection(120, 'Produção:', document.getElementById('production').value);
+    addSection(140, 'Administração:', document.getElementById('administration').value);
+    addSection(160, 'Recebimento:', document.getElementById('receiving').value);
 
     // Adiciona um rodapé com informações de copyright
     doc.setFontSize(10);
