@@ -2,13 +2,7 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Função para adicionar um retângulo colorido como fundo
-    const addBackground = (y, height, color) => {
-        doc.setFillColor(color[0], color[1], color[2]);
-        doc.rect(0, y, 210, height, 'F');
-    };
-
-    // Função para adicionar um título com estilo
+    // Função para adicionar um título com estilo e cor
     const addTitle = (text, y, size, color) => {
         doc.setFontSize(size);
         doc.setTextColor(color[0], color[1], color[2]);
@@ -16,15 +10,15 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
         doc.text(text, 105, y, { align: 'center' });
     };
 
-    // Função para adicionar seções ao PDF com estilo
-    const addSection = (y, title, value) => {
+    // Função para adicionar seções ao PDF com estilo e cor
+    const addSection = (y, title, value, titleColor, valueColor) => {
         doc.setFontSize(12);
-        doc.setTextColor(0, 0, 128); // Azul escuro para os títulos das seções
+        doc.setTextColor(titleColor[0], titleColor[1], titleColor[2]);
         doc.setFont("helvetica", "bold");
         doc.text(title, 20, y);
 
         doc.setFont("helvetica", "normal");
-        doc.setTextColor(0); // Preto para os valores
+        doc.setTextColor(valueColor[0], valueColor[1], valueColor[2]);
         doc.text(value, 70, y);
 
         // Adiciona uma linha horizontal abaixo de cada seção para separação
@@ -33,34 +27,24 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
         doc.line(20, y + 5, 190, y + 5);
     };
 
-    // Adiciona a capa com fundo azul e título em branco
-    addBackground(0, 60, [30, 144, 255]); // Azul Dodger
-    addTitle('Relatório de Controle de Cloro Livre', 30, 24, [255, 255, 255]); // Branco
-
-    // Adiciona uma nova página para o conteúdo
-    doc.addPage();
-
-    // Adiciona o título do relatório na nova página
+    // Adiciona o título do relatório
     addTitle('Relatório de Controle de Cloro Livre', 20, 20, [0, 0, 128]); // Azul escuro
 
     // Adiciona a data
     doc.setFontSize(12);
-    doc.setTextColor(0);
+    doc.setTextColor(0, 0, 0); // Preto
     doc.text(`Data: ${new Date().toLocaleDateString()}`, 20, 40);
 
-    // Adiciona o título da seção de localização dos pontos
-    addTitle('Localização dos Pontos', 60, 16, [0, 0, 128]);
-
-    // Adiciona as seções de localização ao PDF
-    addSection(80, 'Saída de Tratamento:', '--- mg/L');
-    addSection(100, 'Cozinha:', '--- mg/L');
-    addSection(120, 'Produção:', '--- mg/L');
-    addSection(140, 'Administração:', '--- mg/L');
-    addSection(160, 'Recebimento:', '--- mg/L');
+    // Adiciona as seções de localização ao PDF com cores diferenciadas
+    addSection(60, 'Saída de Tratamento:', '--- mg/L', [0, 102, 204], [0, 0, 0]); // Azul para título, preto para valor
+    addSection(80, 'Cozinha:', '--- mg/L', [0, 153, 51], [0, 0, 0]); // Verde para título, preto para valor
+    addSection(100, 'Produção:', '--- mg/L', [204, 0, 102], [0, 0, 0]); // Roxo para título, preto para valor
+    addSection(120, 'Administração:', '--- mg/L', [255, 102, 0], [0, 0, 0]); // Laranja para título, preto para valor
+    addSection(140, 'Recebimento:', '--- mg/L', [153, 0, 153], [0, 0, 0]); // Roxo escuro para título, preto para valor
 
     // Adiciona um rodapé com informações de copyright
     doc.setFontSize(10);
-    doc.setTextColor(100);
+    doc.setTextColor(100, 100, 100); // Cinza
     doc.text('© 2023 Controle de Cloro Livre', 105, 280, { align: 'center' });
 
     // Salva o PDF
