@@ -2,6 +2,12 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
+    // Função para adicionar um retângulo colorido como fundo
+    const addBackground = (y, height, color) => {
+        doc.setFillColor(color[0], color[1], color[2]);
+        doc.rect(0, y, 210, height, 'F');
+    };
+
     // Função para adicionar um título com estilo
     const addTitle = (text, y, size, color) => {
         doc.setFontSize(size);
@@ -27,8 +33,15 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
         doc.line(20, y + 5, 190, y + 5);
     };
 
-    // Adiciona o título do relatório
-    addTitle('Relatório de Controle de Cloro Livre', 20, 20, [0, 0, 128]);
+    // Adiciona a capa com fundo azul e título em branco
+    addBackground(0, 60, [30, 144, 255]); // Azul Dodger
+    addTitle('Relatório de Controle de Cloro Livre', 30, 24, [255, 255, 255]); // Branco
+
+    // Adiciona uma nova página para o conteúdo
+    doc.addPage();
+
+    // Adiciona o título do relatório na nova página
+    addTitle('Relatório de Controle de Cloro Livre', 20, 20, [0, 0, 128]); // Azul escuro
 
     // Adiciona a data
     doc.setFontSize(12);
