@@ -44,10 +44,9 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     doc.text(`Data: ${new Date().toLocaleDateString()}`, 20, 40);
 
     // Adiciona informações adicionais
-    addSection(60, 'Responsável:', 'Nome do Responsável: ___________________________');
-    addSection(90, 'Observações:', 'Observações gerais sobre o controle de cloro livre:');
+    addSection(60, 'Responsável:', 'Nome: ___________________________');
+    addSection(90, 'Fórmula de Cálculo:', 'Fórmula: Cloro Livre = Cloro Total - Cloro Combinado');
     doc.text('_________________________________________________', 20, 100);
-    doc.text('_________________________________________________', 20, 110);
 
     // Adiciona o título da seção de localização dos pontos
     addTitle('Localização dos Pontos', 130, 16, [0, 0, 128]);
@@ -56,14 +55,4 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     addSection(150, 'Saída de Tratamento:', 'Valor: ______ mg/L');
     addSection(170, 'Cozinha:', 'Valor: ______ mg/L');
     addSection(190, 'Produção:', 'Valor: ______ mg/L');
-    addSection(210, 'Administração:', 'Valor: ______ mg/L');
-    addSection(230, 'Recebimento:', 'Valor: ______ mg/L');
-
-    // Adiciona um rodapé com informações de copyright
-    doc.setFontSize(10);
-    doc.setTextColor(100, 100, 100);
-    doc.text('© 2023 Controle de Cloro Livre', 105, 280, { align: 'center' });
-
-    // Salva o PDF
-    doc.save('relatorio_cloro_livre.pdf');
-});
+    addSection(2
