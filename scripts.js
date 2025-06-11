@@ -11,9 +11,9 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
     };
 
     // Função para adicionar seções ao PDF com estilo
-    const addSection = (y, title, details) => {
+    const addSection = (y, title, details, color) => {
         doc.setFontSize(12);
-        doc.setTextColor(0, 0, 128); // Azul escuro para os títulos das seções
+        doc.setTextColor(color[0], color[1], color[2]); // Cor para os títulos das seções
         doc.setFont("helvetica", "bold");
         doc.text(title, 20, y);
 
@@ -40,23 +40,23 @@ document.getElementById('generate-pdf').addEventListener('click', function() {
 
     // Adiciona a data
     doc.setFontSize(12);
-    doc.setTextColor(0);
+    doc.setTextColor(0, 0, 0);
     doc.text(`Data: ${new Date().toLocaleDateString()}`, 20, 40);
 
     // Adiciona informações adicionais
-    addSection(60, 'Responsável:', 'Nome: ___________________________');
-    addSection(90, 'Fórmula de Cálculo:', 'Fórmula: Cloro Livre = Cloro Total - Cloro Combinado');
+    addSection(60, 'Responsável:', 'Nome: ___________________________', [0, 102, 204]);
+    addSection(90, 'Fórmula de Cálculo:', 'Fórmula: Cloro Livre = Cloro Total - Cloro Combinado', [0, 153, 51]);
     doc.text('_________________________________________________', 20, 100);
 
     // Adiciona o título da seção de localização dos pontos
     addTitle('Localização dos Pontos', 130, 16, [0, 0, 128]);
 
     // Adiciona as seções de localização ao PDF
-    addSection(150, 'Saída de Tratamento:', 'Valor: ______ mg/L');
-    addSection(170, 'Cozinha:', 'Valor: ______ mg/L');
-    addSection(190, 'Produção:', 'Valor: ______ mg/L');
-    addSection(210, 'Administração:', 'Valor: ______ mg/L');
-    addSection(230, 'Recebimento:', 'Valor: ______ mg/L');
+    addSection(150, 'Saída de Tratamento:', 'Valor: ______ mg/L', [204, 0, 102]);
+    addSection(170, 'Cozinha:', 'Valor: ______ mg/L', [255, 102, 0]);
+    addSection(190, 'Produção:', 'Valor: ______ mg/L', [153, 0, 153]);
+    addSection(210, 'Administração:', 'Valor: ______ mg/L', [51, 102, 255]);
+    addSection(230, 'Recebimento:', 'Valor: ______ mg/L', [255, 153, 51]);
 
     // Adiciona um rodapé com informações de copyright
     doc.setFontSize(10);
