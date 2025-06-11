@@ -7,66 +7,77 @@ import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
 
 import java.io.IOException;
 
-public class CreateColoredPDFReport {
+public class CreateStructuredPDFReport {
     public static void main(String[] args) {
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
         document.addPage(page);
 
         try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-            // Definir a fonte e o tamanho para o título
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
+            // Definir a fonte e o tamanho
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
 
-            // Definir a cor do título (azul)
-            contentStream.setNonStrokingColor(PDColor.rgbToCMYK(0, 0, 255));
+            // Cabeçalho azul
+            contentStream.setNonStrokingColor(new PDColor(new float[]{0, 0, 1}, PDDeviceRGB.INSTANCE));
+            contentStream.addRect(100, 650, 400, 50);
+            contentStream.fill();
 
-            // Escrever o título
+            // Título do cabeçalho
+            contentStream.setNonStrokingColor(PDColor.WHITE);
             contentStream.beginText();
-            contentStream.newLineAtOffset(180, 700);
-            contentStream.showText("Relatório de Controle de Cloro Livre");
+            contentStream.newLineAtOffset(200, 675);
+            contentStream.showText("Controle de Cloro Livre");
             contentStream.endText();
 
-            // Definir a fonte e o tamanho para as seções
+            // Data
+            contentStream.setNonStrokingColor(PDColor.BLACK);
             contentStream.setFont(PDType1Font.HELVETICA, 12);
-
-            // Definir a cor do texto das seções (preto)
-            contentStream.setNonStrokingColor(PDColor.rgbToCMYK(0, 0, 0));
-
-            // Escrever as seções
             contentStream.beginText();
-            contentStream.newLineAtOffset(100, 650);
+            contentStream.newLineAtOffset(120, 600);
             contentStream.showText("Data:");
             contentStream.endText();
+            contentStream.addRect(120, 580, 100, 25);
+            contentStream.stroke();
 
-            // Definir a cor de preenchimento para a seção (cinza claro)
-            contentStream.setNonStrokingColor(new PDColor(new float[]{0.9f, 0.9f, 0.9f}, PDDeviceRGB.INSTANCE));
-            contentStream.addRect(100, 640, 300, 20);
-            contentStream.fill();
-
-            contentStream.setNonStrokingColor(PDColor.rgbToCMYK(0, 0, 0));
+            // Título da seção de localização
             contentStream.beginText();
-            contentStream.newLineAtOffset(100, 600);
-            contentStream.showText("Saída de Tratamento:");
+            contentStream.newLineAtOffset(120, 550);
+            contentStream.showText("Localização dos Pontos");
             contentStream.endText();
 
-            contentStream.setNonStrokingColor(new PDColor(new float[]{0.9f, 0.9f, 0.9f}, PDDeviceRGB.INSTANCE));
-            contentStream.addRect(100, 590, 300, 20);
-            contentStream.fill();
+            // Desenhar retângulos para cada localização
+            drawLocationBox(contentStream, "Saída de Tratamento", 120, 500);
+            drawLocationBox(contentStream, "Cozinha", 270, 500);
+            drawLocationBox(contentStream, "Produção", 420, 500);
+            drawLocationBox(contentStream, "Administração", 120, 350);
+            drawLocationBox(contentStream, "Recebimento", 270, 350);
 
-            contentStream.setNonStrokingColor(PDColor.rgbToCMYK(0, 0, 0));
+            // Botão Gerar PDF
+            contentStream.setNonStrokingColor(new PDColor(new float[]{0, 0, 1}, PDDeviceRGB.INSTANCE));
+            contentStream.addRect(220, 250, 160, 30);
+            contentStream.fill();
+            contentStream.setNonStrokingColor(PDColor.WHITE);
             contentStream.beginText();
-            contentStream.newLineAtOffset(100, 550);
-            contentStream.showText("Cozinha:");
+            contentStream.newLineAtOffset(250, 265);
+            contentStream.showText("Gerar PDF");
             contentStream.endText();
 
-            // Continue adicionando mais seções conforme necessário
+            // Rodapé azul
+            contentStream.setNonStrokingColor(new PDColor(new float[]{0, 0, 1}, PDDeviceRGB.INSTANCE));
+            contentStream.addRect(100, 50, 400, 50);
+            contentStream.fill();
+            contentStream.setNonStrokingColor(PDColor.WHITE);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(150, 70);
+            contentStream.showText("© 2023 Controle de Cloro Livre");
+            contentStream.endText();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            document.save("Relatorio_Cloro_Livre_Colorido.pdf");
+            document.save("Relatorio_Cloro_Livre_Estruturado.pdf");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -76,5 +87,23 @@ public class CreateColoredPDFReport {
                 e.printStackTrace();
             }
         }
+    }
+
+    private static void drawLocationBox(PDPageContentStream contentStream, String title, float x, float y) throws IOException {
+        contentStream.setNonStrokingColor(new PDColor(new float[]{0.7f, 0.7f, 1f}, PDDeviceRGB.INSTANCE));
+        contentStream.addRect(x, y, 120, 100);
+        contentStream.fill();
+        contentStream.setNonStrokingColor(PDColor.BLACK);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(x + 10, y + 85);
+        contentStream.showText(title);
+        contentStream.newLineAtOffset(0, -20);
+        contentStream.showText("Escolher Arquivo");
+        contentStream.newLineAtOffset(0, -20);
+        contentStream.showText("Nenhum arquivo escolhido");
+        contentStream.endText();
+        contentStream.setStrokingColor(PDColor.BLUE);
+        contentStream.addRect(x, y, 120, 100);
+        contentStream.stroke();
     }
 }
