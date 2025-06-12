@@ -3,95 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Cloro Livre</title>
+    <title>Relatório de Controle de Cloro Livre</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Controle de Cloro Livre</h1>
-        </header>
-        <main>
-            <section class="dashboard">
-                <div class="card">
-                    <h2>Data</h2>
-                    <input type="date" id="date" value="">
+    <div class="container" id="pdf-content">
+        <h1>Relatório de Controle de Cloro Livre</h1>
+        <div class="data-section">
+            <h2>Data:</h2>
+            <p id="data-registro"></p>
+        </div>
+        <div class="pontos-section">
+            <h2>Pontos de Saída:</h2>
+            <div class="pontos-container">
+                <div class="ponto-box">
+                    <h3>Saída de Tratamento:</h3>
+                    <p id="saida-tratamento"></p>
                 </div>
-            </section>
-            <section class="locations">
-                <h2>Localização dos Pontos</h2>
-                <div class="location-card">
-                    <h3>Saída de Tratamento</h3>
-                    <input type="file" id="treatment-exit-image" accept="image/*">
-                    <input type="text" id="treatment-exit" placeholder="-- mg/L">
+                <div class="ponto-box">
+                    <h3>Cozinha:</h3>
+                    <p id="cozinha"></p>
                 </div>
-                <div class="location-card">
-                    <h3>Cozinha</h3>
-                    <input type="file" id="kitchen-image" accept="image/*">
-                    <input type="text" id="kitchen" placeholder="-- mg/L">
+                <div class="ponto-box">
+                    <h3>Produção:</h3>
+                    <p id="producao"></p>
                 </div>
-                <div class="location-card">
-                    <h3>Produção</h3>
-                    <input type="file" id="production-image" accept="image/*">
-                    <input type="text" id="production" placeholder="-- mg/L">
+                <div class="ponto-box">
+                    <h3>Administração:</h3>
+                    <p id="administracao"></p>
                 </div>
-                <div class="location-card">
-                    <h3>Administração</h3>
-                    <input type="file" id="administration-image" accept="image/*">
-                    <input type="text" id="administration" placeholder="-- mg/L">
+                <div class="ponto-box">
+                    <h3>Recebimento:</h3>
+                    <p id="recebimento"></p>
                 </div>
-                <div class="location-card">
-                    <h3>Recebimento</h3>
-                    <input type="file" id="receiving-image" accept="image/*">
-                    <input type="text" id="receiving" placeholder="-- mg/L">
-                </div>
-            </section>
-            <section class="controls">
-                <button id="generate-pdf">Gerar PDF</button>
-            </section>
-        </main>
-        <footer>
-            <p>© 2023 Controle de Cloro Livre</p>
-        </footer>
+            </div>
+        </div>
     </div>
-    <script>
-        document.getElementById('generate-pdf').addEventListener('click', function() {
-            const { jsPDF } = window.jspdf;
-
-            const doc = new jsPDF();
-
-            // Título do relatório
-            doc.setFontSize(18);
-            doc.text('Relatório de Controle de Cloro Livre', 105, 10, { align: 'center' });
-
-            // Data
-            doc.setFontSize(12);
-            doc.text(`Data: ${document.getElementById('date').value}`, 10, 30);
-
-            // Saída de Tratamento
-            doc.text('Saída de Tratamento:', 10, 50);
-            doc.text(document.getElementById('treatment-exit').value, 70, 50);
-
-            // Cozinha
-            doc.text('Cozinha:', 10, 60);
-            doc.text(document.getElementById('kitchen').value, 70, 60);
-
-            // Produção
-            doc.text('Produção:', 10, 70);
-            doc.text(document.getElementById('production').value, 70, 70);
-
-            // Administração
-            doc.text('Administração:', 10, 80);
-            doc.text(document.getElementById('administration').value, 70, 80);
-
-            // Recebimento
-            doc.text('Recebimento:', 10, 90);
-            doc.text(document.getElementById('receiving').value, 70, 90);
-
-            // Salvar o PDF
-            doc.save('relatorio_cloro_livre.pdf');
-        });
-    </script>
+    <button id="generate-pdf">Gerar PDF</button>
+    <script src="script.js"></script>
 </body>
 </html>
