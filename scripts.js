@@ -9,37 +9,34 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class StructuredPDFReport {
+public class StructuredPDFGenerator {
+
     public static void main(String[] args) {
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
         document.addPage(page);
 
         try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-            // Cabeçalho
+            // Draw header
             drawHeader(contentStream);
 
-            // Título do relatório
+            // Draw title
             drawTitle(contentStream, "Controle de Cloro Livre");
 
-            // Data atual
-            String formattedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            drawDateField(contentStream, "Data: " + formattedDate, 600);
+            // Draw date field
+            drawDateField(contentStream, "Data: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
-            // Título da seção de localização
-            drawSectionTitle(contentStream, "Localização dos Pontos", 550);
+            // Draw location sections
+            drawLocationSection(contentStream, "Saída de Tratamento", 100, 550);
+            drawLocationSection(contentStream, "Cozinha", 300, 550);
+            drawLocationSection(contentStream, "Produção", 100, 350);
+            drawLocationSection(contentStream, "Administração", 300, 350);
+            drawLocationSection(contentStream, "Recebimento", 500, 350);
 
-            // Seções de controle
-            drawLocationBox(contentStream, "Saída de Tratamento", "3.15", 120, 500);
-            drawLocationBox(contentStream, "Cozinha", "3.00", 270, 500);
-            drawLocationBox(contentStream, "Produção", "3.35", 420, 500);
-            drawLocationBox(contentStream, "Administração", "3.10", 120, 350);
-            drawLocationBox(contentStream, "Recebimento", "3.25", 270, 350);
-
-            // Botão Gerar PDF
+            // Draw generate PDF button
             drawGeneratePDFButton(contentStream);
 
-            // Rodapé
+            // Draw footer
             drawFooter(contentStream);
 
         } catch (IOException e) {
@@ -47,7 +44,7 @@ public class StructuredPDFReport {
         }
 
         try {
-            document.save("Relatorio_Cloro_Livre_Estruturado.pdf");
+            document.save("Controle_Cloro_Livre.pdf");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -60,80 +57,81 @@ public class StructuredPDFReport {
     }
 
     private static void drawHeader(PDPageContentStream contentStream) throws IOException {
-        contentStream.setNonStrokingColor(new PDColor(new float[]{0, 0, 0.75f}, PDDeviceRGB.INSTANCE));
-        contentStream.addRect(100, 650, 400, 50);
+        contentStream.setNonStrokingColor(new PDColor(new float[]{0, 0.39f, 0.76f}, PDDeviceRGB.INSTANCE));
+        contentStream.addRect(50, 700, 500, 50);
         contentStream.fill();
         contentStream.setNonStrokingColor(PDColor.WHITE);
-        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
-        drawCenteredText(contentStream, "Controle de Cloro Livre", 675);
+        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(180, 720);
+        contentStream.showText("Controle de Cloro Livre");
+        contentStream.endText();
     }
 
     private static void drawTitle(PDPageContentStream contentStream, String title) throws IOException {
         contentStream.setNonStrokingColor(PDColor.BLACK);
         contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
-        drawCenteredText(contentStream, title, 625);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(220, 670);
+        contentStream.showText(title);
+        contentStream.endText();
     }
 
-    private static void drawDateField(PDPageContentStream contentStream, String text, float y) throws IOException {
-        contentStream.setNonStrokingColor(new PDColor(new float[]{0.8f, 0.8f, 0.9f}, PDDeviceRGB.INSTANCE));
-        contentStream.addRect(200, y - 15, 200, 25);
+    private static void drawDateField(PDPageContentStream contentStream, String date) throws IOException {
+        contentStream.setNonStrokingColor(new PDColor(new float[]{0.9f, 0.9f, 0.95f}, PDDeviceRGB.INSTANCE));
+        contentStream.addRect(220, 620, 160, 30);
         contentStream.fill();
         contentStream.setNonStrokingColor(PDColor.BLACK);
         contentStream.setFont(PDType1Font.HELVETICA, 12);
-        drawCenteredText(contentStream, text, y);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(230, 635);
+        contentStream.showText(date);
+        contentStream.endText();
     }
 
-    private static void drawSectionTitle(PDPageContentStream contentStream, String title, float y) throws IOException {
-        contentStream.setNonStrokingColor(PDColor.BLACK);
-        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 14);
-        drawCenteredText(contentStream, title, y);
-    }
-
-    private static void drawLocationBox(PDPageContentStream contentStream, String title, String value, float x, float y) throws IOException {
-        contentStream.setNonStrokingColor(new PDColor(new float[]{0.8f, 0.8f, 0.9f}, PDDeviceRGB.INSTANCE));
-        contentStream.addRect(x, y - 40, 120, 60);
+    private static void drawLocationSection(PDPageContentStream contentStream, String title, float x, float y) throws IOException {
+        contentStream.setNonStrokingColor(new PDColor(new float[]{0.9f, 0.9f, 0.95f}, PDDeviceRGB.INSTANCE));
+        contentStream.addRect(x, y, 180, 120);
         contentStream.fill();
         contentStream.setNonStrokingColor(PDColor.BLACK);
-        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 10);
+        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
         contentStream.beginText();
-        contentStream.newLineAtOffset(x + 10, y - 20);
+        contentStream.newLineAtOffset(x + 10, y + 100);
         contentStream.showText(title);
-        contentStream.newLineAtOffset(0, -15);
+        contentStream.newLineAtOffset(0, -20);
+        contentStream.setFont(PDType1Font.HELVETICA, 10);
         contentStream.showText("Escolher Arquivo");
-        contentStream.newLineAtOffset(0, -15);
+        contentStream.newLineAtOffset(0, -20);
         contentStream.showText("Nenhum arquivo escolhido");
-        contentStream.newLineAtOffset(0, -15);
-        contentStream.showText(value);
+        contentStream.newLineAtOffset(0, -20);
+        contentStream.showText("-- mg/L");
         contentStream.endText();
-        contentStream.setStrokingColor(new PDColor(new float[]{0, 0, 1}, PDDeviceRGB.INSTANCE));
-        contentStream.addRect(x, y - 40, 120, 60);
+        contentStream.setStrokingColor(new PDColor(new float[]{0.7f, 0.7f, 0.7f}, PDDeviceRGB.INSTANCE));
+        contentStream.addRect(x, y, 180, 120);
         contentStream.stroke();
     }
 
     private static void drawGeneratePDFButton(PDPageContentStream contentStream) throws IOException {
-        contentStream.setNonStrokingColor(new PDColor(new float[]{0, 0, 0.75f}, PDDeviceRGB.INSTANCE));
-        contentStream.addRect(220, 200, 160, 30);
+        contentStream.setNonStrokingColor(new PDColor(new float[]{0, 0.39f, 0.76f}, PDDeviceRGB.INSTANCE));
+        contentStream.addRect(250, 150, 100, 30);
         contentStream.fill();
         contentStream.setNonStrokingColor(PDColor.WHITE);
         contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-        drawCenteredText(contentStream, "Gerar PDF", 215);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(260, 165);
+        contentStream.showText("Gerar PDF");
+        contentStream.endText();
     }
 
     private static void drawFooter(PDPageContentStream contentStream) throws IOException {
-        contentStream.setNonStrokingColor(new PDColor(new float[]{0, 0, 0.75f}, PDDeviceRGB.INSTANCE));
-        contentStream.addRect(100, 50, 400, 50);
+        contentStream.setNonStrokingColor(new PDColor(new float[]{0, 0.39f, 0.76f}, PDDeviceRGB.INSTANCE));
+        contentStream.addRect(50, 50, 500, 50);
         contentStream.fill();
         contentStream.setNonStrokingColor(PDColor.WHITE);
         contentStream.setFont(PDType1Font.HELVETICA, 10);
-        drawCenteredText(contentStream, "© 2023 Controle de Cloro Livre", 70);
-    }
-
-    private static void drawCenteredText(PDPageContentStream contentStream, String text, float y) throws IOException {
-        float fontSize = contentStream.getFont().getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * contentStream.getFontSize();
-        float textWidth = contentStream.getFont().getStringWidth(text) * fontSize / 1000;
         contentStream.beginText();
-        contentStream.newLineAtOffset((600 - textWidth) / 2, y);
-        contentStream.showText(text);
+        contentStream.newLineAtOffset(200, 70);
+        contentStream.showText("© 2023 Controle de Cloro Livre");
         contentStream.endText();
     }
 }
