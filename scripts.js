@@ -1,39 +1,85 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const today = new Date();
-    const formattedDate = today.toISOString().split('T')[0];
-    document.getElementById('data-registro').textContent = formattedDate;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
+import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
 
-    // Simulando dados para os pontos de saída
-    document.getElementById('saida-tratamento').textContent = "Dados da Saída de Tratamento";
-    document.getElementById('cozinha').textContent = "Dados da Cozinha";
-    document.getElementById('producao').textContent = "Dados da Produção";
-    document.getElementById('administracao').textContent = "Dados da Administração";
-    document.getElementById('recebimento').textContent = "Dados do Recebimento";
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-    document.getElementById('generate-pdf').addEventListener('click', function() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+public class EnhancedPDFReport {
+    public static void main(String[] args) {
+        PDDocument document = new PDDocument();
+        PDPage page = new PDPage();
+        document.addPage(page);
 
-        // Captura o conteúdo do container
-        const element = document.getElementById('pdf-content');
+        try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+            // Cabeçalho
+            drawHeader(contentStream);
 
-        // Usa html2canvas para capturar o conteúdo como imagem
-        html2canvas(element, {
-            scale: 2,
-            useCORS: true,
-            allowTaint: true,
-            logging: true
-        }).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
+            // Título do relatório
+            drawTitle(contentStream, "Relatório de Controle de Cloro Livre");
 
-            // Adiciona a imagem ao PDF
-            doc.addImage(imgData, 'PNG', 10, 10, 180, 0);
+            // Data atual
+            String formattedDate = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
+            drawSection(contentStream, "Data: " + formattedDate, 100, 650);
 
-            // Salva o PDF
-            doc.save('relatorio_controle_cloro_livre.pdf');
-        }).catch(error => {
-            console.error("Erro ao gerar PDF:", error);
-            alert("Ocorreu um erro ao gerar o PDF. Por favor, tente novamente.");
-        });
-    });
-});
+            // Seções de controle
+            drawSection(contentStream, "Saída de Tratamento: Informações sobre a saída de tratamento...", 100, 600);
+            drawSection(contentStream, "Cozinha: Informações sobre a cozinha...", 100, 550);
+            drawSection(contentStream, "Produção: Informações sobre a produção...", 100, 500);
+            drawSection(contentStream, "Administração: Informações sobre a administração...", 100, 450);
+            drawSection(contentStream, "Recebimento: Informações sobre o recebimento...", 100, 400);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            document.save("Relatorio_Cloro_Livre_Enhanced.pdf");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                document.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void drawHeader(PDPageContentStream contentStream) throws IOException {
+        contentStream.setNonStrokingColor(new PDColor(new float[]{0, 0.5f, 0.75f}, PDDeviceRGB.INSTANCE));
+        contentStream.addRect(0, 750, 600, 50);
+        contentStream.fill();
+        contentStream.setNonStrokingColor(PDColor.WHITE);
+        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(180, 770);
+        contentStream.showText("Empresa de Controle de Qualidade");
+        contentStream.endText();
+    }
+
+    private static void drawTitle(PDPageContentStream contentStream, String title) throws IOException {
+        contentStream.setNonStrokingColor(PDColor.BLACK);
+        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(180, 700);
+        contentStream.showText(title);
+        contentStream.endText();
+    }
+
+    private static void drawSection(PDPageContentStream contentStream, String text, float x, float y) throws IOException {
+        contentStream.setNonStrokingColor(new PDColor(new float[]{0.85f, 0.85f, 0.85f}, PDDeviceRGB.INSTANCE));
+        contentStream.addRect(x, y - 10, 400, 25);
+        contentStream.fill();
+        contentStream.setNonStrokingColor(PDColor.BLACK);
+        contentStream.setFont(PDType1Font.HELVETICA, 12);
+        contentStream.beginText();
+        contentStream.newLineAtOffset(x + 10, y);
+        contentStream.showText(text);
+        contentStream.endText();
+    }
+}
