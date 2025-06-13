@@ -11,7 +11,6 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class CreateCustomPDF {
@@ -31,27 +30,29 @@ public class CreateCustomPDF {
         DeviceRgb darkBlue = new DeviceRgb(0, 51, 102);
         DeviceRgb lightBlue = new DeviceRgb(173, 216, 230);
         DeviceRgb lightGray = new DeviceRgb(211, 211, 211);
+        DeviceRgb lightGreen = new DeviceRgb(144, 238, 144);
 
-        // Add header with color
+        // Add a stylized header
         Paragraph header = new Paragraph("Relatório de Controle de Cloro Livre")
-                .setFontSize(18)
+                .setFontSize(24)
                 .setBold()
                 .setTextAlignment(TextAlignment.CENTER)
                 .setBackgroundColor(darkBlue)
                 .setMargin(0)
-                .setPadding(10)
+                .setPadding(15)
                 .setFontColor(ColorConstants.WHITE);
         document.add(header);
 
-        // Add date field with color
+        // Add a stylized date field
         Table dateTable = new Table(UnitValue.createPercentArray(new float[]{1}));
         dateTable.setWidth(UnitValue.createPercentValue(100));
         dateTable.setMarginTop(20);
 
         Cell dateCell = new Cell().add(new Paragraph("Data: dd/mm/aaaa"));
-        dateCell.setBorder(new RoundedCornersBorder(5));
+        dateCell.setBorder(new RoundedCornersBorder(10));
         dateCell.setBackgroundColor(lightGray);
         dateCell.setPadding(10);
+        dateCell.setTextAlignment(TextAlignment.CENTER);
         dateTable.addCell(dateCell);
         document.add(dateTable);
 
@@ -71,20 +72,22 @@ public class CreateCustomPDF {
             // Create a table for each section
             Table sectionTable = new Table(UnitValue.createPercentArray(new float[]{1, 1}));
             sectionTable.setWidth(UnitValue.createPercentValue(100));
-            sectionTable.setMarginTop(10);
+            sectionTable.setMarginTop(15);
 
             // Section name cell with color
-            Cell sectionCell = new Cell().add(new Paragraph(sectionName));
-            sectionCell.setBorder(new SolidBorder(darkBlue, 1));
+            Cell sectionCell = new Cell(1, 2).add(new Paragraph(sectionName));
+            sectionCell.setBorder(new SolidBorder(darkBlue, 2));
             sectionCell.setBackgroundColor(lightBlue);
             sectionCell.setPadding(10);
+            sectionCell.setTextAlignment(TextAlignment.CENTER);
 
             // Photo placeholder cell with color
             Cell photoCell = new Cell().add(new Paragraph("Espaço para Foto"));
             photoCell.setBorder(new SolidBorder(darkBlue, 1));
-            photoCell.setBackgroundColor(ColorConstants.WHITE);
+            photoCell.setBackgroundColor(lightGreen);
             photoCell.setPadding(10);
             photoCell.setHeight(100);
+            photoCell.setTextAlignment(TextAlignment.CENTER);
 
             // Description cell with color
             Cell descriptionCell = new Cell().add(new Paragraph(sectionDescription));
@@ -95,7 +98,6 @@ public class CreateCustomPDF {
             // Add cells to the table
             sectionTable.addCell(sectionCell);
             sectionTable.addCell(photoCell);
-            sectionTable.addCell(new Cell(1, 2).add(new Paragraph(" "))); // Empty cell for spacing
             sectionTable.addCell(descriptionCell);
 
             // Add the table to the document
@@ -106,7 +108,8 @@ public class CreateCustomPDF {
         Paragraph additionalInfo = new Paragraph("Informações Adicionais\nEste relatório foi gerado para monitorar os níveis de cloro livre em diferentes áreas da empresa. É importante manter os níveis de cloro dentro dos padrões estabelecidos para garantir a segurança e a qualidade da água.")
                 .setMarginTop(20)
                 .setBackgroundColor(lightBlue)
-                .setPadding(10);
+                .setPadding(15)
+                .setTextAlignment(TextAlignment.CENTER);
         document.add(additionalInfo);
 
         // Close the document
