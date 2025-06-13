@@ -2,49 +2,69 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
-import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-public class StructuredPDFGenerator {
-
+public class CreatePDF {
     public static void main(String[] args) {
+        // Create a new document
         PDDocument document = new PDDocument();
-        PDPage page = new PDPage();
+        PDPage page = new PDPage(PDRectangle.A4);
         document.addPage(page);
 
         try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+            // Define colors
+            java.awt.Color headerColor = new java.awt.Color(0, 0, 139); // Dark Blue
+            java.awt.Color sectionColor = new java.awt.Color(173, 216, 230); // Light Blue
+
             // Draw header
-            drawHeader(contentStream);
+            contentStream.setNonStrokingColor(headerColor);
+            contentStream.addRect(50, 700, 500, 50);
+            contentStream.fill();
 
-            // Draw title
-            drawTitle(contentStream, "Controle de Cloro Livre");
+            // Add header text
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 20);
+            contentStream.setNonStrokingColor(java.awt.Color.WHITE);
+            contentStream.newLineAtOffset(250, 720);
+            contentStream.showText("Controle de Cloro Livre");
+            contentStream.endText();
 
-            // Draw date field
-            drawDateField(contentStream, "Data: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            // Draw sections
+            String[] sections = {"Saída de Tratamento", "Cozinha", "Produção", "Administração", "Recebimento"};
+            for (int i = 0; i < sections.length; i++) {
+                contentStream.setNonStrokingColor(sectionColor);
+                contentStream.addRect(50, 600 - i * 100, 200, 80);
+                contentStream.fill();
 
-            // Draw location sections
-            drawLocationSection(contentStream, "Saída de Tratamento", 100, 550);
-            drawLocationSection(contentStream, "Cozinha", 300, 550);
-            drawLocationSection(contentStream, "Produção", 100, 350);
-            drawLocationSection(contentStream, "Administração", 300, 350);
-            drawLocationSection(contentStream, "Recebimento", 500, 350);
+                contentStream.beginText();
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+                contentStream.setNonStrokingColor(java.awt.Color.BLACK);
+                contentStream.newLineAtOffset(60, 650 - i * 100);
+                contentStream.showText(sections[i]);
+                contentStream.endText();
+            }
 
-            // Draw generate PDF button
-            drawGeneratePDFButton(contentStream);
+            // Draw "Gerar PDF" button
+            contentStream.setNonStrokingColor(headerColor);
+            contentStream.addRect(250, 100, 100, 30);
+            contentStream.fill();
 
-            // Draw footer
-            drawFooter(contentStream);
+            contentStream.beginText();
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+            contentStream.setNonStrokingColor(java.awt.Color.WHITE);
+            contentStream.newLineAtOffset(260, 115);
+            contentStream.showText("Gerar PDF");
+            contentStream.endText();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        // Save the document
         try {
-            document.save("Controle_Cloro_Livre.pdf");
+            document.save("Controle_de_Cloro_Livre.pdf");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -54,84 +74,5 @@ public class StructuredPDFGenerator {
                 e.printStackTrace();
             }
         }
-    }
-
-    private static void drawHeader(PDPageContentStream contentStream) throws IOException {
-        contentStream.setNonStrokingColor(new PDColor(new float[]{0, 0.39f, 0.76f}, PDDeviceRGB.INSTANCE));
-        contentStream.addRect(50, 700, 500, 50);
-        contentStream.fill();
-        contentStream.setNonStrokingColor(PDColor.WHITE);
-        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
-        contentStream.beginText();
-        contentStream.newLineAtOffset(180, 720);
-        contentStream.showText("Controle de Cloro Livre");
-        contentStream.endText();
-    }
-
-    private static void drawTitle(PDPageContentStream contentStream, String title) throws IOException {
-        contentStream.setNonStrokingColor(PDColor.BLACK);
-        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
-        contentStream.beginText();
-        contentStream.newLineAtOffset(220, 670);
-        contentStream.showText(title);
-        contentStream.endText();
-    }
-
-    private static void drawDateField(PDPageContentStream contentStream, String date) throws IOException {
-        contentStream.setNonStrokingColor(new PDColor(new float[]{0.9f, 0.9f, 0.95f}, PDDeviceRGB.INSTANCE));
-        contentStream.addRect(220, 620, 160, 30);
-        contentStream.fill();
-        contentStream.setNonStrokingColor(PDColor.BLACK);
-        contentStream.setFont(PDType1Font.HELVETICA, 12);
-        contentStream.beginText();
-        contentStream.newLineAtOffset(230, 635);
-        contentStream.showText(date);
-        contentStream.endText();
-    }
-
-    private static void drawLocationSection(PDPageContentStream contentStream, String title, float x, float y) throws IOException {
-        contentStream.setNonStrokingColor(new PDColor(new float[]{0.9f, 0.9f, 0.95f}, PDDeviceRGB.INSTANCE));
-        contentStream.addRect(x, y, 180, 120);
-        contentStream.fill();
-        contentStream.setNonStrokingColor(PDColor.BLACK);
-        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-        contentStream.beginText();
-        contentStream.newLineAtOffset(x + 10, y + 100);
-        contentStream.showText(title);
-        contentStream.newLineAtOffset(0, -20);
-        contentStream.setFont(PDType1Font.HELVETICA, 10);
-        contentStream.showText("Escolher Arquivo");
-        contentStream.newLineAtOffset(0, -20);
-        contentStream.showText("Nenhum arquivo escolhido");
-        contentStream.newLineAtOffset(0, -20);
-        contentStream.showText("-- mg/L");
-        contentStream.endText();
-        contentStream.setStrokingColor(new PDColor(new float[]{0.7f, 0.7f, 0.7f}, PDDeviceRGB.INSTANCE));
-        contentStream.addRect(x, y, 180, 120);
-        contentStream.stroke();
-    }
-
-    private static void drawGeneratePDFButton(PDPageContentStream contentStream) throws IOException {
-        contentStream.setNonStrokingColor(new PDColor(new float[]{0, 0.39f, 0.76f}, PDDeviceRGB.INSTANCE));
-        contentStream.addRect(250, 150, 100, 30);
-        contentStream.fill();
-        contentStream.setNonStrokingColor(PDColor.WHITE);
-        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-        contentStream.beginText();
-        contentStream.newLineAtOffset(260, 165);
-        contentStream.showText("Gerar PDF");
-        contentStream.endText();
-    }
-
-    private static void drawFooter(PDPageContentStream contentStream) throws IOException {
-        contentStream.setNonStrokingColor(new PDColor(new float[]{0, 0.39f, 0.76f}, PDDeviceRGB.INSTANCE));
-        contentStream.addRect(50, 50, 500, 50);
-        contentStream.fill();
-        contentStream.setNonStrokingColor(PDColor.WHITE);
-        contentStream.setFont(PDType1Font.HELVETICA, 10);
-        contentStream.beginText();
-        contentStream.newLineAtOffset(200, 70);
-        contentStream.showText("© 2023 Controle de Cloro Livre");
-        contentStream.endText();
     }
 }
