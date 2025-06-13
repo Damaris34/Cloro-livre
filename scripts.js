@@ -69,7 +69,7 @@ public class CreateCustomPDF {
             String sectionDescription = section[1];
 
             // Create a table for each section
-            Table sectionTable = new Table(UnitValue.createPercentArray(new float[]{1}));
+            Table sectionTable = new Table(UnitValue.createPercentArray(new float[]{1, 1}));
             sectionTable.setWidth(UnitValue.createPercentValue(100));
             sectionTable.setMarginTop(10);
 
@@ -95,6 +95,7 @@ public class CreateCustomPDF {
             // Add cells to the table
             sectionTable.addCell(sectionCell);
             sectionTable.addCell(photoCell);
+            sectionTable.addCell(new Cell(1, 2).add(new Paragraph(" "))); // Empty cell for spacing
             sectionTable.addCell(descriptionCell);
 
             // Add the table to the document
