@@ -1,76 +1,97 @@
-import com.itextpdf.kernel.colors.ColorConstants;
-import com.itextpdf.kernel.colors.DeviceRgb;
-import com.itextpdf.kernel.pdf.PdfDocument;
-import com.itextpdf.kernel.pdf.PdfWriter;
-import com.itextpdf.layout.Document;
-import com.itextpdf.layout.borders.RoundedCornersBorder;
-import com.itextpdf.layout.borders.SolidBorder;
-import com.itextpdf.layout.element.Cell;
-import com.itextpdf.layout.element.Paragraph;
-import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.properties.TextAlignment;
-import com.itextpdf.layout.properties.UnitValue;
-
-import java.io.IOException;
-
-public class CreateCustomPDF {
-    public static void main(String[] args) {
-        String dest = "Relatorio_Controle_Cloro_Livre.pdf";
-
-        PdfDocument pdf = new PdfDocument(new PdfWriter(dest));
-        Document document = new Document(pdf);
-
-        // Define colors
-        DeviceRgb darkBlue = new DeviceRgb(0, 51, 102);
-        DeviceRgb lightBlue = new DeviceRgb(173, 216, 230);
-
-        // Add header
-        Paragraph header = new Paragraph("Relatório de Controle de Cloro Livre")
-                .setFontSize(18)
-                .setBold()
-                .setTextAlignment(TextAlignment.CENTER)
-                .setBackgroundColor(darkBlue)
-                .setMargin(0)
-                .setPadding(10)
-                .setFontColor(ColorConstants.WHITE);
-        document.add(header);
-
-        // Add date field
-        Table dateTable = new Table(new float[]{1});
-        dateTable.setWidth(UnitValue.createPercentValue(100));
-        dateTable.setMarginTop(20);
-
-        Cell dateCell = new Cell().add(new Paragraph("Data: dd/mm/aaaa"));
-        dateCell.setBorder(new RoundedCornersBorder(5));
-        dateCell.setBackgroundColor(ColorConstants.WHITE);
-        dateCell.setPadding(10);
-        dateTable.addCell(dateCell);
-        document.add(dateTable);
-
-        // Add sections with photo placeholders
-        String[] sections = {"Saída de Tratamento", "Cozinha", "Produção", "Administração", "Recebimento"};
-        for (String section : sections) {
-            Table sectionTable = new Table(new float[]{1, 1});
-            sectionTable.setWidth(UnitValue.createPercentValue(100));
-            sectionTable.setMarginTop(10);
-
-            Cell sectionCell = new Cell().add(new Paragraph(section));
-            sectionCell.setBorder(new SolidBorder(ColorConstants.BLACK, 1));
-            sectionCell.setBackgroundColor(lightBlue);
-            sectionCell.setPadding(10);
-
-            Cell photoCell = new Cell().add(new Paragraph("Espaço para Foto"));
-            photoCell.setBorder(new SolidBorder(ColorConstants.BLACK, 1));
-            photoCell.setBackgroundColor(ColorConstants.WHITE);
-            photoCell.setPadding(10);
-
-            sectionTable.addCell(sectionCell);
-            sectionTable.addCell(photoCell);
-            document.add(sectionTable);
-        }
-
-        // Close the document
-        document.close();
-    }
-}
-
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Cloro Livre</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>Controle de Cloro Livre</h1>
+</header>
+<main>
+<section class="dashboard">
+<div class="card">
+<h2>Data</h2>
+<input type="date" id="date" value="">
+</div>
+</section>
+<section class="locations">
+<h2>Localização dos Pontos</h2>
+<div class="location-card">
+<h3>Saída de Tratamento</h3>
+<input type="file" id="treatment-exit-image" accept="image/*">
+<input type="text" id="treatment-exit" placeholder="-- mg/L">
+</div>
+<div class="location-card">
+<h3>Cozinha</h3>
+<input type="file" id="kitchen-image" accept="image/*">
+<input type="text" id="kitchen" placeholder="-- mg/L">
+</div>
+<div class="location-card">
+<h3>Produção</h3>
+<input type="file" id="production-image" accept="image/*">
+<input type="text" id="production" placeholder="-- mg/L">
+</div>
+<div class="location-card">
+<h3>Administração</h3>
+<input type="file" id="administration-image" accept="image/*">
+<input type="text" id="administration" placeholder="-- mg/L">
+</div>
+<div class="location-card">
+<h3>Recebimento</h3>
+<input type="file" id="receiving-image" accept="image/*">
+<input type="text" id="receiving" placeholder="-- mg/L">
+</div>
+</section>
+<section class="controls">
+<button id="generate-pdf">Gerar PDF</button>
+</section>
+</main>
+<footer>
+<p>© 2023 Controle de Cloro Livre</p>
+</footer>
+</div>
+<script>
+        document.getElementById('generate-pdf').addEventListener('click', function() {
+            const { jsPDF } = window.jspdf;
+ 
+            const doc = new jsPDF();
+ 
+            // Título do relatório
+            doc.setFontSize(18);
+            doc.text('Relatório de Controle de Cloro Livre', 105, 10, { align: 'center' });
+ 
+            // Data
+            doc.setFontSize(12);
+            doc.text(`Data: ${document.getElementById('date').value}`, 10, 30);
+ 
+            // Saída de Tratamento
+            doc.text('Saída de Tratamento:', 10, 50);
+            doc.text(document.getElementById('treatment-exit').value, 70, 50);
+ 
+            // Cozinha
+            doc.text('Cozinha:', 10, 60);
+            doc.text(document.getElementById('kitchen').value, 70, 60);
+ 
+            // Produção
+            doc.text('Produção:', 10, 70);
+            doc.text(document.getElementById('production').value, 70, 70);
+ 
+            // Administração
+            doc.text('Administração:', 10, 80);
+            doc.text(document.getElementById('administration').value, 70, 80);
+ 
+            // Recebimento
+            doc.text('Recebimento:', 10, 90);
+            doc.text(document.getElementById('receiving').value, 70, 90);
+ 
+            // Salvar o PDF
+            doc.save('relatorio_cloro_livre.pdf');
+        });
+</script>
+</body>
+</html
