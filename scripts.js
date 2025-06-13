@@ -1,78 +1,60 @@
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.SolidBorder;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.UnitValue;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class CreatePDF {
+public class CreateCustomPDF {
     public static void main(String[] args) {
-        // Create a new document
-        PDDocument document = new PDDocument();
-        PDPage page = new PDPage(PDRectangle.A4);
-        document.addPage(page);
+        String dest = "Relatorio_Controle_Cloro_Livre.pdf";
 
-        try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-            // Define colors
-            java.awt.Color headerColor = new java.awt.Color(0, 0, 139); // Dark Blue
-            java.awt.Color sectionColor = new java.awt.Color(173, 216, 230); // Light Blue
+        PdfDocument pdf = new PdfDocument(new PdfWriter(dest));
+        Document document = new Document(pdf);
 
-            // Draw header
-            contentStream.setNonStrokingColor(headerColor);
-            contentStream.addRect(50, 700, 500, 50);
-            contentStream.fill();
+        // Define colors
+        DeviceRgb headerColor = new DeviceRgb(0, 0, 139);
+        DeviceRgb sectionColor = new DeviceRgb(173, 216, 230);
 
-            // Add header text
-            contentStream.beginText();
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 20);
-            contentStream.setNonStrokingColor(java.awt.Color.WHITE);
-            contentStream.newLineAtOffset(250, 720);
-            contentStream.showText("Controle de Cloro Livre");
-            contentStream.endText();
+        // Add header
+        Paragraph header = new Paragraph("Relatório de Controle de Cloro Livre")
+                .setFontSize(18)
+                .setBold()
+                .setTextAlignment(TextAlignment.CENTER)
+                .setBackgroundColor(headerColor)
+                .setMargin(0)
+                .setPadding(10)
+                .setFontColor(ColorConstants.WHITE);
+        document.add(header);
 
-            // Draw sections
-            String[] sections = {"Saída de Tratamento", "Cozinha", "Produção", "Administração", "Recebimento"};
-            for (int i = 0; i < sections.length; i++) {
-                contentStream.setNonStrokingColor(sectionColor);
-                contentStream.addRect(50, 600 - i * 100, 200, 80);
-                contentStream.fill();
+        // Add date field
+        document.add(new Paragraph("Data:").setMarginTop(20));
 
-                contentStream.beginText();
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-                contentStream.setNonStrokingColor(java.awt.Color.BLACK);
-                contentStream.newLineAtOffset(60, 650 - i * 100);
-                contentStream.showText(sections[i]);
-                contentStream.endText();
-            }
+        // Create a table for sections
+        Table table = new Table(UnitValue.createPercentArray(new float[]{1, 1, 1}));
+        table.setWidth(UnitValue.createPercentValue(100));
 
-            // Draw "Gerar PDF" button
-            contentStream.setNonStrokingColor(headerColor);
-            contentStream.addRect(250, 100, 100, 30);
-            contentStream.fill();
-
-            contentStream.beginText();
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-            contentStream.setNonStrokingColor(java.awt.Color.WHITE);
-            contentStream.newLineAtOffset(260, 115);
-            contentStream.showText("Gerar PDF");
-            contentStream.endText();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Add sections to the table
+        String[] sections = {"Saída de Tratamento", "Cozinha", "Produção", "Administração", "Recebimento"};
+        for (String section : sections) {
+            Cell cell = new Cell().add(new Paragraph(section));
+            cell.setBorder(new SolidBorder(sectionColor, 1));
+            cell.setBackgroundColor(ColorConstants.WHITE);
+            cell.setPadding(10);
+            table.addCell(cell);
         }
 
-        // Save the document
-        try {
-            document.save("Controle_de_Cloro_Livre.pdf");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                document.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        document.add(table);
+
+        // Close the document
+        document.close();
     }
 }
