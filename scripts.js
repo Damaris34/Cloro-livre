@@ -70,16 +70,20 @@ public class CreateCustomPDF {
             String sectionDescription = section[1];
 
             // Create a table for each section
-            Table sectionTable = new Table(UnitValue.createPercentArray(new float[]{1, 1}));
+            Table sectionTable = new Table(UnitValue.createPercentArray(new float[]{1}));
             sectionTable.setWidth(UnitValue.createPercentValue(100));
             sectionTable.setMarginTop(15);
 
             // Section name cell with color
-            Cell sectionCell = new Cell(1, 2).add(new Paragraph(sectionName));
+            Cell sectionCell = new Cell().add(new Paragraph(sectionName));
             sectionCell.setBorder(new SolidBorder(darkBlue, 2));
             sectionCell.setBackgroundColor(lightBlue);
             sectionCell.setPadding(10);
             sectionCell.setTextAlignment(TextAlignment.CENTER);
+
+            // Create a table for the photo and description
+            Table contentTable = new Table(UnitValue.createPercentArray(new float[]{1, 1}));
+            contentTable.setWidth(UnitValue.createPercentValue(100));
 
             // Photo placeholder cell with color
             Cell photoCell = new Cell().add(new Paragraph("Espaço para Foto"));
@@ -95,10 +99,12 @@ public class CreateCustomPDF {
             descriptionCell.setBackgroundColor(lightGray);
             descriptionCell.setPadding(10);
 
-            // Add cells to the table
+            contentTable.addCell(photoCell);
+            contentTable.addCell(descriptionCell);
+
+            // Add cells to the section table
             sectionTable.addCell(sectionCell);
-            sectionTable.addCell(photoCell);
-            sectionTable.addCell(descriptionCell);
+            sectionTable.addCell(contentTable);
 
             // Add the table to the document
             document.add(sectionTable);
