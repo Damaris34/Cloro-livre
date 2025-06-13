@@ -18,14 +18,21 @@ public class CreateCustomPDF {
     public static void main(String[] args) {
         String dest = "Relatorio_Controle_Cloro_Livre.pdf";
 
-        PdfDocument pdf = new PdfDocument(new PdfWriter(dest));
+        // Initialize PDF writer
+        PdfWriter writer = new PdfWriter(dest);
+
+        // Initialize PDF document
+        PdfDocument pdf = new PdfDocument(writer);
+
+        // Initialize document
         Document document = new Document(pdf);
 
         // Define colors
         DeviceRgb darkBlue = new DeviceRgb(0, 51, 102);
         DeviceRgb lightBlue = new DeviceRgb(173, 216, 230);
+        DeviceRgb lightGray = new DeviceRgb(211, 211, 211);
 
-        // Add header
+        // Add header with color
         Paragraph header = new Paragraph("Relatório de Controle de Cloro Livre")
                 .setFontSize(18)
                 .setBold()
@@ -36,75 +43,70 @@ public class CreateCustomPDF {
                 .setFontColor(ColorConstants.WHITE);
         document.add(header);
 
-        // Add date field
+        // Add date field with color
         Table dateTable = new Table(UnitValue.createPercentArray(new float[]{1}));
         dateTable.setWidth(UnitValue.createPercentValue(100));
         dateTable.setMarginTop(20);
 
         Cell dateCell = new Cell().add(new Paragraph("Data: dd/mm/aaaa"));
         dateCell.setBorder(new RoundedCornersBorder(5));
-        dateCell.setBackgroundColor(ColorConstants.WHITE);
+        dateCell.setBackgroundColor(lightGray);
         dateCell.setPadding(10);
         dateTable.addCell(dateCell);
         document.add(dateTable);
 
-        // Add sections with photo placeholders and descriptions
-        String[] sections = {
-            "Saída de Tratamento: Medição do cloro livre na saída do tratamento.",
-            "Cozinha: Medição do cloro livre na área da cozinha.",
-            "Produção: Medição do cloro livre na área de produção.",
-            "Administração: Medição do cloro livre na área administrativa.",
-            "Recebimento: Medição do cloro livre na área de recebimento."
+        // Define sections with photo placeholders and descriptions
+        String[][] sections = {
+            {"Saída de Tratamento", "Medição do cloro livre na saída do tratamento."},
+            {"Cozinha", "Medição do cloro livre na área da cozinha."},
+            {"Produção", "Medição do cloro livre na área de produção."},
+            {"Administração", "Medição do cloro livre na área administrativa."},
+            {"Recebimento", "Medição do cloro livre na área de recebimento."}
         };
 
-        for (String section : sections) {
-            String[] parts = section.split(":");
-            String sectionName = parts[0];
-            String sectionDescription = parts[1];
+        for (String[] section : sections) {
+            String sectionName = section[0];
+            String sectionDescription = section[1];
 
+            // Create a table for each section
             Table sectionTable = new Table(UnitValue.createPercentArray(new float[]{1}));
             sectionTable.setWidth(UnitValue.createPercentValue(100));
             sectionTable.setMarginTop(10);
 
+            // Section name cell with color
             Cell sectionCell = new Cell().add(new Paragraph(sectionName));
             sectionCell.setBorder(new SolidBorder(darkBlue, 1));
             sectionCell.setBackgroundColor(lightBlue);
             sectionCell.setPadding(10);
 
+            // Photo placeholder cell with color
             Cell photoCell = new Cell().add(new Paragraph("Espaço para Foto"));
-            photoCell.setBorder(new SolidBorder(ColorConstants.BLACK, 1));
+            photoCell.setBorder(new SolidBorder(darkBlue, 1));
             photoCell.setBackgroundColor(ColorConstants.WHITE);
             photoCell.setPadding(10);
             photoCell.setHeight(100);
 
+            // Description cell with color
             Cell descriptionCell = new Cell().add(new Paragraph(sectionDescription));
-            descriptionCell.setBorder(new SolidBorder(ColorConstants.BLACK, 1));
-            descriptionCell.setBackgroundColor(ColorConstants.WHITE);
+            descriptionCell.setBorder(new SolidBorder(darkBlue, 1));
+            descriptionCell.setBackgroundColor(lightGray);
             descriptionCell.setPadding(10);
 
+            // Add cells to the table
             sectionTable.addCell(sectionCell);
             sectionTable.addCell(photoCell);
             sectionTable.addCell(descriptionCell);
 
+            // Add the table to the document
             document.add(sectionTable);
         }
 
-        // Add additional information
+        // Add additional information with color
         Paragraph additionalInfo = new Paragraph("Informações Adicionais\nEste relatório foi gerado para monitorar os níveis de cloro livre em diferentes áreas da empresa. É importante manter os níveis de cloro dentro dos padrões estabelecidos para garantir a segurança e a qualidade da água.")
                 .setMarginTop(20)
-                .setBackgroundColor(new DeviceRgb(230, 247, 255))
+                .setBackgroundColor(lightBlue)
                 .setPadding(10);
         document.add(additionalInfo);
-
-        // Add footer
-        Paragraph footer = new Paragraph("© 2023 Controle de Cloro Livre | Empresa XYZ")
-                .setFontSize(12)
-                .setTextAlignment(TextAlignment.CENTER)
-                .setBackgroundColor(darkBlue)
-                .setMargin(0)
-                .setPadding(10)
-                .setFontColor(ColorConstants.WHITE);
-        document.add(footer);
 
         // Close the document
         document.close();
