@@ -2,8 +2,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
+import java.awt.Color;
 import java.io.IOException;
 
 public class EnhancedChlorineReportGenerator {
@@ -16,22 +16,42 @@ public class EnhancedChlorineReportGenerator {
 
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
-            // Set font and font size for the title
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
+            // Define colors
+            Color titleColor = new Color(0, 51, 102); // Dark Blue
+            Color headerColor = new Color(204, 229, 255); // Light Blue
+            Color rowColor1 = new Color(255, 255, 255); // White
+            Color rowColor2 = new Color(230, 242, 255); // Very Light Blue
+
+            // Draw a colored rectangle for the title background
+            contentStream.setNonStrokingColor(titleColor);
+            contentStream.addRect(0, 720, 600, 30);
+            contentStream.fill();
+
+            // Set font and color for the title
+            contentStream.setNonStrokingColor(Color.WHITE);
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
 
             // Add a title
             contentStream.beginText();
-            contentStream.newLineAtOffset(200, 700);
+            contentStream.newLineAtOffset(180, 730);
             contentStream.showText("Relatório de Controle de Cloro Livre");
             contentStream.endText();
 
-            // Add headers for the table with a different layout
+            // Set font and color for headers
+            contentStream.setNonStrokingColor(Color.BLACK);
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+
+            // Add headers for the table with background color
             String[] headers = {"Data", "Saída de Tratamento", "Cozinha", "Produção", "Administração", "Recebimento"};
             float margin = 50;
-            float yStart = 650;
+            float yStart = 680;
             float yPosition = yStart;
 
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+            contentStream.setNonStrokingColor(headerColor);
+            contentStream.addRect(50, yPosition - 15, 500, 20);
+            contentStream.fill();
+
+            contentStream.setNonStrokingColor(Color.BLACK);
             for (String header : headers) {
                 contentStream.beginText();
                 contentStream.newLineAtOffset(margin, yPosition);
@@ -40,13 +60,7 @@ public class EnhancedChlorineReportGenerator {
                 margin += 100;
             }
 
-            // Draw a line under headers
-            contentStream.setStrokingColor(0, 0, 0);
-            contentStream.moveTo(50, yPosition - 10);
-            contentStream.lineTo(550, yPosition - 10);
-            contentStream.stroke();
-
-            // Add some sample data
+            // Add some sample data with alternating row colors
             String[][] data = {
                 {"2023-10-01", "1.2", "1.5", "1.3", "1.4", "1.6"},
                 {"2023-10-02", "1.1", "1.4", "1.2", "1.3", "1.5"},
@@ -55,9 +69,15 @@ public class EnhancedChlorineReportGenerator {
 
             yPosition -= 30;
             contentStream.setFont(PDType1Font.HELVETICA, 10);
-            for (String[] row : data) {
+            for (int i = 0; i < data.length; i++) {
                 margin = 50;
-                for (String cell : row) {
+                // Alternate row colors
+                contentStream.setNonStrokingColor(i % 2 == 0 ? rowColor1 : rowColor2);
+                contentStream.addRect(50, yPosition - 15, 500, 20);
+                contentStream.fill();
+
+                contentStream.setNonStrokingColor(Color.BLACK);
+                for (String cell : data[i]) {
                     contentStream.beginText();
                     contentStream.newLineAtOffset(margin, yPosition);
                     contentStream.showText(cell);
@@ -68,6 +88,7 @@ public class EnhancedChlorineReportGenerator {
             }
 
             // Add a footer
+            contentStream.setNonStrokingColor(titleColor);
             contentStream.setFont(PDType1Font.HELVETICA, 10);
             contentStream.beginText();
             contentStream.newLineAtOffset(50, 50);
