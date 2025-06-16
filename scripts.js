@@ -18,13 +18,12 @@ public class EnhancedChlorineReportGenerator {
 
             // Define colors
             Color titleColor = new Color(0, 51, 102); // Dark Blue
-            Color headerColor = new Color(204, 229, 255); // Light Blue
-            Color rowColor1 = new Color(255, 255, 255); // White
-            Color rowColor2 = new Color(230, 242, 255); // Very Light Blue
+            Color sectionColor = new Color(204, 229, 255); // Light Blue
+            Color borderColor = new Color(0, 51, 102); // Dark Blue
 
             // Draw a colored rectangle for the title background
             contentStream.setNonStrokingColor(titleColor);
-            contentStream.addRect(0, 720, 600, 30);
+            contentStream.addRect(0, 750, 600, 30);
             contentStream.fill();
 
             // Set font and color for the title
@@ -33,66 +32,81 @@ public class EnhancedChlorineReportGenerator {
 
             // Add a title
             contentStream.beginText();
-            contentStream.newLineAtOffset(180, 730);
-            contentStream.showText("Relatório de Controle de Cloro Livre");
+            contentStream.newLineAtOffset(180, 760);
+            contentStream.showText("Controle de Cloro Livre");
             contentStream.endText();
 
-            // Set font and color for headers
+            // Set font and color for section headers
             contentStream.setNonStrokingColor(Color.BLACK);
             contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
 
-            // Add headers for the table with background color
-            String[] headers = {"Data", "Saída de Tratamento", "Cozinha", "Produção", "Administração", "Recebimento"};
-            float margin = 50;
-            float yStart = 680;
-            float yPosition = yStart;
+            // Add date field
+            contentStream.beginText();
+            contentStream.newLineAtOffset(50, 700);
+            contentStream.showText("Data:");
+            contentStream.endText();
 
-            contentStream.setNonStrokingColor(headerColor);
-            contentStream.addRect(50, yPosition - 15, 500, 20);
+            // Draw a rectangle for the date field
+            contentStream.setStrokingColor(borderColor);
+            contentStream.setNonStrokingColor(sectionColor);
+            contentStream.addRect(100, 680, 100, 20);
             contentStream.fill();
+            contentStream.stroke();
 
-            contentStream.setNonStrokingColor(Color.BLACK);
-            for (String header : headers) {
-                contentStream.beginText();
-                contentStream.newLineAtOffset(margin, yPosition);
-                contentStream.showText(header);
-                contentStream.endText();
-                margin += 100;
-            }
+            // Add section title for localization
+            contentStream.beginText();
+            contentStream.newLineAtOffset(50, 650);
+            contentStream.showText("Localização dos Pontos");
+            contentStream.endText();
 
-            // Add some sample data with alternating row colors
-            String[][] data = {
-                {"2023-10-01", "1.2", "1.5", "1.3", "1.4", "1.6"},
-                {"2023-10-02", "1.1", "1.4", "1.2", "1.3", "1.5"},
-                {"2023-10-03", "1.0", "1.3", "1.1", "1.2", "1.4"}
+            // Define locations and their details
+            String[][] locations = {
+                {"Saída de Tratamento", "Escolher Arquivo", "Nenhum arquivo escolhido"},
+                {"Cozinha", "Escolher Arquivo", "Nenhum arquivo escolhido"},
+                {"Produção", "Escolher Arquivo", "Nenhum arquivo escolhido"},
+                {"Administração", "Escolher Arquivo", "Nenhum arquivo escolhido"},
+                {"Recebimento", "Escolher Arquivo", "Nenhum arquivo escolhido"}
             };
 
-            yPosition -= 30;
-            contentStream.setFont(PDType1Font.HELVETICA, 10);
-            for (int i = 0; i < data.length; i++) {
-                margin = 50;
-                // Alternate row colors
-                contentStream.setNonStrokingColor(i % 2 == 0 ? rowColor1 : rowColor2);
-                contentStream.addRect(50, yPosition - 15, 500, 20);
+            // Draw rectangles for each location section
+            float yPosition = 620;
+            for (String[] location : locations) {
+                contentStream.setNonStrokingColor(sectionColor);
+                contentStream.addRect(50, yPosition - 20, 150, 60);
                 contentStream.fill();
+                contentStream.stroke();
 
                 contentStream.setNonStrokingColor(Color.BLACK);
-                for (String cell : data[i]) {
-                    contentStream.beginText();
-                    contentStream.newLineAtOffset(margin, yPosition);
-                    contentStream.showText(cell);
-                    contentStream.endText();
-                    margin += 100;
-                }
-                yPosition -= 20;
+                contentStream.beginText();
+                contentStream.newLineAtOffset(60, yPosition);
+                contentStream.showText(location[0]);
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText(location[1]);
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText(location[2]);
+                contentStream.endText();
+
+                yPosition -= 80;
             }
+
+            // Add a button for generating PDF
+            contentStream.setNonStrokingColor(sectionColor);
+            contentStream.addRect(250, yPosition - 40, 100, 20);
+            contentStream.fill();
+            contentStream.stroke();
+
+            contentStream.setNonStrokingColor(Color.BLACK);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(260, yPosition - 35);
+            contentStream.showText("Gerar PDF");
+            contentStream.endText();
 
             // Add a footer
             contentStream.setNonStrokingColor(titleColor);
             contentStream.setFont(PDType1Font.HELVETICA, 10);
             contentStream.beginText();
-            contentStream.newLineAtOffset(50, 50);
-            contentStream.showText("Contato: contato@empresa.com | Relatório gerado em: " + java.time.LocalDate.now());
+            contentStream.newLineAtOffset(150, 50);
+            contentStream.showText("© 2023 Controle de Cloro Livre");
             contentStream.endText();
 
             contentStream.close();
