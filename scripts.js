@@ -2,10 +2,11 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import java.io.IOException;
 
-public class CustomChlorineReportGenerator {
+public class EnhancedChlorineReportGenerator {
 
     public static void main(String[] args) {
         PDDocument document = new PDDocument();
@@ -15,21 +16,37 @@ public class CustomChlorineReportGenerator {
 
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
-            // Define a font and font size
-            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+            // Load an image for the header logo
+            PDImageXObject logo = PDImageXObject.createFromFile("path/to/logo.png", document);
 
-            // Add a custom header
+            // Draw the logo
+            contentStream.drawImage(logo, 50, 650, 100, 50);
+
+            // Set font and font size for the title
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
+
+            // Add a title
             contentStream.beginText();
-            contentStream.newLineAtOffset(200, 700);
-            contentStream.showText("Custom Free Chlorine Control Report");
+            contentStream.newLineAtOffset(160, 700);
+            contentStream.showText("Enhanced Free Chlorine Control Report");
             contentStream.endText();
+
+            // Draw a line graph (simplified representation)
+            contentStream.setStrokingColor(0, 0, 255);
+            contentStream.moveTo(50, 550);
+            contentStream.lineTo(100, 500);
+            contentStream.lineTo(150, 530);
+            contentStream.lineTo(200, 570);
+            contentStream.lineTo(250, 520);
+            contentStream.stroke();
 
             // Add headers for the table
             String[] headers = {"Date", "Treatment Exit", "Kitchen", "Production", "Administration", "Reception"};
             float margin = 50;
-            float yStart = 650;
+            float yStart = 500;
             float yPosition = yStart;
 
+            contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
             for (String header : headers) {
                 contentStream.beginText();
                 contentStream.newLineAtOffset(margin, yPosition);
@@ -46,6 +63,7 @@ public class CustomChlorineReportGenerator {
             };
 
             yPosition -= 20;
+            contentStream.setFont(PDType1Font.HELVETICA, 10);
             for (String[] row : data) {
                 margin = 50;
                 for (String cell : row) {
@@ -58,10 +76,17 @@ public class CustomChlorineReportGenerator {
                 yPosition -= 20;
             }
 
+            // Add a footer
+            contentStream.setFont(PDType1Font.HELVETICA, 10);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(50, 50);
+            contentStream.showText("Contact: contact@example.com | Report generated on: " + java.time.LocalDate.now());
+            contentStream.endText();
+
             contentStream.close();
 
             // Save the document
-            document.save("Custom_Chlorine_Report.pdf");
+            document.save("Enhanced_Chlorine_Report.pdf");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
