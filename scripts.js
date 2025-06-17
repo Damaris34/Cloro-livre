@@ -35,39 +35,31 @@ public class EnhancedChlorineReportGenerator {
             // Add a title
             contentStream.beginText();
             contentStream.newLineAtOffset(150, 770);
-            contentStream.showText("Relatório de Controle de Cloro Livre");
-            contentStream.endText();
-
-            // Add additional header information horizontally
-            contentStream.setNonStrokingColor(Color.WHITE);
-            contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA), 12);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(50, 730);
-            contentStream.showText("Empresa: Empresa XYZ | Data do Relatório: " + java.time.LocalDate.now());
-            contentStream.endText();
-
-            // Add formula section
-            contentStream.setNonStrokingColor(Color.BLACK);
-            contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA_BOLD), 14);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(50, 680);
-            contentStream.showText("Fórmula: Cloro Livre = Cloro Total - Cloro Combinado");
+            contentStream.showText("Controle de Cloro Livre");
             contentStream.endText();
 
             // Add date field
+            contentStream.setNonStrokingColor(Color.BLACK);
             contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA_BOLD), 12);
             contentStream.beginText();
+            contentStream.newLineAtOffset(50, 700);
+            contentStream.showText("Data: dd/mm/aaaa");
+            contentStream.endText();
+
+            // Add section title for localization
+            contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA_BOLD), 14);
+            contentStream.beginText();
             contentStream.newLineAtOffset(50, 650);
-            contentStream.showText("Data da Coleta: 16/06/2023");
+            contentStream.showText("Localização dos Pontos");
             contentStream.endText();
 
             // Define locations and their details
             String[][] locations = {
-                {"Saída de Tratamento", "1.2 mg/L", "Dentro do Padrão"},
-                {"Cozinha", "1.5 mg/L", "Dentro do Padrão"},
-                {"Produção", "1.3 mg/L", "Dentro do Padrão"},
-                {"Administração", "1.4 mg/L", "Dentro do Padrão"},
-                {"Recebimento", "1.6 mg/L", "Dentro do Padrão"}
+                {"Saída de Tratamento", "Escolher Arquivo", "Nenhum arquivo escolhido", "-- mg/L"},
+                {"Cozinha", "Escolher Arquivo", "Nenhum arquivo escolhido", "-- mg/L"},
+                {"Produção", "Escolher Arquivo", "Nenhum arquivo escolhido", "-- mg/L"},
+                {"Administração", "Escolher Arquivo", "Nenhum arquivo escolhido", "-- mg/L"},
+                {"Recebimento", "Escolher Arquivo", "Nenhum arquivo escolhido", "-- mg/L"}
             };
 
             // Draw rectangles for each location section
@@ -75,7 +67,7 @@ public class EnhancedChlorineReportGenerator {
             contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA), 12);
             for (String[] location : locations) {
                 contentStream.setNonStrokingColor(sectionColor);
-                contentStream.addRect(50, yPosition - 20, 500, 30);
+                contentStream.addRect(50, yPosition - 40, 250, 60);
                 contentStream.fill();
                 contentStream.setStrokingColor(borderColor);
                 contentStream.stroke();
@@ -83,18 +75,37 @@ public class EnhancedChlorineReportGenerator {
                 contentStream.setNonStrokingColor(Color.BLACK);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(60, yPosition);
-                contentStream.showText(location[0] + " | Valor: " + location[1] + " | Status: " + location[2]);
+                contentStream.showText(location[0]);
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText(location[1]);
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText(location[2]);
+                contentStream.newLineAtOffset(0, -20);
+                contentStream.showText(location[3]);
                 contentStream.endText();
 
-                yPosition -= 50;
+                yPosition -= 100;
             }
+
+            // Add a button for generating PDF
+            contentStream.setNonStrokingColor(titleColor);
+            contentStream.addRect(250, yPosition - 40, 100, 20);
+            contentStream.fill();
+            contentStream.setStrokingColor(Color.BLACK);
+            contentStream.stroke();
+
+            contentStream.setNonStrokingColor(Color.WHITE);
+            contentStream.beginText();
+            contentStream.newLineAtOffset(260, yPosition - 35);
+            contentStream.showText("Gerar PDF");
+            contentStream.endText();
 
             // Add a footer
             contentStream.setNonStrokingColor(titleColor);
             contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA), 10);
             contentStream.beginText();
             contentStream.newLineAtOffset(150, 30);
-            contentStream.showText("© 2023 Controle de Cloro Livre | contato@empresa.com | Todos os direitos reservados");
+            contentStream.showText("© 2023 Controle de Cloro Livre");
             contentStream.endText();
 
             contentStream.close();
