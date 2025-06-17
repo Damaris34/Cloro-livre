@@ -19,7 +19,6 @@ public class EnhancedChlorineReportGenerator {
 
             // Define colors
             Color titleColor = new Color(23, 70, 162); // Darker Blue
-            Color headerColor = new Color(187, 222, 251); // Light Blue
             Color sectionColor = new Color(237, 245, 255); // Very Light Blue
             Color borderColor = new Color(23, 70, 162); // Darker Blue
 
@@ -35,7 +34,7 @@ public class EnhancedChlorineReportGenerator {
             // Add a title
             contentStream.beginText();
             contentStream.newLineAtOffset(150, 770);
-            contentStream.showText("Controle de Cloro Livre");
+            contentStream.showText("Relatório de Controle de Cloro Livre");
             contentStream.endText();
 
             // Add date field
@@ -43,31 +42,24 @@ public class EnhancedChlorineReportGenerator {
             contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA_BOLD), 12);
             contentStream.beginText();
             contentStream.newLineAtOffset(50, 700);
-            contentStream.showText("Data: dd/mm/aaaa");
-            contentStream.endText();
-
-            // Add section title for localization
-            contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA_BOLD), 14);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(50, 650);
-            contentStream.showText("Localização dos Pontos");
+            contentStream.showText("Data: " + java.time.LocalDate.now().toString());
             contentStream.endText();
 
             // Define locations and their details
             String[][] locations = {
-                {"Saída de Tratamento", "Escolher Arquivo", "Nenhum arquivo escolhido", "-- mg/L"},
-                {"Cozinha", "Escolher Arquivo", "Nenhum arquivo escolhido", "-- mg/L"},
-                {"Produção", "Escolher Arquivo", "Nenhum arquivo escolhido", "-- mg/L"},
-                {"Administração", "Escolher Arquivo", "Nenhum arquivo escolhido", "-- mg/L"},
-                {"Recebimento", "Escolher Arquivo", "Nenhum arquivo escolhido", "-- mg/L"}
+                {"Saída de Tratamento", "Valor: 1.2 mg/L", "Status: Dentro do Padrão"},
+                {"Cozinha", "Valor: 1.5 mg/L", "Status: Dentro do Padrão"},
+                {"Produção", "Valor: 1.3 mg/L", "Status: Dentro do Padrão"},
+                {"Administração", "Valor: 1.4 mg/L", "Status: Dentro do Padrão"},
+                {"Recebimento", "Valor: 1.6 mg/L", "Status: Dentro do Padrão"}
             };
 
             // Draw rectangles for each location section
-            float yPosition = 620;
+            float yPosition = 650;
             contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA), 12);
             for (String[] location : locations) {
                 contentStream.setNonStrokingColor(sectionColor);
-                contentStream.addRect(50, yPosition - 40, 250, 60);
+                contentStream.addRect(50, yPosition - 40, 500, 50);
                 contentStream.fill();
                 contentStream.setStrokingColor(borderColor);
                 contentStream.stroke();
@@ -75,37 +67,18 @@ public class EnhancedChlorineReportGenerator {
                 contentStream.setNonStrokingColor(Color.BLACK);
                 contentStream.beginText();
                 contentStream.newLineAtOffset(60, yPosition);
-                contentStream.showText(location[0]);
-                contentStream.newLineAtOffset(0, -20);
-                contentStream.showText(location[1]);
-                contentStream.newLineAtOffset(0, -20);
-                contentStream.showText(location[2]);
-                contentStream.newLineAtOffset(0, -20);
-                contentStream.showText(location[3]);
+                contentStream.showText(location[0] + " | " + location[1] + " | " + location[2]);
                 contentStream.endText();
 
-                yPosition -= 100;
+                yPosition -= 80;
             }
-
-            // Add a button for generating PDF
-            contentStream.setNonStrokingColor(titleColor);
-            contentStream.addRect(250, yPosition - 40, 100, 20);
-            contentStream.fill();
-            contentStream.setStrokingColor(Color.BLACK);
-            contentStream.stroke();
-
-            contentStream.setNonStrokingColor(Color.WHITE);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(260, yPosition - 35);
-            contentStream.showText("Gerar PDF");
-            contentStream.endText();
 
             // Add a footer
             contentStream.setNonStrokingColor(titleColor);
             contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA), 10);
             contentStream.beginText();
             contentStream.newLineAtOffset(150, 30);
-            contentStream.showText("© 2023 Controle de Cloro Livre");
+            contentStream.showText("© 2023 Controle de Cloro Livre | Todos os direitos reservados");
             contentStream.endText();
 
             contentStream.close();
