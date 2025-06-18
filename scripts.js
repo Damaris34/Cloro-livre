@@ -7,7 +7,7 @@ import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import java.awt.Color;
 import java.io.IOException;
 
-public class EnhancedChlorineReportGenerator {
+public class FormalChlorineReportGenerator {
 
     public static void main(String[] args) {
         PDDocument document = new PDDocument();
@@ -34,7 +34,7 @@ public class EnhancedChlorineReportGenerator {
             // Add a title
             contentStream.beginText();
             contentStream.newLineAtOffset(150, 770);
-            contentStream.showText("Relatório de Controle de Qualidade de Água");
+            contentStream.showText("Relatório Formal de Controle de Qualidade de Água");
             contentStream.endText();
 
             // Add additional header information horizontally
@@ -96,7 +96,7 @@ public class EnhancedChlorineReportGenerator {
             contentStream.close();
 
             // Save the document
-            document.save("Relatorio_Qualidade_Agua.pdf");
+            document.save("Relatorio_Qualidade_Agua_Formal.pdf");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
