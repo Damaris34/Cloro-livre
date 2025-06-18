@@ -2,103 +2,39 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
 import java.awt.Color;
 import java.io.IOException;
 
-public class FormalChlorineReportGenerator {
+public class PDFModifier {
 
     public static void main(String[] args) {
-        PDDocument document = new PDDocument();
-        try {
+        try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage();
             document.addPage(page);
 
-            PDPageContentStream contentStream = new PDPageContentStream(document, page);
-
-            // Define colors
-            Color titleColor = new Color(23, 70, 162); // Darker Blue
-            Color sectionColor = new Color(237, 245, 255); // Very Light Blue
-            Color borderColor = new Color(23, 70, 162); // Darker Blue
-
-            // Draw a colored rectangle for the title background
-            contentStream.setNonStrokingColor(titleColor);
-            contentStream.addRect(0, 750, 600, 50);
-            contentStream.fill();
-
-            // Set font and color for the title
-            contentStream.setNonStrokingColor(Color.WHITE);
-            contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA_BOLD), 24);
-
-            // Add a title
-            contentStream.beginText();
-            contentStream.newLineAtOffset(150, 770);
-            contentStream.showText("Relatório de Controle de Cloro Livre");
-            contentStream.endText();
-
-            // Add date field
-            contentStream.setNonStrokingColor(Color.BLACK);
-            contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA_BOLD), 12);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(50, 700);
-            contentStream.showText("Data: " + java.time.LocalDate.now().toString());
-            contentStream.endText();
-
-            // Define locations and their details
-            String[][] locations = {
-                {"Saída de Tratamento", "3.15 mg/L"},
-                {"Cozinha", "3.00 mg/L"},
-                {"Produção", "3.35 mg/L"},
-                {"Administração", "3.10 mg/L"},
-                {"Recebimento", "3.25 mg/L"}
-            };
-
-            // Draw rectangles for each location section
-            float yPosition = 650;
-            contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA), 12);
-            for (String[] location : locations) {
-                contentStream.setNonStrokingColor(sectionColor);
-                contentStream.addRect(50, yPosition - 40, 200, 80);
-                contentStream.fill();
-                contentStream.setStrokingColor(borderColor);
-                contentStream.stroke();
-
-                contentStream.setNonStrokingColor(Color.BLACK);
+            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                // Adicionar um título
+                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
                 contentStream.beginText();
-                contentStream.newLineAtOffset(60, yPosition);
-                contentStream.showText(location[0]);
-                contentStream.newLineAtOffset(0, -20);
-                contentStream.showText("Escolher Arquivo");
-                contentStream.newLineAtOffset(0, -20);
-                contentStream.showText("Nenhum arquivo escolhido");
-                contentStream.newLineAtOffset(0, -20);
-                contentStream.showText(location[1]);
+                contentStream.setNonStrokingColor(Color.BLUE);
+                contentStream.newLineAtOffset(100, 700);
+                contentStream.showText("Relatório de Controle de Qualidade de Água");
                 contentStream.endText();
 
-                yPosition -= 120;
+                // Adicionar um parágrafo
+                contentStream.setFont(PDType1Font.HELVETICA, 12);
+                contentStream.setNonStrokingColor(Color.BLACK);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(100, 650);
+                contentStream.showText("Este é um exemplo de como modificar um PDF usando Apache PDFBox.");
+                contentStream.endText();
             }
 
-            // Add a footer
-            contentStream.setNonStrokingColor(titleColor);
-            contentStream.setFont(new Standard14Fonts.Font(PDType1Font.HELVETICA), 10);
-            contentStream.beginText();
-            contentStream.newLineAtOffset(150, 30);
-            contentStream.showText("© 2023 Controle de Cloro Livre");
-            contentStream.endText();
-
-            contentStream.close();
-
-            // Save the document
-            document.save("Relatorio_Cloro_Livre_Formal.pdf");
+            // Salvar o documento modificado
+            document.save("modified_document.pdf");
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                document.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
