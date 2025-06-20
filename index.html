@@ -2,125 +2,55 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Relatório de Controle de Cloro Livre</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            color: #333;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-        .section h2 {
-            color: #3498db;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 5px;
-        }
-        .data-field {
-            margin-bottom: 10px;
-        }
-        .data-field label {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .data-field span {
-            color: #e74c3c;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Compressor</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Relatório de Controle de Cloro Livre</h1>
-
-        <div class="section">
-            <h2>Data</h2>
-            <div class="data-field">
-                <label>Data:</label>
-                <span id="date">20/06/2025</span>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Localização dos Pontos</h2>
-            <div class="data-field">
-                <label>Saída de Tratamento:</label>
-                <span id="treatment-exit">2.0 mg/L</span>
-            </div>
-            <div class="data-field">
-                <label>Cozinha:</label>
-                <span id="kitchen">1.8 mg/L</span>
-            </div>
-            <div class="data-field">
-                <label>Produção:</label>
-                <span id="production">1.9 mg/L</span>
-            </div>
-            <div class="data-field">
-                <label>Administração:</label>
-                <span id="administration">1.7 mg/L</span>
-            </div>
-            <div class="data-field">
-                <label>Recebimento:</label>
-                <span id="receiving">2.1 mg/L</span>
-            </div>
-        </div>
+        <h1>Controle de Compressor</h1>
+        <form id="compressorForm">
+            <label for="date">Data/Horário:</label>
+            <input type="datetime-local" id="date" name="date" required>
+ 
+            <label for="pressure">Pressão:</label>
+            <input type="number" id="pressure" name="pressure" required>
+ 
+            <label for="temperature">Temperatura:</label>
+            <input type="number" id="temperature" name="temperature" required>
+ 
+            <label for="compressor">Compressor em operação:</label>
+            <select id="compressor" name="compressor" required>
+                <option value="sim">Sim</option>
+                <option value="não">Não</option>
+            </select>
+ 
+            <label for="responsible">Responsável:</label>
+            <input type="text" id="responsible" name="responsible" required>
+ 
+            <button type="submit">Adicionar Registro</button>
+        </form>
+ 
+        <h2>Registros</h2>
+        <table id="recordsTable">
+            <thead>
+                <tr>
+                    <th>Data/Horário</th>
+                    <th>Pressão</th>
+                    <th>Temperatura</th>
+                    <th>Compressor</th>
+                    <th>Responsável</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Registros serão adicionados aqui -->
+            </tbody>
+        </table>
+ 
+        <button id="generateReport">Gerar Relatório</button>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-
-            // Adiciona o título ao PDF
-            doc.setFontSize(18);
-            doc.setTextColor(44, 62, 80);
-            doc.text('Relatório de Controle de Cloro Livre', 105, 15, { align: 'center' });
-
-            // Adiciona a data ao PDF
-            doc.setFontSize(12);
-            doc.setTextColor(52, 152, 219);
-            doc.text('Data:', 10, 30);
-            doc.setTextColor(231, 76, 60);
-            doc.text(document.getElementById('date').textContent, 30, 30);
-
-            // Adiciona os dados dos pontos ao PDF
-            doc.setTextColor(52, 152, 219);
-            doc.text('Localização dos Pontos:', 10, 45);
-
-            let yPos = 55;
-            const fields = [
-                { label: 'Saída de Tratamento:', value: document.getElementById('treatment-exit').textContent },
-                { label: 'Cozinha:', value: document.getElementById('kitchen').textContent },
-                { label: 'Produção:', value: document.getElementById('production').textContent },
-                { label: 'Administração:', value: document.getElementById('administration').textContent },
-                { label: 'Recebimento:', value: document.getElementById('receiving').textContent }
-            ];
-
-            fields.forEach(field => {
-                doc.setTextColor(44, 62, 80);
-                doc.text(field.label, 10, yPos);
-                doc.setTextColor(231, 76, 60);
-                doc.text(field.value, 70, yPos);
-                yPos += 10;
-            });
-
-            // Salva o PDF
-            doc.save('relatorio_cloro_livre.pdf');
-        });
-    </script>
+ 
+    <script src="script.js"></script>
 </body>
 </html>
+ 
