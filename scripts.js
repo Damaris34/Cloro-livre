@@ -34,25 +34,24 @@ public class GenerateStyledPdf {
                     .setFont(boldFont)
                     .setFontSize(20)
                     .setTextAlignment(TextAlignment.CENTER)
-                    .setFontColor(new DeviceRgb(25, 25, 112)); // Azul escuro
+                    .setFontColor(ColorConstants.WHITE)
+                    .setBackgroundColor(new DeviceRgb(25, 25, 112))
+                    .setPadding(10)
+                    .setMarginBottom(20);
             document.add(title);
 
             // Adiciona a data
             Paragraph dateParagraph = new Paragraph("Data: 20/06/2025")
-                    .setFont(font)
-                    .setFontSize(12)
-                    .setFontColor(new DeviceRgb(70, 130, 180)) // Azul steel
-                    .setTextAlignment(TextAlignment.CENTER);
+                    .setFont(boldFont)
+                    .setFontSize(14)
+                    .setFontColor(new DeviceRgb(25, 25, 112))
+                    .setTextAlignment(TextAlignment.LEFT)
+                    .setMarginBottom(20);
             document.add(dateParagraph);
-
-            // Adiciona uma linha em branco
-            document.add(new Paragraph("\n"));
 
             // Cria uma tabela para os dados
             Table table = new Table(UnitValue.createPercentArray(new float[]{3, 2}));
-            table.setWidth(UnitValue.createPercentValue(80));
-            table.setTextAlignment(TextAlignment.CENTER);
-            table.setHorizontalAlignment(com.itextpdf.layout.properties.HorizontalAlignment.CENTER);
+            table.setWidth(UnitValue.createPercentValue(100));
 
             // Adiciona cabeçalhos à tabela
             table.addHeaderCell(new Cell().add(new Paragraph("Localização").setFont(boldFont).setFontColor(ColorConstants.WHITE)).setBackgroundColor(new DeviceRgb(25, 25, 112)));
@@ -69,4 +68,20 @@ public class GenerateStyledPdf {
 
             for (String[] point : points) {
                 table.addCell(new Cell().add(new Paragraph(point[0]).setFont(font)).setBorder(new SolidBorder(new DeviceRgb(70, 130, 180), 1)).setBackgroundColor(new DeviceRgb(224, 236, 244)));
-                table.addCell(new Cell().add(new Paragraph(point[1]).setFont(font)).setBorder
+                table.addCell(new Cell().add(new Paragraph(point[1]).setFont(font)).setBorder(new SolidBorder(new DeviceRgb(70, 130, 180), 1)).setBackgroundColor(new DeviceRgb(240, 248, 255)));
+            }
+
+            document.add(table);
+
+            // Fecha o documento
+            document.close();
+
+            System.out.println("PDF criado com sucesso!");
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
