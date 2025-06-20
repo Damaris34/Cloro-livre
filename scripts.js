@@ -31,7 +31,7 @@ public class GenerateStyledPdf {
             PdfFont boldFont = PdfFontFactory.createFont(com.itextpdf.io.font.constants.StandardFonts.HELVETICA_BOLD);
 
             // Adiciona o cabeçalho
-            Paragraph header = new Paragraph("Controle de Cloro Livre")
+            Paragraph header = new Paragraph("Relatório de Controle de Cloro Livre")
                     .setFont(boldFont)
                     .setFontSize(20)
                     .setTextAlignment(TextAlignment.CENTER)
@@ -42,18 +42,13 @@ public class GenerateStyledPdf {
             document.add(header);
 
             // Adiciona a seção de data
-            Paragraph dateLabel = new Paragraph("Data")
-                    .setFont(boldFont)
-                    .setFontSize(14)
-                    .setFontColor(new DeviceRgb(25, 25, 112))
-                    .setTextAlignment(TextAlignment.CENTER)
-                    .setMarginBottom(5);
-            document.add(dateLabel);
-
             Table dateTable = new Table(UnitValue.createPercentArray(new float[]{1}));
             dateTable.setWidth(UnitValue.createPercentValue(30));
             dateTable.setHorizontalAlignment(com.itextpdf.layout.properties.HorizontalAlignment.CENTER);
-            dateTable.addCell(new Cell().add(new Paragraph("dd/mm/aaaa").setFont(font)).setBorder(new SolidBorder(new DeviceRgb(70, 130, 180), 1)).setBackgroundColor(new DeviceRgb(240, 248, 255)).setPadding(5));
+
+            dateTable.addCell(new Cell().add(new Paragraph("Data").setFont(boldFont).setFontColor(ColorConstants.WHITE)).setBackgroundColor(new DeviceRgb(25, 25, 112)).setTextAlignment(TextAlignment.CENTER));
+            dateTable.addCell(new Cell().add(new Paragraph("20/06/2025").setFont(font)).setBorder(new SolidBorder(new DeviceRgb(70, 130, 180), 1)).setBackgroundColor(new DeviceRgb(240, 248, 255)).setPadding(5).setTextAlignment(TextAlignment.CENTER));
+
             document.add(dateTable);
 
             // Adiciona o título da seção de localização dos pontos
@@ -66,7 +61,7 @@ public class GenerateStyledPdf {
             document.add(locationsHeader);
 
             // Cria uma tabela para os pontos de controle
-            Table pointsTable = new Table(UnitValue.createPercentArray(new float[]{1, 1, 1}));
+            Table pointsTable = new Table(UnitValue.createPercentArray(new float[]{1, 1}));
             pointsTable.setWidth(UnitValue.createPercentValue(100));
 
             // Adiciona os pontos à tabela
@@ -80,10 +75,10 @@ public class GenerateStyledPdf {
                 pointTable.addCell(new Cell().add(new Paragraph(point).setFont(boldFont).setFontColor(ColorConstants.WHITE)).setBackgroundColor(new DeviceRgb(25, 25, 112)).setPadding(5).setTextAlignment(TextAlignment.CENTER));
 
                 // Adiciona o campo de arquivo
-                pointTable.addCell(new Cell().add(new Paragraph("Escolher Arquivo: Nenhum arquivo escolhido").setFont(font)).setBorder(new SolidBorder(new DeviceRgb(70, 130, 180), 1)).setBackgroundColor(new DeviceRgb(240, 248, 255)).setPadding(5));
+                pointTable.addCell(new Cell().add(new Paragraph("Escolher Arquivo: Nenhum arquivo escolhido").setFont(font)).setBorder(new SolidBorder(new DeviceRgb(70, 130, 180), 1)).setBackgroundColor(new DeviceRgb(240, 248, 255)).setPadding(5).setTextAlignment(TextAlignment.CENTER));
 
                 // Adiciona o campo de valor
-                pointTable.addCell(new Cell().add(new Paragraph("-- mg/L").setFont(font)).setBorder(new SolidBorder(new DeviceRgb(70, 130, 180), 1)).setBackgroundColor(new DeviceRgb(240, 248, 255)).setPadding(5));
+                pointTable.addCell(new Cell().add(new Paragraph("-- mg/L").setFont(font)).setBorder(new SolidBorder(new DeviceRgb(70, 130, 180), 1)).setBackgroundColor(new DeviceRgb(240, 248, 255)).setPadding(5).setTextAlignment(TextAlignment.CENTER));
 
                 pointsTable.addCell(new Cell().add(pointTable).setBorder(new RoundedCornersBorder(5)).setPadding(5));
             }
