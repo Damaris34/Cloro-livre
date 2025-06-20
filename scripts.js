@@ -5,6 +5,7 @@ import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.RoundedCornersBorder;
 import com.itextpdf.layout.borders.SolidBorder;
 import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
@@ -29,8 +30,8 @@ public class GenerateStyledPdf {
             PdfFont font = PdfFontFactory.createFont(com.itextpdf.io.font.constants.StandardFonts.HELVETICA);
             PdfFont boldFont = PdfFontFactory.createFont(com.itextpdf.io.font.constants.StandardFonts.HELVETICA_BOLD);
 
-            // Adiciona o título
-            Paragraph title = new Paragraph("Relatório de Controle de Cloro Livre")
+            // Adiciona o cabeçalho
+            Paragraph header = new Paragraph("Controle de Cloro Livre")
                     .setFont(boldFont)
                     .setFontSize(20)
                     .setTextAlignment(TextAlignment.CENTER)
@@ -38,40 +39,67 @@ public class GenerateStyledPdf {
                     .setBackgroundColor(new DeviceRgb(25, 25, 112))
                     .setPadding(10)
                     .setMarginBottom(20);
-            document.add(title);
+            document.add(header);
 
-            // Adiciona a data
-            Paragraph dateParagraph = new Paragraph("Data: 20/06/2025")
+            // Adiciona a seção de data
+            Paragraph dateLabel = new Paragraph("Data")
+                    .setFont(boldFont)
+                    .setFontSize(14)
+                    .setFontColor(new DeviceRgb(25, 25, 112))
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setMarginBottom(5);
+            document.add(dateLabel);
+
+            Table dateTable = new Table(UnitValue.createPercentArray(new float[]{1}));
+            dateTable.setWidth(UnitValue.createPercentValue(30));
+            dateTable.setHorizontalAlignment(com.itextpdf.layout.properties.HorizontalAlignment.CENTER);
+            dateTable.addCell(new Cell().add(new Paragraph("dd/mm/aaaa").setFont(font)).setBorder(new SolidBorder(new DeviceRgb(70, 130, 180), 1)).setBackgroundColor(new DeviceRgb(240, 248, 255)).setPadding(5));
+            document.add(dateTable);
+
+            // Adiciona o título da seção de localização dos pontos
+            Paragraph locationsHeader = new Paragraph("Localização dos Pontos")
                     .setFont(boldFont)
                     .setFontSize(14)
                     .setFontColor(new DeviceRgb(25, 25, 112))
                     .setTextAlignment(TextAlignment.LEFT)
-                    .setMarginBottom(20);
-            document.add(dateParagraph);
+                    .setMarginBottom(10);
+            document.add(locationsHeader);
 
-            // Cria uma tabela para os dados
-            Table table = new Table(UnitValue.createPercentArray(new float[]{3, 2}));
-            table.setWidth(UnitValue.createPercentValue(100));
+            // Cria uma tabela para os pontos de controle
+            Table pointsTable = new Table(UnitValue.createPercentArray(new float[]{1, 1, 1}));
+            pointsTable.setWidth(UnitValue.createPercentValue(100));
 
-            // Adiciona cabeçalhos à tabela
-            table.addHeaderCell(new Cell().add(new Paragraph("Localização").setFont(boldFont).setFontColor(ColorConstants.WHITE)).setBackgroundColor(new DeviceRgb(25, 25, 112)));
-            table.addHeaderCell(new Cell().add(new Paragraph("Valor (mg/L)").setFont(boldFont).setFontColor(ColorConstants.WHITE)).setBackgroundColor(new DeviceRgb(25, 25, 112)));
+            // Adiciona os pontos à tabela
+            String[] points = {"Saída de Tratamento", "Cozinha", "Produção", "Administração", "Recebimento"};
 
-            // Adiciona os dados dos pontos à tabela
-            String[][] points = {
-                {"Saída de Tratamento", "2.0"},
-                {"Cozinha", "1.8"},
-                {"Produção", "1.9"},
-                {"Administração", "1.7"},
-                {"Recebimento", "2.1"}
-            };
+            for (String point : points) {
+                Table pointTable = new Table(UnitValue.createPercentArray(new float[]{1}));
+                pointTable.setWidth(UnitValue.createPercentValue(100));
 
-            for (String[] point : points) {
-                table.addCell(new Cell().add(new Paragraph(point[0]).setFont(font)).setBorder(new SolidBorder(new DeviceRgb(70, 130, 180), 1)).setBackgroundColor(new DeviceRgb(224, 236, 244)));
-                table.addCell(new Cell().add(new Paragraph(point[1]).setFont(font)).setBorder(new SolidBorder(new DeviceRgb(70, 130, 180), 1)).setBackgroundColor(new DeviceRgb(240, 248, 255)));
+                // Adiciona o título do ponto
+                pointTable.addCell(new Cell().add(new Paragraph(point).setFont(boldFont).setFontColor(ColorConstants.WHITE)).setBackgroundColor(new DeviceRgb(25, 25, 112)).setPadding(5).setTextAlignment(TextAlignment.CENTER));
+
+                // Adiciona o campo de arquivo
+                pointTable.addCell(new Cell().add(new Paragraph("Escolher Arquivo: Nenhum arquivo escolhido").setFont(font)).setBorder(new SolidBorder(new DeviceRgb(70, 130, 180), 1)).setBackgroundColor(new DeviceRgb(240, 248, 255)).setPadding(5));
+
+                // Adiciona o campo de valor
+                pointTable.addCell(new Cell().add(new Paragraph("-- mg/L").setFont(font)).setBorder(new SolidBorder(new DeviceRgb(70, 130, 180), 1)).setBackgroundColor(new DeviceRgb(240, 248, 255)).setPadding(5));
+
+                pointsTable.addCell(new Cell().add(pointTable).setBorder(new RoundedCornersBorder(5)).setPadding(5));
             }
 
-            document.add(table);
+            document.add(pointsTable);
+
+            // Adiciona o rodapé
+            Paragraph footer = new Paragraph("© 2023 Controle de Cloro Livre")
+                    .setFont(font)
+                    .setFontSize(10)
+                    .setTextAlignment(TextAlignment.CENTER)
+                    .setFontColor(ColorConstants.WHITE)
+                    .setBackgroundColor(new DeviceRgb(25, 25, 112))
+                    .setPadding(10)
+                    .setMarginTop(20);
+            document.add(footer);
 
             // Fecha o documento
             document.close();
