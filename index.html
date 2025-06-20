@@ -2,116 +2,123 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Cloro Livre</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <title>Relatório de Controle de Cloro Livre</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        .data-field {
+            margin-bottom: 10px;
+        }
+        .data-field label {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .data-field span {
+            color: #e74c3c;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <!-- Cabeçalho do documento -->
-        <header>
-            <h1>Controle de Cloro Livre</h1>
-        </header>
+        <h1>Relatório de Controle de Cloro Livre</h1>
 
-        <!-- Conteúdo principal -->
-        <main>
-            <!-- Seção para a data -->
-            <section class="dashboard">
-                <div class="card">
-                    <h2>Data</h2>
-                    <input type="date" id="date" value="">
-                </div>
-            </section>
+        <div class="section">
+            <h2>Data</h2>
+            <div class="data-field">
+                <label>Data:</label>
+                <span id="date">20/06/2025</span>
+            </div>
+        </div>
 
-            <!-- Seção para as localizações dos pontos -->
-            <section class="locations">
-                <h2>Localização dos Pontos</h2>
-
-                <!-- Saída de Tratamento -->
-                <div class="location-card">
-                    <h3>Saída de Tratamento</h3>
-                    <input type="file" id="treatment-exit-image" accept="image/*">
-                    <input type="text" id="treatment-exit" placeholder="-- mg/L">
-                </div>
-
-                <!-- Cozinha -->
-                <div class="location-card">
-                    <h3>Cozinha</h3>
-                    <input type="file" id="kitchen-image" accept="image/*">
-                    <input type="text" id="kitchen" placeholder="-- mg/L">
-                </div>
-
-                <!-- Produção -->
-                <div class="location-card">
-                    <h3>Produção</h3>
-                    <input type="file" id="production-image" accept="image/*">
-                    <input type="text" id="production" placeholder="-- mg/L">
-                </div>
-
-                <!-- Administração -->
-                <div class="location-card">
-                    <h3>Administração</h3>
-                    <input type="file" id="administration-image" accept="image/*">
-                    <input type="text" id="administration" placeholder="-- mg/L">
-                </div>
-
-                <!-- Recebimento -->
-                <div class="location-card">
-                    <h3>Recebimento</h3>
-                    <input type="file" id="receiving-image" accept="image/*">
-                    <input type="text" id="receiving" placeholder="-- mg/L">
-                </div>
-            </section>
-
-            <!-- Botão para gerar PDF -->
-            <section class="controls">
-                <button id="generate-pdf">Gerar PDF</button>
-            </section>
-        </main>
-
-        <!-- Rodapé do documento -->
-        <footer>
-            <p>© 2023 Controle de Cloro Livre</p>
-        </footer>
+        <div class="section">
+            <h2>Localização dos Pontos</h2>
+            <div class="data-field">
+                <label>Saída de Tratamento:</label>
+                <span id="treatment-exit">2.0 mg/L</span>
+            </div>
+            <div class="data-field">
+                <label>Cozinha:</label>
+                <span id="kitchen">1.8 mg/L</span>
+            </div>
+            <div class="data-field">
+                <label>Produção:</label>
+                <span id="production">1.9 mg/L</span>
+            </div>
+            <div class="data-field">
+                <label>Administração:</label>
+                <span id="administration">1.7 mg/L</span>
+            </div>
+            <div class="data-field">
+                <label>Recebimento:</label>
+                <span id="receiving">2.1 mg/L</span>
+            </div>
+        </div>
     </div>
 
-    <!-- Script para gerar o PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script>
-        document.getElementById('generate-pdf').addEventListener('click', function() {
+        document.addEventListener('DOMContentLoaded', function() {
             const { jsPDF } = window.jspdf;
-
             const doc = new jsPDF();
 
-            // Título do relatório
+            // Adiciona o título ao PDF
             doc.setFontSize(18);
-            doc.text('Relatório de Controle de Cloro Livre', 105, 10, { align: 'center' });
+            doc.setTextColor(44, 62, 80);
+            doc.text('Relatório de Controle de Cloro Livre', 105, 15, { align: 'center' });
 
-            // Data
+            // Adiciona a data ao PDF
             doc.setFontSize(12);
-            doc.text(`Data: ${document.getElementById('date').value}`, 10, 30);
+            doc.setTextColor(52, 152, 219);
+            doc.text('Data:', 10, 30);
+            doc.setTextColor(231, 76, 60);
+            doc.text(document.getElementById('date').textContent, 30, 30);
 
-            // Saída de Tratamento
-            doc.text('Saída de Tratamento:', 10, 50);
-            doc.text(document.getElementById('treatment-exit').value, 70, 50);
+            // Adiciona os dados dos pontos ao PDF
+            doc.setTextColor(52, 152, 219);
+            doc.text('Localização dos Pontos:', 10, 45);
 
-            // Cozinha
-            doc.text('Cozinha:', 10, 60);
-            doc.text(document.getElementById('kitchen').value, 70, 60);
+            let yPos = 55;
+            const fields = [
+                { label: 'Saída de Tratamento:', value: document.getElementById('treatment-exit').textContent },
+                { label: 'Cozinha:', value: document.getElementById('kitchen').textContent },
+                { label: 'Produção:', value: document.getElementById('production').textContent },
+                { label: 'Administração:', value: document.getElementById('administration').textContent },
+                { label: 'Recebimento:', value: document.getElementById('receiving').textContent }
+            ];
 
-            // Produção
-            doc.text('Produção:', 10, 70);
-            doc.text(document.getElementById('production').value, 70, 70);
+            fields.forEach(field => {
+                doc.setTextColor(44, 62, 80);
+                doc.text(field.label, 10, yPos);
+                doc.setTextColor(231, 76, 60);
+                doc.text(field.value, 70, yPos);
+                yPos += 10;
+            });
 
-            // Administração
-            doc.text('Administração:', 10, 80);
-            doc.text(document.getElementById('administration').value, 70, 80);
-
-            // Recebimento
-            doc.text('Recebimento:', 10, 90);
-            doc.text(document.getElementById('receiving').value, 70, 90);
-
-            // Salvar o PDF
+            // Salva o PDF
             doc.save('relatorio_cloro_livre.pdf');
         });
     </script>
